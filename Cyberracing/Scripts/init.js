@@ -7,11 +7,9 @@
 // Do init here.
 var App = App || {};
 var gl = null;
-var gameCanvas = document.getElementById("game-gameCanvas");
+var gameCanvas = document.getElementById("game-canvas");
 
 (function () {
-    document.body.addEventListener("resize", onBodyResize);
-
     // let gameCanvas = document.getElementById("game-gameCanvas");
 
     try {
@@ -22,7 +20,10 @@ var gameCanvas = document.getElementById("game-gameCanvas");
         return;
     }
 
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    document.body.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    gl.clearColor(0.1, 0.1, 0.1, 1.0);
     gl.enable(gl.DEPTH_TEST);
     gl.depthFunc(gl.LEQUAL);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -38,6 +39,22 @@ var gameCanvas = document.getElementById("game-gameCanvas");
     App.running = true;
     App.lastUpdate = performance.now();
     App.lastRender = App.lastUpdate;
+
+    App.activeScene = new App.Scene.Scene();
+
+    let cube = new SceneObject(App.activeScene);
+    cube.addComposite(new MeshRenderer(cube, gl));
+    App.activeScene.root.children.push(cube);
+
+    let camera = new SceneObject(App.activeScene);
+    camera.addComposite(new Camera(camera, 75, null, 0.1, 1000));
+    App.activeScene.root.children.push(camera);
+    App.activeCamera = camera;
+
+    App.render.subscribe(function () {
+        App.activeScene.render();
+    });
+
 
     mainLoop(performance.now());
 })();
@@ -80,6 +97,8 @@ function mainLoop(tFrame) {
     App.lastRender = tFrame;
 }
 
-function onBodyResize() {
+function resizeCanvas() {
+    gameCanvas.width = window.innerWidth;//document.body.clientWidth;
+    gameCanvas.height = window.innerHeight;// document.body.clientHeight;
     gl.viewport(0, 0, gameCanvas.width, gameCanvas.height);
 }

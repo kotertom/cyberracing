@@ -2,16 +2,21 @@
  * Created by tom on 2016-12-20.
  */
 
-function Transform(position, rotation, scale) {
+function Transform(owner, position, rotation, scale) {
+    Composite.call(this, "transform", owner);
     if(position == null)
-        position = new Vector([0,0,0]);
+        position = Vector.zero(3);
     if(rotation == null)
-        rotation = new Vector([0,0,0]);
+        rotation = Vector.zero(3);
+    if(scale == null)
+        scale = Vector.one(3);
 
     this.position = position;
     this.rotation = rotation;
     this.scale = scale;
 }
+Transform.prototype = Object.create(Composite.prototype);
+Transform.prototype.constructor = Transform.constructor;
 Transform.prototype.getName = function () {
     return "transform";
 };

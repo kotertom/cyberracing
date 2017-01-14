@@ -4,15 +4,56 @@
     <meta charset="UTF-8">
     <title>Cyberracing</title>
 </head>
-<body>
-    <canvas id="game-canvas">
+<body style="margin: 0; padding: 0">
+    <canvas id="game-canvas" style="display: block">
         Your browser doesn't appear to support the
         <code>&lt;canvas&gt;</code> element.
     </canvas>
 
 
 <!--SCRIPTS-->
+    <script id="vertex-shader" type="x-shader/x-vertex">
+        attribute vec3 aVertexPosition;
+        attribute vec4 aColor;
+
+        uniform mat4 uMMatrix;
+        uniform mat4 uVMatrix;
+        uniform mat4 uPMatrix;
+
+        varying vec4 vColor;
+
+        void main()
+        {
+            vColor = aColor;
+            gl_Position = uPMatrix * uVMatrix * uMMatrix * vec4(aVertexPosition, 1.0);
+        }
+    </script>
+    <script id="fragment-shader" type="x-shader/x-fragment">
+        precision mediump float;
+
+        varying vec4 vColor;
+
+        void main()
+        {
+            gl_FragColor = vColor;
+        }
+    </script>
+    <!--general independent utility-->
     <script src="Scripts/OOP/event.js" type="text/javascript"></script>
+    <!--math-->
+    <script src="Scripts/Math3D/vector.js" type="text/javascript"></script>
+    <script src="Scripts/Math3D/matrix.js" type="text/javascript"></script>
+    <!--shaders-->
+    <script src="Scripts/Shaders/shader_loader.js" type="text/javascript"></script>
+    <!--scene & sceneobject-->
+    <script src="Scripts/Scene/scene.js" type="text/javascript"></script>
+    <script src="Scripts/Scene/SceneObject/scene_object.js" type="text/javascript"></script>
+    <!--composites-->
+    <script src="Scripts/Scene/SceneObject/Composite/composite.js" type="text/javascript"></script>
+    <script src="Scripts/Scene/SceneObject/Composite/mesh_renderer.js" type="text/javascript"></script>
+    <script src="Scripts/Scene/SceneObject/transform.js" type="text/javascript"></script>
+    <script src="Scripts/Scene/SceneObject/Composite/camera.js" type="text/javascript"></script>
+
     <!--init: this should be loaded last-->
     <script src="Scripts/init.js" type="text/javascript"></script>
 </body>

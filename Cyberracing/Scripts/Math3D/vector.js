@@ -36,6 +36,13 @@ Vector.forward3 = [0,0,1];
 Vector.right3 = [1,0,0];
 
 Vector.add = function (vec1, vec2) {
+    if(typeof vec2 == "number")
+    {
+        let result = [];
+        for(let i = 0; i < vec1.length; i++)
+            result.push(vec1[i] + vec2);
+        return result;
+    }
     if(vec1.length != vec2.length)
         throw "Vectors must be of same dimensions.";
     let result = [];
@@ -75,5 +82,21 @@ Vector.invertValues = function (vector) {
     let result = [];
     for(let value of vector)
         result.push(1/value);
+    return result;
+};
+Vector.sub = function (vec1, vec2) {
+    return Vector.add(vec1, Vector.negate(vec2));
+};
+
+Vector.zero = function (dim) {
+    let result = [];
+    for(let i = 0; i < dim; i++)
+        result.push(0);
+    return result;
+};
+Vector.one = function (dim) {
+    let result = [];
+    for(let i = 0; i < dim; i++)
+        result.push(1);
     return result;
 };
