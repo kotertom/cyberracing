@@ -3,7 +3,7 @@
  */
 
 function Transform(owner, position, rotation, scale) {
-    Composite.call(this, "transform", owner);
+    Composite.call(this, owner);
     if(position == null)
         position = Vector.zero(3);
     if(rotation == null)
@@ -15,18 +15,24 @@ function Transform(owner, position, rotation, scale) {
     this.rotation = rotation;
     this.scale = scale;
 }
-Transform.prototype = Object.create(Composite.prototype);
-Transform.prototype.constructor = Transform.constructor;
-Transform.prototype.getName = function () {
-    return "transform";
-};
+Transform.inheritsFrom(Composite);
+// Transform.prototype.getTransformMatrix = function () {
+//     return Matrix.multiplyMatrixArray([
+//         Matrix.transpose(Matrix.translationMatrix(this.position)),
+//         Matrix.rotationMatrix   (this.rotation),
+//         Matrix.scaleMatrix      (this.scale)
+//     ]);
+// };
 Transform.prototype.getTransformMatrix = function () {
-    return Matrix.multiplyMatrixArray([
-        Matrix.translationMatrix(this.position),
-        Matrix.rotationMatrix   (this.rotation),
-        Matrix.scaleMatrix      (this.scale)
-    ]);
+    let tm = mat4.create();
+    let q = quat.create();
+    quat.rotateX(q, q, this.rotation[0]);
+    quat.rotateY(q, q, this.rotation[1]);
+    quat.rotateZ(q, q, this.rotation[2])
+    mat4.fromRotationTranslationScale(tm, q, this.position, this.scale);
+    return tm;
 };
+
 Transform.prototype.getInverseTransformMatrix = function () {
     return Matrix.multiplyMatrixArray([
         Matrix.scaleMatrix      (Vector.invertValues(this.scale)),

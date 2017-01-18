@@ -12,6 +12,7 @@
 
 
 <!--SCRIPTS-->
+    <!--testing shader-->
     <script id="vertex-shader" type="x-shader/x-vertex">
         attribute vec3 aVertexPosition;
         attribute vec4 aColor;
@@ -38,8 +39,57 @@
             gl_FragColor = vColor;
         }
     </script>
+
+    <script id="vs-flatPhong" type="x-shader/x-vertex">
+        attribute vec3 aVertexPosition;
+        attribute vec3 aFacePosition;
+        attribute vec3 aFaceNormal;
+
+        uniform vec4 uMaterialColor;
+        uniform mat4 uMMatrix;
+        uniform mat4 uVMatrix;
+        uniform mat4 uPMatrix;
+
+        //lights
+        uniform vec4 uAmbientColor;
+        uniform int uLightType[32];
+        uniform vec3 uLightPosition[32];
+        uniform vec3 uLightDirection[32];
+        uniform float uLightRadius[32];
+
+
+        varying vec4 vPolygonColor;
+
+        void main()
+        {
+            mat4 PVMMatrix = uPMatrix * uVMatrix * uMMatrix;
+            gl_Position = PVMMatrix * vec4(aVertexPosition, 1.0);
+            vec4 facePosition = PVMMatrix * vec4(aFacePosition, 1.0);
+
+        }
+    </script>
+    <script id="fs-flat" type="x-shader/x-fragment">
+        varying vec4 vColor;
+
+        void main()
+        {
+            gl_FragColor = vColor;
+        }
+    </script>
+
+    <script id="vs-phong" type="x-shader/x-vertex">
+
+    </script>
+    <script id="fs-phong" type="x-shader/x-fragment">
+        varying vec3 normal;
+        varying vec3
+
+    </script>
     <!--general independent utility-->
+    <script src="Scripts/gl-matrix.js" type="text/javascript"></script>
+    <script src="Scripts/OOP/inheritance.js" type="text/javascript"></script>
     <script src="Scripts/OOP/event.js" type="text/javascript"></script>
+    <script src="Scripts/file_reader.js" type="text/javascript"></script>
     <!--math-->
     <script src="Scripts/Math3D/vector.js" type="text/javascript"></script>
     <script src="Scripts/Math3D/matrix.js" type="text/javascript"></script>
@@ -49,7 +99,7 @@
     <script src="Scripts/Scene/scene.js" type="text/javascript"></script>
     <script src="Scripts/Scene/SceneObject/scene_object.js" type="text/javascript"></script>
     <!--composites-->
-    <script src="Scripts/Scene/SceneObject/Composite/composite.js" type="text/javascript"></script>
+    <script src="Scripts/Scene/SceneObject/composite.js" type="text/javascript"></script>
     <script src="Scripts/Scene/SceneObject/Composite/mesh_renderer.js" type="text/javascript"></script>
     <script src="Scripts/Scene/SceneObject/transform.js" type="text/javascript"></script>
     <script src="Scripts/Scene/SceneObject/Composite/camera.js" type="text/javascript"></script>

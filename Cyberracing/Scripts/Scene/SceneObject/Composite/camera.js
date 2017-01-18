@@ -3,17 +3,13 @@
  */
 
 function Camera(owner, fov, aspectRatio, near, far) {
-    Composite.call(this, "camera", owner);
+    Composite.call(this, owner);
     this.fov = fov || 75;
     this.aspectRatio = aspectRatio || window.innerWidth / window.innerHeight;
-    this.near = near || 1;
-    this.far = far || 50;
+    this.near = near || 0.1;
+    this.far = far || 1000;
 }
-Camera.prototype = Object.create(Composite.prototype);
-Camera.prototype.constructor = Camera.constructor;
-Camera.prototype.getName = function () {
-    return "camera";
-};
+Camera.inheritsFrom(Composite);
 Camera.prototype.getPerspectiveMatrix = function () {
     // var f = 1.0 / Math.tan(fov / 360 * 2 * Math.PI / 2);
     let f = 1.0 / Math.tan(this.fov * Math.PI / 360);
@@ -21,10 +17,10 @@ Camera.prototype.getPerspectiveMatrix = function () {
     let rangeInv = 1 / (this.near - this.far);
 
     return [
-        f , 0,                          0,   0,
-        0,               f / ar,                          0,   0,
-        0,               0,    (this.near + this.far) * rangeInv,  this.near * this.far * rangeInv * 2,
-        0,               0,  -1,   0
+        f / ar, 0,                          0,   0,
+        0,               f ,                          0,   0,
+        0,               0,    (this.near + this.far) * rangeInv,  -1,
+        0,               0,  this.near * this.far * rangeInv * 2,   0
     ];
 };
 Camera.prototype.lookAt = function (target, upVector) {

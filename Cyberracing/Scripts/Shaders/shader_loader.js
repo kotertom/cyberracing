@@ -4,17 +4,8 @@
 
 var Shaders = (function (ns) {
 
-    ns.Vertex = (function (ns) {
-
-
-        return ns;
-    })(ns.Vertex || {});
-
-
-    ns.Fragment = (function (ns) {
-
-        return ns;
-    })(ns.Fragment || {});
+    ns.programs = {};
+    ns.materials = {};
 
 
     ns.loadShaderFromDOM = function (gl, id, type) {
@@ -37,8 +28,23 @@ var Shaders = (function (ns) {
             }
         }
 
+        return compileShaderSource(gl, shaderSource, type);
+    };
+
+    ns.getTextFromId = function (id) {
+        let domScript = document.getElementById(id);
+        if(!domScript)
+        {
+            throw "Couldn't load shader of id: "+id;
+        }
+
+        return domScript.text;
+    };
+
+    function compileShaderSource(gl, source, type) {
+
         let shader = gl.createShader(type);
-        gl.shaderSource(shader, shaderSource);
+        gl.shaderSource(shader, source);
 
         gl.compileShader(shader);
 
@@ -74,6 +80,42 @@ var Shaders = (function (ns) {
         return ns.linkProgram(gl, vs, fs);
     };
 
+    ns.createProgramFromSource = function (gl, vsText, fsText) {
+        let vs = compileShaderSource(gl, vsText, gl.VERTEX_SHADER);
+        let fs = compileShaderSource(gl, fsText, gl.FRAGMENT_SHADER);
+        return ns.linkProgram(gl, vs, fs);
+    };
+
+    ns.Material = function (gl, shaderProgram, preprocessCallback, renderCallback) {
+        this.gl = gl;
+        this.shaderProgram = shaderProgram;
+        this.preprocessCallback = preprocessCallback;
+        this.renderCallback = renderCallback;
+    };
+    ns.Material.prototype.preprocess = function (mesh, buffers) {
+        this.preprocessCallback(mesh, buffers);
+    };
+    ns.Material.prototype.render = function (meshBuffers, lightBuffers, modelMatrix, viewMatrix, projectionMatrix) {
+        this.renderCallback(meshBuffers, lightBuffers, modelMatrix, viewMatrix, projectionMatrix);
+    };
+    ns.Material.prototype.setActive = function () {
+        this.gl.useProgram(this.shaderProgram);
+    };
+
 
     return ns;
 })(Shaders || {});
+
+function initShaders() {
+    let s = Shaders;
+    let p = Shaders.programs;
+
+    p.flatPhong = {};
+    p.flatBlinn = {};
+    p.gouraudPhong = {};
+    p.gouraudBlinn = {};
+    p.phongPhong = {};
+    p.phongBlinn = {};
+
+    p.testing = s.createProgramFromIds(gl, 'vertex-shader', 'fragment-shader');
+}

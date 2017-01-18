@@ -2,12 +2,12 @@
  * Created by tom on 2016-12-20.
  */
 
-function Composite(name, owner) {
-    this.name = name;
+function Composite(owner) {
     this.owner = owner;
 }
 Composite.prototype.getName = function () {
-    return this.name;
+    let str = this.constructor.name;
+    return str.substr(0,1).toLowerCase() + str.slice(1);
 };
 Composite.prototype.getOwner = function () {
     return this.owner;
