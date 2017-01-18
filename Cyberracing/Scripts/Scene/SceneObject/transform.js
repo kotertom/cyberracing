@@ -16,19 +16,13 @@ function Transform(owner, position, rotation, scale) {
     this.scale = scale;
 }
 Transform.inheritsFrom(Composite);
-// Transform.prototype.getTransformMatrix = function () {
-//     return Matrix.multiplyMatrixArray([
-//         Matrix.transpose(Matrix.translationMatrix(this.position)),
-//         Matrix.rotationMatrix   (this.rotation),
-//         Matrix.scaleMatrix      (this.scale)
-//     ]);
-// };
+
 Transform.prototype.getTransformMatrix = function () {
     let tm = mat4.create();
     let q = quat.create();
     quat.rotateX(q, q, this.rotation[0]);
     quat.rotateY(q, q, this.rotation[1]);
-    quat.rotateZ(q, q, this.rotation[2])
+    quat.rotateZ(q, q, this.rotation[2]);
     mat4.fromRotationTranslationScale(tm, q, this.position, this.scale);
     return tm;
 };

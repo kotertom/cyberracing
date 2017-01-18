@@ -3,12 +3,12 @@
  */
 
 
-function SceneObject(scene) {
+function SceneObject(scene, name) {
     this.composites = {};
     this.addComposite(new Transform());
     this.parent = scene ? scene.root || null : null;
     this.children = [];
-    this.name = SceneObject.nameGen.next().value;
+    this.name = name || SceneObject.nameGen.next().value;
 }
 SceneObject.nameGen = (function* () {
     var i = 0;

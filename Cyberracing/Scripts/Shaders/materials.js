@@ -11,10 +11,47 @@ function initMaterials(gl) {
 
     m.testing = new s.Material(gl, s.programs.testing,
             function (mesh, buffers) {
+                buffers.vertices = gl.createBuffer();
+                buffers.vertexNormals = gl.createBuffer();
+                buffers.faces = gl.createBuffer();
+                buffers.colors = gl.createBuffer();
 
+                gl.bindBuffer(gl.ARRAY_BUFFER, buffers.colors);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(mesh.colors), gl.STATIC_DRAW);
+
+                gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.faces);
+                gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(mesh.faces), gl.STATIC_DRAW);
+
+                gl.bindBuffer(gl.ARRAY_BUFFER, buffers.vertices);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(mesh.vertices), gl.STATIC_DRAW);
             },
             function (meshBuffers, lightBuffers, mMatrix, vMatrix, pMatrix) {
+                let locations = {};
+                locations.uniform = {};
+                locations.attribute = {};
 
+                locations.uniform.mMatrix = gl.getUniformLocation(this.shaderProgram, "uMMatrix");
+                locations.uniform.vMatrix = gl.getUniformLocation(this.shaderProgram, "uVMatrix");
+                locations.uniform.pMatrix = gl.getUniformLocation(this.shaderProgram, "uPMatrix");
+
+                locations.attribute.vertexPosition = gl.getAttribLocation(this.shaderProgram, "aVertexPosition");
+                locations.attribute.color = gl.getAttribLocation(this.shaderProgram, "aColor");
+
+                gl.enableVertexAttribArray(locations.attribute.vertexPosition);
+                gl.bindBuffer(gl.ARRAY_BUFFER, meshBuffers.vertices);
+                gl.vertexAttribPointer(locations.attribute.vertexPosition, 3, gl.FLOAT, false, 0, 0);
+
+                gl.enableVertexAttribArray(locations.attribute.color);
+                gl.bindBuffer(gl.ARRAY_BUFFER, meshBuffers.colors);
+                gl.vertexAttribPointer(locations.attribute.color, 4, gl.FLOAT, false, 0, 0);
+
+                gl.uniformMatrix4fv(locations.uniform.mMatrix, false, new Float32Array(mMatrix));
+                gl.uniformMatrix4fv(locations.uniform.vMatrix, false, new Float32Array(vMatrix));
+                gl.uniformMatrix4fv(locations.uniform.pMatrix, false, new Float32Array(pMatrix));
+
+                gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, meshBuffers.faces);
+
+                gl.drawElements(gl.TRIANGLES, 36, gl.UNSIGNED_SHORT, 0);
             });
 
     m.flatPhong = new s.Material(gl,

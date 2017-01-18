@@ -5,42 +5,26 @@
 function MeshRenderer(owner, gl) {
     Composite.call(this, owner);
 
-    this.material = null;
-    this.vertices = [];
-    this.vertexNormals = [];
-    this.colors = [];
-    this.textureCoords = [];
-    this.faces = [];
+    this.material = {};
+    // this.vertices = [];
+    // this.vertexNormals = [];
+    // this.colors = [];
+    // this.textureCoords = [];
+    // this.faces = [];
+    this.buffers = {};
     this.mesh = {
-        v: [],
-        vt: [],
-        vn: [],
-        f: []
+        vertices: [],
+        textureCoords: [],
+        vertexNormals: [],
+        faces: []
     };
     this.gl = gl;
     this.init();
 }
 MeshRenderer.inheritsFrom(Composite);
 MeshRenderer.prototype.init = function () {
-    this.buffers = {};
-    this.buffers.vertices = gl.createBuffer();
-    this.buffers.vertexNormals = gl.createBuffer();
-    this.buffers.faces = gl.createBuffer();
-    this.buffers.colors = gl.createBuffer();
 
-    // this.vertices = [
-    //     -0.5, -0.5, -0.5, // lbf
-    //      0.5, -0.5, -0.5, // rbf
-    //      0.5,  0.5, -0.5, // rtf
-    //     -0.5,  0.5, -0.5, // ltf
-    //
-    //     -0.5, -0.5, 0.5, // lbr
-    //      0.5, -0.5, 0.5, // rbr
-    //      0.5,  0.5, 0.5, // rtr
-    //     -0.5,  0.5, 0.5, // ltr
-    // ];
-
-    this.vertices = [
+    this.mesh.vertices = [
         // Front face
         -1.0, -1.0,  1.0,
         1.0, -1.0,  1.0,
@@ -78,16 +62,7 @@ MeshRenderer.prototype.init = function () {
         -1.0,  1.0, -1.0
     ];
 
-    // this.faces = [
-    //     0, 1, 2,    0, 2, 3,
-    //     1, 5, 6,    1, 6, 2,
-    //     5, 4, 7,    5, 7, 6,
-    //     4, 0, 3,    4, 3, 7,
-    //     1, 5, 4,    1, 4, 0,
-    //     2, 6, 7,    2, 7, 3
-    // ];
-
-    this.faces = [
+    this.mesh.faces = [
         0,  1,  2,      0,  2,  3,    // front
         4,  5,  6,      4,  6,  7,    // back
         8,  9,  10,     8,  10, 11,   // top
@@ -96,19 +71,7 @@ MeshRenderer.prototype.init = function () {
         20, 21, 22,     20, 22, 23    // left
     ];
 
-    // this.colors = [
-    //     1.0, 1.0, 1.0, 1.0,
-    //     1.0, 0.0, 0.0, 1.0,
-    //     0.0, 1.0, 0.0, 1.0,
-    //     0.0, 0.0, 1.0, 1.0,
-    //
-    //     1.0, 1.0, 1.0, 1.0,
-    //     1.0, 0.0, 0.0, 1.0,
-    //     0.0, 1.0, 0.0, 1.0,
-    //     0.0, 0.0, 1.0, 1.0
-    // ];
-
-    var colors = [
+    let colors = [
         [1.0,  1.0,  1.0,  1.0],    // Front face: white
         [1.0,  0.0,  0.0,  1.0],    // Back face: red
         [0.0,  1.0,  0.0,  1.0],    // Top face: green
@@ -117,7 +80,7 @@ MeshRenderer.prototype.init = function () {
         [1.0,  0.0,  1.0,  1.0]     // Left face: purple
     ];
 
-    var generatedColors = [];
+    let generatedColors = [];
 
     for (j=0; j<6; j++) {
         var c = colors[j];
@@ -127,30 +90,31 @@ MeshRenderer.prototype.init = function () {
         }
     }
 
-    this.colors = generatedColors;
+    this.mesh.colors = generatedColors;
 
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.colors);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.colors), gl.STATIC_DRAW);
+    this.material = Shaders.materials.testing;
 
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.buffers.faces);
-    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this.faces), gl.STATIC_DRAW);
-
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.vertices);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.vertices), gl.STATIC_DRAW);
-
-    this.material = Shaders.createProgramFromIds(gl, "vertex-shader", "fragment-shader");
-    gl.useProgram(this.material);
+    this.material.preprocess(this.mesh, this.buffers);
 };
 MeshRenderer.prototype.render = function () {
 
     let gl = this.gl;
-    let lights = App.activeScene.getLights();
+    let lights = App.activeScene.getLightBuffers();
 
     this.material.setActive();
 
+    let transform = this.getOwner().getComposite('transform');
     let modelMatrix,
         viewMatrix,
         projectionMatrix;
+
+    transform.position = [10*Math.sin(performance.now()/1000),0,-5];
+    transform.rotation = [0,0,0];
+
+    modelMatrix = transform.getTransformMatrix();
+    viewMatrix = mat4.create();
+    mat4.lookAt(viewMatrix, [5,5,5], transform.position, [0,1,0]);
+    projectionMatrix = App.getProjectionMatrix();
 
     this.material.render(this.buffers, lights, modelMatrix, viewMatrix, projectionMatrix);
 };

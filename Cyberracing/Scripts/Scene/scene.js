@@ -7,7 +7,7 @@ var App = (function (ns) {
     ns.Scene = (function (ns) {
 
         ns.Scene = function Scene() {
-            this.root = new SceneObject();
+            this.root = new SceneObject(undefined, 'root');
             this.ambientLightColor = [0,0,0,1];
             this.backgroundColor = [0,0,0,1];
             this.lights = {
@@ -17,22 +17,18 @@ var App = (function (ns) {
                     direction: gl.createBuffer(),
                     angle: gl.createBuffer()
                 },
-                arrays: {
-                    type: [],
-                    position: [],
-                    direction: [],
-                    angle: []
-                }
             };
+            this.activeCamera = null;
             this.restart();
         };
         ns.Scene.prototype.restart = function () {
             let clr = this.backgroundColor;
             gl.clearColor(clr[0], clr[1], clr[2], clr[3]);
         };
-        ns.Scene.prototype.updateLights = function () {
+        ns.Scene.prototype.updateLightBuffers = function () {
             let buf = this.lights.buffers;
-            let arr = this.lights.arrays;
+            let arr = this.getLightsArray();
+            this.lights.ambientColor = this.ambientLightColor;
 
             gl.bindBuffer(gl.ARRAY_BUFFER, buf.type);
             gl.bufferData(gl.ARRAY_BUFFER, new Uint16Array(arr.type), gl.STATIC_DRAW);
@@ -59,14 +55,14 @@ var App = (function (ns) {
         };
         ns.Scene.prototype.render = function () {
             gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-            this.updateLights();
-            treeWalkDFS(this, 'render');
+            this.updateLightBuffers();
+            treeWalkDFS(this.root, 'render');
         };
         ns.Scene.prototype.lateRender = function () {
             treeWalkDFS(this, 'lateRender');
         };
         ns.Scene.prototype.getObjectByName = function (name) {
-            let stack = [tree.root];
+            let stack = [ this.root ];
             while(stack.length > 0)
             {
                 let obj = stack.pop();
@@ -77,17 +73,31 @@ var App = (function (ns) {
                     return obj;
             }
         };
-        ns.Scene.prototype.getLights = function () {
-            let lights = {};
-            lights.ambient = this.ambientLightColor;
-            lights.scene = [];
+        ns.Scene.prototype.getLightsArray = function () {
+
+            let lights = {
+                type: [],
+                position: [],
+                direction: [],
+                angle: []
+            };
             treeWalkDFSC(this.root, function (obj) {
                 let light = obj.getComposite('light');
+                let transform = obj.getComposite('transform');
                 if(!light)
                     return false;
-                lights.scene.push({type:light.emitter.getName(), emitter:light.emitter});
+
+                lights.type.push(lightEmitterTypeToInt(light.getEmitterType()));
+                lights.position.concat(transform.position);
+                lights.direction.concat(light.emitter.direction || Vector.zero(3));
+                lights.angle.push(light.emitter.angle || 0);
+
                 return false;
             });
+            return lights;
+        };
+        ns.Scene.prototype.getLightBuffers = function () {
+            return this.lights;
         };
         ns.Scene.prototype.add = function (obj, parent) {
             if(!this.getObjectByName(parent.name))
@@ -112,8 +122,8 @@ var App = (function (ns) {
             return true;
         };
 
-        function treeWalkDFS(tree, methodName) {
-            let stack = [ tree.root ];
+        function treeWalkDFS(root, methodName) {
+            let stack = [ root ];
             while(stack.length > 0)
             {
                 let obj = stack.pop();
@@ -130,8 +140,8 @@ var App = (function (ns) {
             }
         }
 
-        function treeWalkDFSC(tree, vertexProcessingCallback) {
-            let stack = [ tree.root ];
+        function treeWalkDFSC(root, vertexProcessingCallback) {
+            let stack = [ root ];
             while(stack.length > 0)
             {
                 let obj = stack.pop();

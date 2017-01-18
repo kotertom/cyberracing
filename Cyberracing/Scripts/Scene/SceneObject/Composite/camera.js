@@ -23,6 +23,9 @@ Camera.prototype.getPerspectiveMatrix = function () {
         0,               0,  this.near * this.far * rangeInv * 2,   0
     ];
 };
+Camera.prototype.getViewMatrix = function () {
+
+};
 Camera.prototype.lookAt = function (target, upVector) {
     let cameraPos = this.position;
     let zAxis = Vector.sub(cameraPos, target);

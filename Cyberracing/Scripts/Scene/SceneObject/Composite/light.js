@@ -7,6 +7,9 @@ function Light(owner, emitterType) {
     this.emitter = emitterType ? new emitterType() : new PointLightEmitter();
 }
 Light.inheritsFrom(Composite);
+Light.prototype.getEmitterType = function () {
+    return this.emitter.constructor.name;
+};
 
 function LightEmitter() {
     this.color = Vector.one(4);
@@ -29,3 +32,24 @@ function SpotLightEmitter() {
     this.angle = 35;
 }
 SpotLightEmitter.inheritsFrom(PointLightEmitter);
+
+
+function lightEmitterTypeToInt(type) {
+    switch (type)
+    {
+        case DirectionalLightEmitter.name:
+            return LIGHT_TYPES.DIRECTIONAL;
+        case PointLightEmitter.name:
+            return LIGHT_TYPES.POINT;
+        case SpotLightEmitter:
+            return LIGHT_TYPES.SPOT;
+        default:
+            return null;
+    }
+}
+
+var LIGHT_TYPES = {
+    DIRECTIONAL: 0,
+    POINT: 1,
+    SPOT: 2
+}

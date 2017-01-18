@@ -28,6 +28,9 @@ var gameCanvas = document.getElementById("game-canvas");
     gl.depthFunc(gl.LEQUAL);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
+    initShaders(gl);
+    initMaterials(gl);
+
     App.earlyUpdate = new CustomEvent();
     App.update = new CustomEvent();
     App.lateUpdate = new CustomEvent();
@@ -42,14 +45,21 @@ var gameCanvas = document.getElementById("game-canvas");
 
     App.activeScene = new App.Scene.Scene();
 
-    let cube = new SceneObject(App.activeScene);
+    let cube = new SceneObject(App.activeScene, 'cube');
     cube.addComposite(new MeshRenderer(cube, gl));
     App.activeScene.root.children.push(cube);
 
-    let camera = new SceneObject(App.activeScene);
+    let camera = new SceneObject(App.activeScene, 'camera');
     camera.addComposite(new Camera(camera, 75, null, 0.1, 1000));
     App.activeScene.root.children.push(camera);
     App.activeCamera = camera;
+
+    App.getViewMatrix = function () {
+        return this.activeCamera.getComposite('camera').getViewMatrix();
+    };
+    App.getProjectionMatrix = function () {
+        return this.activeCamera.getComposite('camera').getPerspectiveMatrix();
+    };
 
     App.render.subscribe(function () {
         App.activeScene.render();

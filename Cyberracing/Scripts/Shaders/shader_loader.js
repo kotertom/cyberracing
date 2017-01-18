@@ -106,7 +106,7 @@ var Shaders = (function (ns) {
     return ns;
 })(Shaders || {});
 
-function initShaders() {
+function initShaders(gl) {
     let s = Shaders;
     let p = Shaders.programs;
 
