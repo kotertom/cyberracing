@@ -99,7 +99,7 @@ MeshRenderer.prototype.init = function () {
 MeshRenderer.prototype.render = function () {
 
     let gl = this.gl;
-    let lights = App.activeScene.getLightBuffers();
+    let lights = App.activeScene.getLightsArray();
 
     this.material.setActive();
 

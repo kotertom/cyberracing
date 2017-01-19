@@ -38,18 +38,19 @@ function lightEmitterTypeToInt(type) {
     switch (type)
     {
         case DirectionalLightEmitter.name:
-            return LIGHT_TYPES.DIRECTIONAL;
+            return LIGHT_TYPE.DIRECTIONAL;
         case PointLightEmitter.name:
-            return LIGHT_TYPES.POINT;
+            return LIGHT_TYPE.POINT;
         case SpotLightEmitter:
-            return LIGHT_TYPES.SPOT;
+            return LIGHT_TYPE.SPOT;
         default:
             return null;
     }
 }
 
-var LIGHT_TYPES = {
-    DIRECTIONAL: 0,
-    POINT: 1,
-    SPOT: 2
-}
+var LIGHT_TYPE = {
+    AMBIENT: 0,
+    DIRECTIONAL: 1,
+    POINT: 2,
+    SPOT: 3
+};

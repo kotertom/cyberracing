@@ -10,14 +10,7 @@ var App = (function (ns) {
             this.root = new SceneObject(undefined, 'root');
             this.ambientLightColor = [0,0,0,1];
             this.backgroundColor = [0,0,0,1];
-            this.lights = {
-                buffers: {
-                    type: gl.createBuffer(),
-                    position: gl.createBuffer(),
-                    direction: gl.createBuffer(),
-                    angle: gl.createBuffer()
-                },
-            };
+            this.lights = [];
             this.activeCamera = null;
             this.restart();
         };
@@ -25,24 +18,31 @@ var App = (function (ns) {
             let clr = this.backgroundColor;
             gl.clearColor(clr[0], clr[1], clr[2], clr[3]);
         };
-        ns.Scene.prototype.updateLightBuffers = function () {
-            let buf = this.lights.buffers;
-            let arr = this.getLightsArray();
-            this.lights.ambientColor = this.ambientLightColor;
+        ns.Scene.prototype.updateLights = function () {
+            let lights = this.lights;
+            lights = [ {
+                type: LIGHT_TYPE.AMBIENT,
+                color: this.ambientLightColor,
+                position: Vector.zero(3),
+                direction: Vector.zero(3),
+                angle: 0
+            }];
+            treeWalkDFSC(this.root, function (obj) {
+                let light = obj.getComposite('light');
+                let transform = obj.getComposite('transform');
+                if(!light)
+                    return false;
 
-            gl.bindBuffer(gl.ARRAY_BUFFER, buf.type);
-            gl.bufferData(gl.ARRAY_BUFFER, new Uint16Array(arr.type), gl.STATIC_DRAW);
+                lights.push({
+                    type: lightEmitterTypeToInt(light.getEmitterType()),
+                    color: light.color,
+                    position: transform.position,
+                    direction: light.emitter.direction || Vector.zero(3),
+                    angle: light.emitter.angle || 0
+                });
 
-            gl.bindBuffer(gl.ARRAY_BUFFER, buf.position);
-            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(arr.position), gl.STATIC_DRAW);
-
-            gl.bindBuffer(gl.ARRAY_BUFFER, buf.direction);
-            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(arr.direction), gl.STATIC_DRAW);
-
-            gl.bindBuffer(gl.ARRAY_BUFFER, buf.angle);
-            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(arr.angle), gl.STATIC_DRAW);
-
-            gl.bindBuffer(gl.ARRAY_BUFFER, null);
+                return false;
+            });
         };
         ns.Scene.prototype.earlyUpdate = function () {
             treeWalkDFS(this, 'earlyUpdate');
@@ -55,7 +55,7 @@ var App = (function (ns) {
         };
         ns.Scene.prototype.render = function () {
             gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-            this.updateLightBuffers();
+            this.updateLights();
             treeWalkDFS(this.root, 'render');
         };
         ns.Scene.prototype.lateRender = function () {
@@ -74,29 +74,6 @@ var App = (function (ns) {
             }
         };
         ns.Scene.prototype.getLightsArray = function () {
-
-            let lights = {
-                type: [],
-                position: [],
-                direction: [],
-                angle: []
-            };
-            treeWalkDFSC(this.root, function (obj) {
-                let light = obj.getComposite('light');
-                let transform = obj.getComposite('transform');
-                if(!light)
-                    return false;
-
-                lights.type.push(lightEmitterTypeToInt(light.getEmitterType()));
-                lights.position.concat(transform.position);
-                lights.direction.concat(light.emitter.direction || Vector.zero(3));
-                lights.angle.push(light.emitter.angle || 0);
-
-                return false;
-            });
-            return lights;
-        };
-        ns.Scene.prototype.getLightBuffers = function () {
             return this.lights;
         };
         ns.Scene.prototype.add = function (obj, parent) {

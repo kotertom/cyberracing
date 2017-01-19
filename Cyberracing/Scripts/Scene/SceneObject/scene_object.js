@@ -23,6 +23,6 @@ SceneObject.prototype.getComposite = function (compositeName) {
 };
 SceneObject.prototype.addComposite = function (composite) {
     if(this.composites[composite.getName()])
-        Error("ERROR: composite already exists on this object");
+        Error("ERROR: Composite already exists on this object");
     this.composites[composite.getName()] = composite;
 };
