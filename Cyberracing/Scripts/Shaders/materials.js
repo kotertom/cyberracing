@@ -144,8 +144,8 @@ function initMaterials(gl) {
                 gl.bindBuffer(gl.ARRAY_BUFFER, meshBuffers.vertexNormals);
                 gl.vertexAttribPointer(locations.attribute.vertexNormal, 3, gl.FLOAT, false, 0, 0);
 
-                let mv = Matrix.multiplyMbyM(modelMatrix, viewMatrix);
-                let mvp = Matrix.multiplyMbyM(mv, projectionMatrix);
+                let mv = Matrix.multiplyMbyM(viewMatrix, modelMatrix);
+                let mvp = Matrix.multiplyMbyM(projectionMatrix, mv);
                 let normalMatrix = Matrix.transpose(Matrix.inverse(mv));
                 let camera = App.activeCamera;
                 let cTransform = camera.getComposite('transform');
@@ -155,6 +155,7 @@ function initMaterials(gl) {
                 gl.uniform3fv(locations.uniform.cameraPosition, cTransform.position);
                 gl.uniform1i(locations.uniform.specularType, this.specType);
                 gl.uniform1i(locations.uniform.numLights, lights.length);
+
 
                 let u = locations.uniform;
                 for(let ll = 0; ll < lights.length; ll++)

@@ -130,17 +130,17 @@ MeshRenderer.prototype.init = function () {
 
     this.mesh.colors = generatedColors;
 
-    this.setMaterial(Shaders.materials.testing);
+    //this.setMaterial(Shaders.materials.testing);
 
-    // this.setMaterial(new Shaders.materials.Gouraud({
-    //     kA: [1.0, 1.0, 1.0],
-    //     kD: [1.0, 1.0, 1.0],
-    //     kS: [1.0, 1.0, 1.0],
-    //     diffColor: [1.0, 0.0, 0.0, 1.0],
-    //     specColor: [1.0, 1.0, 1.0, 1.0],
-    //     roughness: 0.5,
-    //     specType: SPECULAR_TYPE.PHONG
-    // }));
+    this.setMaterial(new Shaders.materials.Gouraud({
+        kA: [1.0, 1.0, 1.0],
+        kD: [1.0, 1.0, 1.0],
+        kS: [1.0, 1.0, 1.0],
+        diffColor: [1.0, 0.0, 0.0, 1.0],
+        specColor: [1.0, 1.0, 1.0, 1.0],
+        roughness: 0.5,
+        specType: SPECULAR_TYPE.PHONG
+    }));
 };
 
 MeshRenderer.prototype.setMaterial = function (value) {
@@ -160,12 +160,13 @@ MeshRenderer.prototype.render = function () {
         viewMatrix,
         projectionMatrix;
 
-    transform.position = [0,0,0]; //[10*Math.sin(performance.now()/1000),0,-5];
+    transform.position = [10*Math.sin(performance.now()/1000),0,-5];
     transform.rotation = [0,0,0];
 
     modelMatrix = transform.getTransformMatrix();
     viewMatrix = mat4.create();
-    mat4.lookAt(viewMatrix, [5,5,5], [5+10*Math.cos(performance.now()/1000),0,5+10*Math.sin(performance.now()/1000)], [0,1,0]);
+    // mat4.lookAt(viewMatrix, [5,5,5], [5+10*Math.cos(performance.now()/1000),0,5+10*Math.sin(performance.now()/1000)], [0,1,0]);
+    mat4.lookAt(viewMatrix, [5,5,5], transform.position, [0,1,0]);
     projectionMatrix = App.getProjectionMatrix();
 
     this.material.render(this.mesh, this.buffers, lights, modelMatrix, viewMatrix, projectionMatrix);

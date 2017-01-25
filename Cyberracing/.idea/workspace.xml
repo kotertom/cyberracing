@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="00a3d8e5-163e-4cce-a964-a21951eb4aca" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/tom.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/tom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Math3D/matrix.js" afterPath="$PROJECT_DIR$/Scripts/Math3D/matrix.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Composite/light.js" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Composite/light.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Composite/mesh_renderer.js" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Composite/mesh_renderer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Scene/scene.js" afterPath="$PROJECT_DIR$/Scripts/Scene/scene.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Shaders/materials.js" afterPath="$PROJECT_DIR$/Scripts/Shaders/materials.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Shaders/shader_loader.js" afterPath="$PROJECT_DIR$/Scripts/Shaders/shader_loader.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cyberracing.html" afterPath="$PROJECT_DIR$/cyberracing.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -34,8 +29,8 @@
       <file leaf-file-name="cyberracing.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cyberracing.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="950">
-              <caret line="349" column="0" lean-forward="true" selection-start-line="349" selection-start-column="0" selection-end-line="349" selection-end-column="0" />
+            <state relative-caret-position="741">
+              <caret line="425" column="34" lean-forward="false" selection-start-line="425" selection-start-column="34" selection-end-line="425" selection-end-column="34" />
               <folding>
                 <element signature="n#style#0;n#canvas#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#script#2;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -65,11 +60,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="materials.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="materials.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Scripts/Shaders/materials.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="532">
-              <caret line="142" column="77" lean-forward="true" selection-start-line="142" selection-start-column="77" selection-end-line="142" selection-end-column="77" />
+            <state relative-caret-position="399">
+              <caret line="132" column="60" lean-forward="true" selection-start-line="132" selection-start-column="60" selection-end-line="132" selection-end-column="60" />
               <folding />
             </state>
           </provider>
@@ -107,13 +102,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mesh_renderer.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="mesh_renderer.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Composite/mesh_renderer.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="646">
-              <caret line="169" column="0" lean-forward="true" selection-start-line="169" selection-start-column="0" selection-end-line="169" selection-end-column="0" />
+              <caret line="169" column="49" lean-forward="true" selection-start-line="169" selection-start-column="49" selection-end-line="169" selection-end-column="49" />
               <folding>
-                <element signature="e#4245#4293#0" expanded="false" />
+                <element signature="e#4279#4327#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -168,11 +163,11 @@
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/transform.js" />
         <option value="$PROJECT_DIR$/Scripts/Shaders/shader_loader.js" />
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Composite/light.js" />
-        <option value="$PROJECT_DIR$/cyberracing.html" />
         <option value="$PROJECT_DIR$/Scripts/Math3D/matrix.js" />
         <option value="$PROJECT_DIR$/Scripts/Scene/scene.js" />
-        <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Composite/mesh_renderer.js" />
         <option value="$PROJECT_DIR$/Scripts/Shaders/materials.js" />
+        <option value="$PROJECT_DIR$/cyberracing.html" />
+        <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Composite/mesh_renderer.js" />
       </list>
     </option>
   </component>
@@ -484,7 +479,7 @@
       <workItem from="1484811538956" duration="12611000" />
       <workItem from="1485180462195" duration="1461000" />
       <workItem from="1485297914909" duration="360000" />
-      <workItem from="1485368364929" duration="16051000" />
+      <workItem from="1485368364929" duration="16909000" />
     </task>
     <task id="LOCAL-00001" summary="Some vector and matrix math">
       <created>1484190478176</created>
@@ -521,11 +516,18 @@
       <option name="project" value="LOCAL" />
       <updated>1484808785103</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="working on shaders 2">
+      <created>1485387024124</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1485387024124</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="160449000" />
+    <option name="totallyTimeSpent" value="161307000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -572,7 +574,8 @@
     <MESSAGE value="Added matrices" />
     <MESSAGE value="Pre-material experimentation" />
     <MESSAGE value="working on shaders" />
-    <option name="LAST_COMMIT_MESSAGE" value="working on shaders" />
+    <MESSAGE value="working on shaders 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="working on shaders 2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -944,20 +947,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Composite/mesh_renderer.js">
+    <entry file="file://$PROJECT_DIR$/Scripts/Shaders/materials.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="169" column="0" lean-forward="true" selection-start-line="169" selection-start-column="0" selection-end-line="169" selection-end-column="0" />
-          <folding>
-            <element signature="e#4245#4293#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="399">
+          <caret line="132" column="60" lean-forward="true" selection-start-line="132" selection-start-column="60" selection-end-line="132" selection-end-column="60" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cyberracing.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="950">
-          <caret line="349" column="0" lean-forward="true" selection-start-line="349" selection-start-column="0" selection-end-line="349" selection-end-column="0" />
+        <state relative-caret-position="741">
+          <caret line="425" column="34" lean-forward="false" selection-start-line="425" selection-start-column="34" selection-end-line="425" selection-end-column="34" />
           <folding>
             <element signature="n#style#0;n#canvas#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#script#2;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -966,11 +967,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Shaders/materials.js">
+    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Composite/mesh_renderer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="142" column="77" lean-forward="true" selection-start-line="142" selection-start-column="77" selection-end-line="142" selection-end-column="77" />
-          <folding />
+        <state relative-caret-position="646">
+          <caret line="169" column="49" lean-forward="true" selection-start-line="169" selection-start-column="49" selection-end-line="169" selection-end-column="49" />
+          <folding>
+            <element signature="e#4279#4327#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
