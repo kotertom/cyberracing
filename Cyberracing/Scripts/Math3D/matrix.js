@@ -39,10 +39,10 @@ var Matrix = (function (ns) {
     ns.multiplyMbyV = function (matrix, vector) {
 
         //Give a simple variable name to each part of the matrix, a column and row number
-        let c0r0 = matrix[0], c1r0 = matrix[4], c2r0 = matrix[8], c3r0 = matrix[12];
-        let c0r1 = matrix[1], c1r1 = matrix[5], c2r1 = matrix[9], c3r1 = matrix[13];
-        let c0r2 = matrix[2], c1r2 = matrix[6], c2r2 = matrix[10], c3r2 = matrix[14];
-        let c0r3 = matrix[3], c1r3 = matrix[7], c2r3 = matrix[11], c3r3 = matrix[15];
+        let a11 = matrix[0], a12 = matrix[4], a13 = matrix[8], a14 = matrix[12];
+        let a21 = matrix[1], a22 = matrix[5], a23 = matrix[9], a24 = matrix[13];
+        let a31 = matrix[2], a32 = matrix[6], a33 = matrix[10], a34 = matrix[14];
+        let a41 = matrix[3], a42 = matrix[7], a43 = matrix[11], a44 = matrix[15];
 
         //Now set some simple names for the point
         let x = vector[0];
@@ -51,16 +51,16 @@ var Matrix = (function (ns) {
         let w = vector[3];
 
         //Multiply the point against each part of the 1st column, then add together
-        let resultX = (x * c0r0) + (y * c1r0) + (z * c2r0) + (w * c3r0);
+        let resultX = (x * a11) + (y * a12) + (z * a13) + (w * a14);
 
         //Multiply the point against each part of the 2nd column, then add together
-        let resultY = (x * c0r1) + (y * c1r1) + (z * c2r1) + (w * c3r1);
+        let resultY = (x * a21) + (y * a22) + (z * a23) + (w * a24);
 
         //Multiply the point against each part of the 3rd column, then add together
-        let resultZ = (x * c0r2) + (y * c1r2) + (z * c2r2) + (w * c3r2);
+        let resultZ = (x * a31) + (y * a32) + (z * a33) + (w * a34);
 
         //Multiply the point against each part of the 4th column, then add together
-        let resultW = (x * c0r3) + (y * c1r3) + (z * c2r3) + (w * c3r3);
+        let resultW = (x * a41) + (y * a42) + (z * a43) + (w * a44);
 
         return [resultX, resultY, resultZ, resultW];
     };
@@ -135,10 +135,106 @@ var Matrix = (function (ns) {
     ns.transpose = function (matrix) {
         let m = matrix;
         return [
-            m[0], m[4], m[8], m[12],
-            m[1], m[5], m[9], m[13],
-            m[2], m[6], m[10], m[14],
-            m[3], m[7], m[11], m[15]
+            m[0], m[1], m[2], m[3],
+            m[4], m[5], m[6], m[7],
+            m[8], m[9], m[10], m[11],
+            m[12], m[13], m[14], m[15]
+        ];
+    };
+
+    ns.inverse = function (matrix) {
+        let m = matrix;
+        // let det = m[0]*m[5]*m[10]*m[15] +
+        //           m[0]*m[9]*m[14]*m[7] +
+        //           m[0]*m[14]*m[6]*m[11] +
+        //
+        //           m[4]*m[1]*m[14]*m[11] +
+        //           m[4]*m[9]*m[2]*m[15] +
+        //           m[4]*m[13]*m[10]*m[3] +
+        //
+        //           m[8]*m[1]*m[6]*m[15] +
+        //           m[8]*m[5]*m[14]*m[3] +
+        //           m[8]*m[13]*m[2]*m[7] +
+        //
+        //           m[12]*m[1]*m[10]*m[7] +
+        //           m[12]*m[5]*m[2]*m[11] +
+        //           m[12]*m[9]*m[6]*m[3] -
+        //
+        //           m[0]*m[5]*m[14]*m[11] -
+        //           m[0]*m[9]*m[6]*m[15] -
+        //           m[0]*m[13]*m[10]*m[7] -
+        //
+        //           m[4]*m[1]*m[10]*m[15] -
+        //           m[4]*m[9]*m[14]*m[3] -
+        //           m[4]*m[13]*m[2]*m[11] -
+        //
+        //           m[8]*m[1]*m[14]*m[7] -
+        //           m[8]*m[5]*m[2]*m[15] -
+        //           m[8]*m[13]*m[6]*m[3] -
+        //
+        //           m[12]*m[1]*m[6]*m[11] -
+        //           m[12]*m[5]*m[10]*m[3] -
+        //           m[12]*m[9]*m[2]*m[7];
+
+        let a11 = m[0],
+            a12 = m[4],
+            a13 = m[8],
+            a14 = m[12],
+
+            a21 = m[1],
+            a22 = m[5],
+            a23 = m[9],
+            a24 = m[13],
+
+            a31 = m[2],
+            a32 = m[6],
+            a33 = m[10],
+            a34 = m[14],
+
+            a41 = m[3],
+            a42 = m[7],
+            a43 = m[11],
+            a44 = m[15];
+
+        let det = a11*(a22*(a33*a44 - a34*a43) + a23*(a34*a42 - a32*a44) + a24*(a32*a43 - a33*a42)) +
+                  a12*(a21*(a34*a43 - a33*a44) + a23*(a31*a44 - a34*a41) + a24*(a33*a41 - a31*a43)) +
+                  a13*(a21*(a32*a44 - a34*a42) + a22*(a34*a41 - a31*a44) + a24*(a31*a42 - a32*a41)) +
+                  a14*(a21*(a33*a42 - a32*a43) + a22*(a31*a43 - a33*a41) + a23*(a32*a41 - a31*a42));
+
+        if(det == 0)
+            throw "cannot inverse matrix: det == 0";
+
+        // row 1
+        let b11 = a22*a33*a44 + a23*a34*a42 + a24*a32*a43 - a22*a34*a43 - a23*a32*a44 - a24*a33*a42;
+        let b12 = a12*a34*a43 + a13*a32*a44 + a14*a33*a42 - a12*a33*a44 - a13*a34*a42 - a14*a32*a43;
+        let b13 = a12*a23*a44 + a13*a24*a42 + a14*a22*a43 - a12*a24*a43 - a13*a22*a44 - a14*a23*a42;
+        let b14 = a12*a24*a33 + a13*a22*a34 + a14*a23*a32 - a12*a23*a34 - a13*a24*a32 - a14*a22*a33;
+
+        // row 2
+        let b21 = a21*a34*a43 + a23*a31*a44 + a24*a33*a41 - a21*a33*a44 - a23*a34*a41 - a24*a31*a43;
+        let b22 = a11*a33*a44 + a13*a34*a41 + a14*a31*a43 - a11*a34*a43 - a13*a31*a44 - a14*a33*a41;
+        let b23 = a11*a24*a43 + a13*a23*a44 + a14*a23*a41 - a11*a23*a44 - a13*a24*a41 - a14*a21*a43;
+        let b24 = a11*a23*a34 + a13*a24*a31 + a14*a21*a33 - a11*a24*a33 - a13*a21*a34 - a14*a23*a31;
+
+        // row 3
+        let b31 = a21*a32*a44 + a22*a34*a41 + a24*a31*a42 - a21*a34*a42 - a22*a31*a44 - a24*a32*a41;
+        let b32 = a11*a34*a42 + a12*a31*a44 + a14*a32*a41 - a11*a32*a44 - a12*a34*a41 - a14*a31*a42;
+        let b33 = a11*a22*a44 + a12*a24*a41 + a14*a21*a42 - a11*a24*a42 - a12*a21*a44 - a14*a22*a41;
+        let b34 = a11*a24*a32 + a12*a21*a34 + a14*a22*a31 - a11*a22*a34 - a12*a24*a31 - a14*a21*a32;
+
+        // row 4
+        let b41 = a21*a33*a42 + a22*a31*a43 + a23*a32*a41 - a21*a32*a43 - a22*a33*a41 - a23*a31*a42;
+        let b42 = a11*a32*a43 + a12*a33*a41 + a13*a31*a42 - a11*a33*a42 - a12*a31*a43 - a13*a32*a41;
+        let b43 = a11*a23*a42 + a12*a21*a43 + a13*a22*a41 - a11*a22*a43 - a12*a23*a41 - a13*a21*a42;
+        let b44 = a11*a22*a33 + a12*a23*a31 + a13*a21*a32 - a11*a23*a32 - a12*a21*a33 - a13*a22*a31;
+
+        let di = 1/det;
+
+        return [
+            di*b11, di*b21, di*b31, di*b41,
+            di*b12, di*b22, di*b32, di*b42,
+            di*b13, di*b23, di*b33, di*b43,
+            di*b14, di*b24, di*b34, di*b44
         ];
     };
 

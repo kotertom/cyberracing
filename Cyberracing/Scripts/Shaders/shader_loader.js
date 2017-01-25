@@ -86,17 +86,24 @@ var Shaders = (function (ns) {
         return ns.linkProgram(gl, vs, fs);
     };
 
-    ns.Material = function (gl, shaderProgram, preprocessCallback, renderCallback) {
+    ns.Material = function (gl, shaderProgram, matInfo, preprocessCallback, renderCallback) {
         this.gl = gl;
         this.shaderProgram = shaderProgram;
         this.preprocessCallback = preprocessCallback;
         this.renderCallback = renderCallback;
+        this.diffColor = matInfo.diffColor;
+        this.specColor = matInfo.specColor;
+        this.kA = matInfo.kA;
+        this.kD = matInfo.kD;
+        this.kS = matInfo.kS;
+        this.roughness = matInfo.roughness;
+        this.specType = matInfo.specType;
     };
     ns.Material.prototype.preprocess = function (mesh, buffers) {
         this.preprocessCallback(mesh, buffers);
     };
-    ns.Material.prototype.render = function (meshBuffers, lightBuffers, modelMatrix, viewMatrix, projectionMatrix) {
-        this.renderCallback(meshBuffers, lightBuffers, modelMatrix, viewMatrix, projectionMatrix);
+    ns.Material.prototype.render = function (mesh, meshBuffers, lights, modelMatrix, viewMatrix, projectionMatrix) {
+        this.renderCallback(mesh, meshBuffers, lights, modelMatrix, viewMatrix, projectionMatrix);
     };
     ns.Material.prototype.setActive = function () {
         this.gl.useProgram(this.shaderProgram);
@@ -110,12 +117,10 @@ function initShaders(gl) {
     let s = Shaders;
     let p = Shaders.programs;
 
-    p.flatPhong = {};
-    p.flatBlinn = {};
-    p.gouraudPhong = {};
-    p.gouraudBlinn = {};
-    p.phongPhong = {};
-    p.phongBlinn = {};
+    p.flat = {};//s.createProgramFromIds(gl, 'vs-flat', 'fs-flat');
+    p.gouraud = s.createProgramFromIds(gl, 'vs-gouraud', 'fs-gouraud');
+    p.phong = {};//s.createProgramFromIds(gl, 'vs-phong', 'fs-phong');
+
 
     p.testing = s.createProgramFromIds(gl, 'vertex-shader', 'fragment-shader');
 }

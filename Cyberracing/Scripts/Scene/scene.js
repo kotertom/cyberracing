@@ -9,7 +9,7 @@ var App = (function (ns) {
         ns.Scene = function Scene() {
             this.root = new SceneObject(undefined, 'root');
             this.ambientLightColor = [0,0,0,1];
-            this.backgroundColor = [0,0,0,1];
+            this.backgroundColor = [0.1,0.1,0.1,1];
             this.lights = [];
             this.activeCamera = null;
             this.restart();
@@ -25,7 +25,8 @@ var App = (function (ns) {
                 color: this.ambientLightColor,
                 position: Vector.zero(3),
                 direction: Vector.zero(3),
-                angle: 0
+                angle: 0,
+                exponent: 0
             }];
             treeWalkDFSC(this.root, function (obj) {
                 let light = obj.getComposite('light');
@@ -38,7 +39,8 @@ var App = (function (ns) {
                     color: light.color,
                     position: transform.position,
                     direction: light.emitter.direction || Vector.zero(3),
-                    angle: light.emitter.angle || 0
+                    angle: light.emitter.angle || 0,
+                    exponent: light.emitter.exponent || 0
                 });
 
                 return false;
@@ -79,8 +81,8 @@ var App = (function (ns) {
         ns.Scene.prototype.add = function (obj, parent) {
             if(!this.getObjectByName(parent.name))
                 return false;
-            if(obj.getComposite('light'))
-                this.lights.push(obj);
+            // if(obj.getComposite('light'))
+            //     this.lights.push(obj);
             parent.children.push(obj);
             return true;
         };

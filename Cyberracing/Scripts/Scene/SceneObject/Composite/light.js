@@ -30,6 +30,7 @@ function SpotLightEmitter() {
     PointLightEmitter.call(this);
 
     this.angle = 35;
+    this.exponent = 1;
 }
 SpotLightEmitter.inheritsFrom(PointLightEmitter);
 

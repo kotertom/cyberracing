@@ -1,7 +1,10 @@
 <component name="ProjectDictionaryState">
   <dictionary name="tom">
     <words>
+      <w>blinn</w>
       <w>coords</w>
+      <w>gouraud</w>
+      <w>phong</w>
       <w>preprocess</w>
       <w>shaders</w>
       <w>struct</w>
