@@ -24,7 +24,11 @@ Camera.prototype.getPerspectiveMatrix = function () {
     ];
 };
 Camera.prototype.getViewMatrix = function () {
-
+    let viewMatrix = mat4.create();
+    // mat4.lookAt(viewMatrix, [5,5,5], [5+10*Math.cos(performance.now()/1000),0,5+10*Math.sin(performance.now()/1000)], [0,1,0]);
+    let transform = App.activeScene.getObjectByName('cube').getComposite('transform');
+    mat4.lookAt(viewMatrix, [5,5,5], transform.position, [0,1,0]);
+    return viewMatrix;
 };
 Camera.prototype.lookAt = function (target, upVector) {
     let cameraPos = this.position;

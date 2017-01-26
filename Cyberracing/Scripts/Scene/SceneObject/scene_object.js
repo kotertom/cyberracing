@@ -9,6 +9,8 @@ function SceneObject(scene, name) {
     this.parent = scene ? scene.root || null : null;
     this.children = [];
     this.name = name || SceneObject.nameGen.next().value;
+    this.disabled = false;
+    this.hidden = false;
 }
 SceneObject.nameGen = (function* () {
     var i = 0;

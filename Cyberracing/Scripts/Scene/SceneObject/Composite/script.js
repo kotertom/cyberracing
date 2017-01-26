@@ -7,7 +7,12 @@ function Script(eventCallbacks) {
     Composite.call(this);
     for(let evt in eventCallbacks)
     {
-        this[evt] = eventCallbacks[evt];
+        if(eventCallbacks.hasOwnProperty(evt))
+        {
+            this[evt] = eventCallbacks[evt];
+        }
     }
+    console.log(this);
 }
 Script.inheritsFrom(Composite);
+

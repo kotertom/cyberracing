@@ -30,6 +30,7 @@ var gameCanvas = document.getElementById("game-canvas");
 
     initShaders(gl);
     initMaterials(gl);
+    initInput();
 
     App.earlyUpdate = new CustomEvent();
     App.update = new CustomEvent();
@@ -49,10 +50,13 @@ var gameCanvas = document.getElementById("game-canvas");
     cube.addComposite(new MeshRenderer(cube, gl));
     cube.addComposite(new Script({
         render: function () {
-
+            let transform = this.getOwner().getComposite('transform');
+            transform.position = [0,0,-5];//[10*Math.sin(performance.now()/1000),0,-5];
+            transform.rotation = [Math.PI/4,(performance.now()/1000),0];
         }
     }));
     App.activeScene.root.children.push(cube);
+    console.log(cube);
 
     let camera = new SceneObject(App.activeScene, 'camera');
     camera.addComposite(new Camera(camera, 75, null, 0.1, 1000));
@@ -62,6 +66,12 @@ var gameCanvas = document.getElementById("game-canvas");
     let pLight = new SceneObject(App.activeScene, 'pLight');
     pLight.addComposite(new Light(pLight, PointLightEmitter));
     pLight.addComposite(new MeshRenderer(pLight, gl));
+    pLight.addComposite(new Script({
+        render: function () {
+            let transform = this.getOwner().getComposite('transform');
+            transform.position = [0,0,0];
+        }
+    }));
     App.activeScene.add(pLight);
     let t = pLight.getComposite('transform');
     t.position = [2,10,2];
@@ -99,7 +109,7 @@ function mainLoop(tFrame) {
     App.nextUpdate = App.lastUpdate + App.fixedDeltaT;
     let catchupTicks = 0;
 
-    let timeSinceLastUpdate = tFrame - App.nextUpdate;
+    let timeSinceLastUpdate = tFrame - App.lastUpdate;
     if(timeSinceLastUpdate > 0)
     {
         for(let timeRemaining = timeSinceLastUpdate; timeRemaining >= App.fixedDeltaT; timeRemaining -= App.fixedDeltaT)

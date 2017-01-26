@@ -48,13 +48,13 @@ var App = (function (ns) {
             });
         };
         ns.Scene.prototype.earlyUpdate = function () {
-            treeWalkDFS(this, 'earlyUpdate');
+            treeWalkDFS(this.root, 'earlyUpdate');
         };
         ns.Scene.prototype.update = function () {
-            treeWalkDFS(this, 'update');
+            treeWalkDFS(this.root, 'update');
         };
         ns.Scene.prototype.lateUpdate = function () {
-            treeWalkDFS(this, 'lateUpdate');
+            treeWalkDFS(this.root, 'lateUpdate');
         };
         ns.Scene.prototype.render = function () {
             gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -62,7 +62,7 @@ var App = (function (ns) {
             treeWalkDFS(this.root, 'render');
         };
         ns.Scene.prototype.lateRender = function () {
-            treeWalkDFS(this, 'lateRender');
+            treeWalkDFS(this.root, 'lateRender');
         };
         ns.Scene.prototype.getObjectByName = function (name) {
             let stack = [ this.root ];
@@ -129,14 +129,20 @@ var App = (function (ns) {
             while(stack.length > 0)
             {
                 let obj = stack.pop();
+                if(obj.disabled)
+                    continue;
                 for(let child of obj.children)
                     stack.push(child);
 
                 for(let compositeName in obj.composites)
                 {
                     let composite = obj.composites[compositeName];
+                    if(composite.disabled)
+                        continue;
                     if(composite[methodName])
+                    {
                         composite[methodName]();
+                    }
                 }
 
             }
