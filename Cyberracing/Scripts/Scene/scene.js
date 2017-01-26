@@ -8,7 +8,7 @@ var App = (function (ns) {
 
         ns.Scene = function Scene() {
             this.root = new SceneObject(undefined, 'root');
-            this.ambientLightColor = [0,0,0,1];
+            this.ambientLightColor = [0.2,0.2,0,1];
             this.backgroundColor = [0.1,0.1,0.1,1];
             this.lights = [];
             this.activeCamera = null;
@@ -19,15 +19,16 @@ var App = (function (ns) {
             gl.clearColor(clr[0], clr[1], clr[2], clr[3]);
         };
         ns.Scene.prototype.updateLights = function () {
+            this.lights = [];
             let lights = this.lights;
-            lights = [ {
+            lights.push({
                 type: LIGHT_TYPE.AMBIENT,
                 color: this.ambientLightColor,
                 position: Vector.zero(3),
                 direction: Vector.zero(3),
                 angle: 0,
                 exponent: 0
-            }];
+            });
             treeWalkDFSC(this.root, function (obj) {
                 let light = obj.getComposite('light');
                 let transform = obj.getComposite('transform');
@@ -36,7 +37,7 @@ var App = (function (ns) {
 
                 lights.push({
                     type: lightEmitterTypeToInt(light.getEmitterType()),
-                    color: light.color,
+                    color: light.emitter.color,
                     position: transform.position,
                     direction: light.emitter.direction || Vector.zero(3),
                     angle: light.emitter.angle || 0,
@@ -75,14 +76,36 @@ var App = (function (ns) {
                     return obj;
             }
         };
+        ns.Scene.prototype.getObjectByRef = function (obj) {
+            let ret = treeWalkDFSC(this.root, function (o) {
+                let r = { done: false };
+                if(o === obj)
+                {
+                    r.done = true;
+                    r.ret = o;
+                }
+                return r;
+            }) || null;
+
+            return ret;
+        };
         ns.Scene.prototype.getLightsArray = function () {
             return this.lights;
         };
         ns.Scene.prototype.add = function (obj, parent) {
-            if(!this.getObjectByName(parent.name))
-                return false;
-            // if(obj.getComposite('light'))
-            //     this.lights.push(obj);
+            if(!parent)
+                parent = this.root;
+            if(typeof parent == "string")
+            {
+                parent = this.getObjectByName(parent);
+                if(!parent)
+                    return false;
+            } else
+            {
+                if(!this.getObjectByRef(parent))
+                    return false;
+            }
+
             parent.children.push(obj);
             return true;
         };

@@ -25,4 +25,13 @@ SceneObject.prototype.addComposite = function (composite) {
     if(this.composites[composite.getName()])
         Error("ERROR: Composite already exists on this object");
     this.composites[composite.getName()] = composite;
+    composite.owner = this;
+};
+SceneObject.prototype.removeComposite = function (compositeName) {
+    let c = this.getComposite(compositeName);
+    if(!c)
+        return null;
+    this.composites[compositeName] = undefined;
+    c.owner = null;
+    return c;
 };

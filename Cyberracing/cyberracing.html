@@ -412,8 +412,6 @@
             vColor = vec4(uMaterial.kA, 1.0) * ambientPart
                                  + vec4(uMaterial.kD, 1.0) * diffusePart * uMaterial.diffColor,
                                  + vec4(uMaterial.kS, 1.0) * specularPart * uMaterial.specColor;
-
-            vColor = vec4(1.0);
         }
     </script>
     <script id="fs-gouraud" type="x-shader/x-fragment">

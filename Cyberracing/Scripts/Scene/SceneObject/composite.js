@@ -2,8 +2,8 @@
  * Created by tom on 2016-12-20.
  */
 
-function Composite(owner) {
-    this.owner = owner;
+function Composite() {
+    this.owner = null;
 }
 Composite.prototype.getName = function () {
     let str = this.constructor.name;

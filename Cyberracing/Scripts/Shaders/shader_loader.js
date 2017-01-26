@@ -91,13 +91,13 @@ var Shaders = (function (ns) {
         this.shaderProgram = shaderProgram;
         this.preprocessCallback = preprocessCallback;
         this.renderCallback = renderCallback;
-        this.diffColor = matInfo.diffColor;
-        this.specColor = matInfo.specColor;
-        this.kA = matInfo.kA;
-        this.kD = matInfo.kD;
-        this.kS = matInfo.kS;
-        this.roughness = matInfo.roughness;
-        this.specType = matInfo.specType;
+        this.diffColor = matInfo.diffColor || Vector.one(4);
+        this.specColor = matInfo.specColor || Vector.one(4);
+        this.kA = matInfo.kA || Vector.singleValue(3, 0.1);
+        this.kD = matInfo.kD || Vector.singleValue(3, 0.1);
+        this.kS = matInfo.kS || Vector.singleValue(3, 0.1);
+        this.roughness = matInfo.roughness || 0.2;
+        this.specType = matInfo.specType || SPECULAR_TYPE.PHONG;
     };
     ns.Material.prototype.preprocess = function (mesh, buffers) {
         this.preprocessCallback(mesh, buffers);

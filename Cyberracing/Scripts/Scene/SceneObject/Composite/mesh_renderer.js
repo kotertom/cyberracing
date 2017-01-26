@@ -24,111 +24,7 @@ function MeshRenderer(owner, gl) {
 MeshRenderer.inheritsFrom(Composite);
 MeshRenderer.prototype.init = function () {
 
-    this.mesh.vertices = [
-        // Front face
-        -1.0, -1.0,  1.0,
-        1.0, -1.0,  1.0,
-        1.0,  1.0,  1.0,
-        -1.0,  1.0,  1.0,
-
-        // Back face
-        -1.0, -1.0, -1.0,
-        -1.0,  1.0, -1.0,
-        1.0,  1.0, -1.0,
-        1.0, -1.0, -1.0,
-
-        // Top face
-        -1.0,  1.0, -1.0,
-        -1.0,  1.0,  1.0,
-        1.0,  1.0,  1.0,
-        1.0,  1.0, -1.0,
-
-        // Bottom face
-        -1.0, -1.0, -1.0,
-        1.0, -1.0, -1.0,
-        1.0, -1.0,  1.0,
-        -1.0, -1.0,  1.0,
-
-        // Right face
-        1.0, -1.0, -1.0,
-        1.0,  1.0, -1.0,
-        1.0,  1.0,  1.0,
-        1.0, -1.0,  1.0,
-
-        // Left face
-        -1.0, -1.0, -1.0,
-        -1.0, -1.0,  1.0,
-        -1.0,  1.0,  1.0,
-        -1.0,  1.0, -1.0
-    ];
-
-    this.mesh.faces = [
-        0,  1,  2,      0,  2,  3,    // front
-        4,  5,  6,      4,  6,  7,    // back
-        8,  9,  10,     8,  10, 11,   // top
-        12, 13, 14,     12, 14, 15,   // bottom
-        16, 17, 18,     16, 18, 19,   // right
-        20, 21, 22,     20, 22, 23    // left
-    ];
-
-    this.mesh.vertexNormals = [
-        // Front face
-        0.0, 0.0, 1.0,
-        0.0, 0.0, 1.0,
-        0.0, 0.0, 1.0,
-        0.0, 0.0, 1.0,
-
-        // Back face
-        0.0, 0.0, -1.0,
-        0.0, 0.0, -1.0,
-        0.0, 0.0, -1.0,
-        0.0, 0.0, -1.0,
-
-        // Top face
-        0.0, 1.0, 0.0,
-        0.0, 1.0, 0.0,
-        0.0, 1.0, 0.0,
-        0.0, 1.0, 0.0,
-
-        // Bottom face
-        0.0, -1.0, 0.0,
-        0.0, -1.0, 0.0,
-        0.0, -1.0, 0.0,
-        0.0, -1.0, 0.0,
-
-        // Right face
-        -1.0, 0.0, 0.0,
-        -1.0, 0.0, 0.0,
-        -1.0, 0.0, 0.0,
-        -1.0, 0.0, 0.0,
-
-        // Left face
-        1.0, 0.0, 0.0,
-        1.0, 0.0, 0.0,
-        1.0, 0.0, 0.0,
-        1.0, 0.0, 0.0
-    ];
-
-    let colors = [
-        [1.0,  1.0,  1.0,  1.0],    // Front face: white
-        [1.0,  0.0,  0.0,  1.0],    // Back face: red
-        [0.0,  1.0,  0.0,  1.0],    // Top face: green
-        [0.0,  0.0,  1.0,  1.0],    // Bottom face: blue
-        [1.0,  1.0,  0.0,  1.0],    // Right face: yellow
-        [1.0,  0.0,  1.0,  1.0]     // Left face: purple
-    ];
-
-    let generatedColors = [];
-
-    for (j=0; j<6; j++) {
-        var c = colors[j];
-
-        for (var i=0; i<4; i++) {
-            generatedColors = generatedColors.concat(c);
-        }
-    }
-
-    this.mesh.colors = generatedColors;
+    this.mesh = createCubeMesh();
 
     //this.setMaterial(Shaders.materials.testing);
 
@@ -239,3 +135,115 @@ MeshRenderer.prototype.loadMeshFromObj = function (path) {
     };
 
 };
+
+
+function createCubeMesh() {
+    let mesh = {};
+    mesh.vertices = [
+        // Front face
+        -1.0, -1.0,  1.0,
+        1.0, -1.0,  1.0,
+        1.0,  1.0,  1.0,
+        -1.0,  1.0,  1.0,
+
+        // Back face
+        -1.0, -1.0, -1.0,
+        -1.0,  1.0, -1.0,
+        1.0,  1.0, -1.0,
+        1.0, -1.0, -1.0,
+
+        // Top face
+        -1.0,  1.0, -1.0,
+        -1.0,  1.0,  1.0,
+        1.0,  1.0,  1.0,
+        1.0,  1.0, -1.0,
+
+        // Bottom face
+        -1.0, -1.0, -1.0,
+        1.0, -1.0, -1.0,
+        1.0, -1.0,  1.0,
+        -1.0, -1.0,  1.0,
+
+        // Right face
+        1.0, -1.0, -1.0,
+        1.0,  1.0, -1.0,
+        1.0,  1.0,  1.0,
+        1.0, -1.0,  1.0,
+
+        // Left face
+        -1.0, -1.0, -1.0,
+        -1.0, -1.0,  1.0,
+        -1.0,  1.0,  1.0,
+        -1.0,  1.0, -1.0
+    ];
+
+    mesh.faces = [
+        0,  1,  2,      0,  2,  3,    // front
+        4,  5,  6,      4,  6,  7,    // back
+        8,  9,  10,     8,  10, 11,   // top
+        12, 13, 14,     12, 14, 15,   // bottom
+        16, 17, 18,     16, 18, 19,   // right
+        20, 21, 22,     20, 22, 23    // left
+    ];
+
+    mesh.vertexNormals = [
+        // Front face
+        0.0, 0.0, 1.0,
+        0.0, 0.0, 1.0,
+        0.0, 0.0, 1.0,
+        0.0, 0.0, 1.0,
+
+        // Back face
+        0.0, 0.0, -1.0,
+        0.0, 0.0, -1.0,
+        0.0, 0.0, -1.0,
+        0.0, 0.0, -1.0,
+
+        // Top face
+        0.0, 1.0, 0.0,
+        0.0, 1.0, 0.0,
+        0.0, 1.0, 0.0,
+        0.0, 1.0, 0.0,
+
+        // Bottom face
+        0.0, -1.0, 0.0,
+        0.0, -1.0, 0.0,
+        0.0, -1.0, 0.0,
+        0.0, -1.0, 0.0,
+
+        // Right face
+        -1.0, 0.0, 0.0,
+        -1.0, 0.0, 0.0,
+        -1.0, 0.0, 0.0,
+        -1.0, 0.0, 0.0,
+
+        // Left face
+        1.0, 0.0, 0.0,
+        1.0, 0.0, 0.0,
+        1.0, 0.0, 0.0,
+        1.0, 0.0, 0.0
+    ];
+
+    let colors = [
+        [1.0,  1.0,  1.0,  1.0],    // Front face: white
+        [1.0,  0.0,  0.0,  1.0],    // Back face: red
+        [0.0,  1.0,  0.0,  1.0],    // Top face: green
+        [0.0,  0.0,  1.0,  1.0],    // Bottom face: blue
+        [1.0,  1.0,  0.0,  1.0],    // Right face: yellow
+        [1.0,  0.0,  1.0,  1.0]     // Left face: purple
+    ];
+
+    let generatedColors = [];
+
+    for (j=0; j<6; j++) {
+        var c = colors[j];
+
+        for (var i=0; i<4; i++) {
+            generatedColors = generatedColors.concat(c);
+        }
+    }
+
+    mesh.colors = generatedColors;
+
+    return mesh;
+}

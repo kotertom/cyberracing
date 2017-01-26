@@ -120,6 +120,7 @@ function initMaterials(gl) {
                 locations.uniform.lights = [];
                 for(let ll = 0; ll < lights.length; ll++)
                 {
+                    locations.uniform.lights[ll] = {};
                     for(let name of lightLocations)
                     {
                         locations.uniform.lights[ll][name] =

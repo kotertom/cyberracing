@@ -47,12 +47,25 @@ var gameCanvas = document.getElementById("game-canvas");
 
     let cube = new SceneObject(App.activeScene, 'cube');
     cube.addComposite(new MeshRenderer(cube, gl));
+    cube.addComposite(new Script({
+        render: function () {
+
+        }
+    }));
     App.activeScene.root.children.push(cube);
 
     let camera = new SceneObject(App.activeScene, 'camera');
     camera.addComposite(new Camera(camera, 75, null, 0.1, 1000));
     App.activeScene.root.children.push(camera);
     App.activeCamera = camera;
+
+    let pLight = new SceneObject(App.activeScene, 'pLight');
+    pLight.addComposite(new Light(pLight, PointLightEmitter));
+    pLight.addComposite(new MeshRenderer(pLight, gl));
+    App.activeScene.add(pLight);
+    let t = pLight.getComposite('transform');
+    t.position = [2,10,2];
+    console.log(pLight);
 
     App.getViewMatrix = function () {
         return this.activeCamera.getComposite('camera').getViewMatrix();

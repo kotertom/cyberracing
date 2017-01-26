@@ -100,3 +100,9 @@ Vector.one = function (dim) {
         result.push(1);
     return result;
 };
+Vector.singleValue = function (dim, value) {
+    let result = [];
+    for(let i = 0; i < dim; i++)
+        result.push(value);
+    return result;
+};
