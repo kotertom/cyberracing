@@ -2,9 +2,10 @@
  * Created by tom on 2017-01-13.
  */
 
-function Light(owner, emitterType) {
+function Light(owner, emitterType, color) {
     Composite.call(this, owner);
     this.emitter = emitterType ? new emitterType() : new PointLightEmitter();
+    this.emitter.color = color || Vector.one(4);
 }
 Light.inheritsFrom(Composite);
 Light.prototype.getEmitterType = function () {

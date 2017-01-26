@@ -2,7 +2,7 @@
  * Created by tom on 2017-01-12.
  */
 
-function MeshRenderer(owner, gl) {
+function MeshRenderer(owner, gl, mesh) {
     Composite.call(this, owner);
 
     this.material = {};
@@ -12,19 +12,20 @@ function MeshRenderer(owner, gl) {
     // this.textureCoords = [];
     // this.faces = [];
     this.buffers = {};
-    this.mesh = {
-        vertices: [],
-        textureCoords: [],
-        vertexNormals: [],
-        faces: []
-    };
+    // this.mesh = {
+    //     vertices: [],
+    //     textureCoords: [],
+    //     vertexNormals: [],
+    //     faces: []
+    // };
+    this.mesh = mesh || createCubeMesh();
     this.gl = gl;
     this.init();
 }
 MeshRenderer.inheritsFrom(Composite);
 MeshRenderer.prototype.init = function () {
 
-    this.mesh = createCubeMesh();
+    // this.mesh = createCubeMesh();
 
     //this.setMaterial(Shaders.materials.testing);
 
@@ -32,10 +33,10 @@ MeshRenderer.prototype.init = function () {
         kA: [1.0, 1.0, 1.0],
         kD: [1.0, 1.0, 1.0],
         kS: [1.0, 1.0, 1.0],
-        diffColor: [1.0, 0.0, 0.0, 1.0],
+        diffColor: [0.8, 0.8, 0.8, 1.0],
         specColor: [1.0, 1.0, 1.0, 1.0],
         roughness: 0.5,
-        specType: SPECULAR_TYPE.PHONG
+        specType: SPECULAR_TYPE.BLINN
     }));
 };
 
@@ -111,7 +112,9 @@ MeshRenderer.prototype.render = function () {
 //
 //     gl.drawElements(gl.TRIANGLES, 36, gl.UNSIGNED_SHORT, 0);
 // };
-MeshRenderer.prototype.loadMeshFromObj = function (path) {
+
+
+function loadMeshFromObj(path) {
     let file = readTextFile(path);
     while(file.status == FILE_STATUS.IN_PROGRESS) {
         console.log("busy waiting: loading file");
@@ -123,14 +126,33 @@ MeshRenderer.prototype.loadMeshFromObj = function (path) {
     }
 
     let mesh = new OBJ.Mesh(file.text);
-    this.mesh = {
+    return {
         vertices: mesh.vertices,
         textureCoords: mesh.textures,
         vertexNormals: mesh.vertexNormals,
         faces: mesh.indices
     };
+}
 
-};
+function preScaleMesh(mesh, scale) {
+    let m = {
+        vertices: [],
+        textureCoords: mesh.textureCoords,
+        vertexNormals: mesh.vertexNormals,
+        faces: mesh.faces
+    };
+    let v = mesh.vertices;
+    let x = scale[0],
+        y = scale[1],
+        z = scale[2];
+
+    for(let i = 0; i < v.length; i+=3)
+    {
+        m.vertices.concat([x * v[i], y * v[i+1], z * v[i+2]]);
+    }
+
+    return m;
+}
 
 
 function createCubeMesh() {

@@ -5,6 +5,7 @@
 function Composite() {
     this.owner = null;
     this.disabled = false;
+    this.hidden = false;
 }
 Composite.prototype.getName = function () {
     let str = this.constructor.name;

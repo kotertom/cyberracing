@@ -47,12 +47,12 @@ var gameCanvas = document.getElementById("game-canvas");
     App.activeScene = new App.Scene.Scene();
 
     let cube = new SceneObject(App.activeScene, 'cube');
-    cube.addComposite(new MeshRenderer(cube, gl));
+    cube.addComposite(new MeshRenderer(cube, gl, loadMeshFromObj('obj/toyota.obj')));
     cube.addComposite(new Script({
         render: function () {
             let transform = this.getOwner().getComposite('transform');
             transform.position = [0,0,-5];//[10*Math.sin(performance.now()/1000),0,-5];
-            transform.rotation = [Math.PI/4,(performance.now()/1000),0];
+           // transform.rotation = [Math.PI/4,(performance.now()/1000),0];
         }
     }));
     App.activeScene.root.children.push(cube);
@@ -69,7 +69,8 @@ var gameCanvas = document.getElementById("game-canvas");
     pLight.addComposite(new Script({
         render: function () {
             let transform = this.getOwner().getComposite('transform');
-            transform.position = [0,0,0];
+            let t = App.activeScene.getObjectByName('cube').getComposite('transform');
+            transform.position = Vector.add(t.position, [5*Math.sin(performance.now()/1000), 3, 5*Math.cos(performance.now()/1000)]);
         }
     }));
     App.activeScene.add(pLight);
