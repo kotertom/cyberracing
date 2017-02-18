@@ -2,8 +2,8 @@
  * Created by tom on 2017-01-12.
  */
 
-function MeshRenderer(owner, gl, mesh) {
-    Composite.call(this, owner);
+function MeshRenderer(gl, mesh) {
+    Component.call(this);
 
     this.material = {};
     // this.vertices = [];
@@ -22,7 +22,7 @@ function MeshRenderer(owner, gl, mesh) {
     this.gl = gl;
     this.init();
 }
-MeshRenderer.inheritsFrom(Composite);
+MeshRenderer.inheritsFrom(Component);
 MeshRenderer.prototype.init = function () {
 
     // this.mesh = createCubeMesh();
@@ -30,12 +30,10 @@ MeshRenderer.prototype.init = function () {
     //this.setMaterial(Shaders.materials.testing);
 
     this.setMaterial(new Shaders.materials.Gouraud({
-        kA: [1.0, 1.0, 1.0],
+        kA: [0.0, 0.0, 0.0],
         kD: [1.0, 1.0, 1.0],
-        kS: [1.0, 1.0, 1.0],
-        diffColor: [0.8, 0.8, 0.8, 1.0],
-        specColor: [1.0, 1.0, 1.0, 1.0],
-        roughness: 0.5,
+        kS: [0.0, 0.0, 0.0],
+        roughness: 1,
         specType: SPECULAR_TYPE.BLINN
     }));
 };
@@ -56,7 +54,7 @@ MeshRenderer.prototype.render = function () {
         viewMatrix,
         projectionMatrix;
 
-    let transform = this.getOwner().getComposite('transform');
+    let transform = this.owner.getComponent('transform');
 
     modelMatrix = transform.getTransformMatrix();
     viewMatrix = App.getViewMatrix();
@@ -87,7 +85,7 @@ MeshRenderer.prototype.render = function () {
 //     gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.colors);
 //     gl.vertexAttribPointer(locations.attribute.color, 4, gl.FLOAT, false, 0, 0);
 //
-//     let transform = this.getOwner().getComposite('transform');
+//     let transform = this.getOwner().getComponent('transform');
 //     transform.position = [10*Math.sin(performance.now()/1000),0,-5];
 //     //transform.rotation = [0,0,(performance.now()/1000)%(2*Math.PI)];
 //     //transform.position = [0, 0, -2];
@@ -95,10 +93,10 @@ MeshRenderer.prototype.render = function () {
 //     transform.scale = [1,1,1];
 //
 //     let camera = App.activeCamera;
-//     let camTransform = camera.getComposite('transform');
+//     let camTransform = camera.getComponent('transform');
 //     //camTransform.position = [0, 0, -5];
 //     //camTransform.rotation = [0, (performance.now()/1000)%(2*Math.PI), 0];
-//     let pMatrix = camera.getComposite('camera').getPerspectiveMatrix();
+//     let pMatrix = camera.getComponent('camera').getPerspectiveMatrix();
 //     //let vMatrix = camTransform.getInverseTransformMatrix();
 //     let vMatrix = mat4.create();
 //     mat4.lookAt(vMatrix, [5,5,5], transform.position, [0,1,0]);
@@ -230,16 +228,16 @@ function createCubeMesh() {
         0.0, -1.0, 0.0,
 
         // Right face
-        -1.0, 0.0, 0.0,
-        -1.0, 0.0, 0.0,
-        -1.0, 0.0, 0.0,
-        -1.0, 0.0, 0.0,
+        1.0, 0.0, 0.0,
+        1.0, 0.0, 0.0,
+        1.0, 0.0, 0.0,
+        1.0, 0.0, 0.0,
 
         // Left face
-        1.0, 0.0, 0.0,
-        1.0, 0.0, 0.0,
-        1.0, 0.0, 0.0,
-        1.0, 0.0, 0.0
+        -1.0, 0.0, 0.0,
+        -1.0, 0.0, 0.0,
+        -1.0, 0.0, 0.0,
+        -1.0, 0.0, 0.0
     ];
 
     let colors = [

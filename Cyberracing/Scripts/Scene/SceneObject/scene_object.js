@@ -3,14 +3,17 @@
  */
 
 
-function SceneObject(scene, name) {
-    this.composites = {};
-    this.addComposite(new Transform());
-    this.parent = scene ? scene.root || null : null;
+function SceneObject(name) {
+    this.components = {};
+    this.addComponent(new Transform());
+    this.parent = null;
     this.children = [];
     this.name = name || SceneObject.nameGen.next().value;
     this.disabled = false;
     this.hidden = false;
+
+    this.tags = {};
+    this.carryParentTags = true;
 }
 SceneObject.nameGen = (function* () {
     var i = 0;
@@ -20,20 +23,50 @@ SceneObject.nameGen = (function* () {
         i++;
     }
 })();
-SceneObject.prototype.getComposite = function (compositeName) {
-    return this.composites[compositeName];
-};
-SceneObject.prototype.addComposite = function (composite) {
-    if(this.composites[composite.getName()])
-        Error("ERROR: Composite already exists on this object");
-    this.composites[composite.getName()] = composite;
-    composite.owner = this;
-};
-SceneObject.prototype.removeComposite = function (compositeName) {
-    let c = this.getComposite(compositeName);
-    if(!c)
-        return null;
-    this.composites[compositeName] = undefined;
-    c.owner = null;
-    return c;
-};
+
+Object.defineProperties(SceneObject.prototype, {
+    getComponent: {
+        value: function (componentName) {
+            return this.components[componentName];
+        }
+    },
+
+    addComponent: {
+        value: function (component) {
+            if(this.components[component.getName()])
+                Error("ERROR: Component already exists on this object");
+            this.components[component.getName()] = component;
+            component.owner = this;
+        }
+    },
+
+    removeComponent: {
+        value: function (componentName) {
+            let c = this.getComponent(componentName);
+            if(!c)
+                return null;
+            this.components[componentName] = undefined;
+            c.owner = null;
+            return c;
+        }
+    },
+});
+
+// SceneObject.prototype.getComponent = function (componentName) {
+//     return this.components[componentName];
+// };
+// SceneObject.prototype.addComponent = function (component) {
+//     if(this.components[component.getName()])
+//         Error("ERROR: Component already exists on this object");
+//     this.components[component.getName()] = component;
+//     component.owner = this;
+// };
+// SceneObject.prototype.removeComponent = function (componentName) {
+//     let c = this.getComponent(componentName);
+//     if(!c)
+//         return null;
+//     this.components[componentName] = undefined;
+//     c.owner = null;
+//     return c;
+// };
+

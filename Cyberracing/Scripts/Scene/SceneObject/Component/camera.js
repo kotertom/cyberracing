@@ -2,14 +2,14 @@
  * Created by tom on 2017-01-12.
  */
 
-function Camera(owner, fov, aspectRatio, near, far) {
-    Composite.call(this, owner);
+function Camera(fov, aspectRatio, near, far) {
+    Component.call(this);
     this.fov = fov || 75;
     this.aspectRatio = aspectRatio || window.innerWidth / window.innerHeight;
     this.near = near || 0.1;
     this.far = far || 1000;
 }
-Camera.inheritsFrom(Composite);
+Camera.inheritsFrom(Component);
 Camera.prototype.getPerspectiveMatrix = function () {
     // var f = 1.0 / Math.tan(fov / 360 * 2 * Math.PI / 2);
     let f = 1.0 / Math.tan(this.fov * Math.PI / 360);
@@ -25,14 +25,19 @@ Camera.prototype.getPerspectiveMatrix = function () {
 };
 Camera.prototype.getViewMatrix = function () {
     let viewMatrix = mat4.create();
-    // mat4.lookAt(viewMatrix, [5,5,5], [5+10*Math.cos(performance.now()/1000),0,5+10*Math.sin(performance.now()/1000)], [0,1,0]);
-    let transform = App.activeScene.getObjectByName('cube').getComposite('transform');
-    mat4.lookAt(viewMatrix, [5,5,5], transform.position, [0,1,0]);
+    let transform = App.activeScene.getObjectByName('cube').getComponent('transform');
+    mat4.lookAt(viewMatrix, [5,5,5], [0,0,-5], [0,1,0]);
+
+    let t = this.owner.getComponent('transform');
+    t.position = [5,5,5];
+    //viewMatrix = t.getInverseTransformMatrix();
     return viewMatrix;
 };
 Camera.prototype.lookAt = function (target, upVector) {
     let cameraPos = this.position;
-    let zAxis = Vector.sub(cameraPos, target);
-    let xAxis = Vector.crossProd(upVector, zAxis);
+    let zAxis = Vector.sub(target, cameraPos);
+    let xAxis = Vector.crossProd3(zAxis, upVector);
     let yAxis = upVector;
+
+    let transform = this.owner.getComponent('transform');
 };

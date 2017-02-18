@@ -1,0 +1,154 @@
+/**
+ * Created by tom on 2016-12-20.
+ */
+
+function Transform(position, rotation, scale) {
+    Component.call(this);
+
+    this.position = position || Vector.zero(3);
+    this.rotation = rotation || Vector.zero(3);
+    this.scale = scale || Vector.one(3);
+    this.rotationModel = ROTATION_MODEL.EULER_XYZ;
+
+    this._forward = [0,0,1];
+    this._up = [0,1,0];
+    this._right = [1,0,0];
+
+    this.matrix = Vector.zero(16);
+}
+Transform.inheritsFrom(Component);
+
+Object.defineProperties(Transform.prototype, {
+    position: {
+        get: function () {
+            return this._position;
+        },
+        set: function (value) {
+            this._position = value;
+        }
+    },
+    rotation: {
+        get: function () {
+            return this._rotation;
+        },
+        set: function (value) {
+            this._rotation = value;
+            let mx = mat.xRotationMatrix(value[0]);
+            let my = mat.yRotationMatrix(value[1]);
+            let mz = mat.zRotationMatrix(value[2]);
+            let rm = mat.multiplyMatrixArray([mz, my, mx]);
+
+            this._forward = mat.multiplyMbyV(rm, [0,0,1,1]).slice(0,3);
+            this._right = mat.multiplyMbyV(rm, [1,0,0,1]).slice(0,3);
+            this._up = mat.multiplyMbyV(rm, [0,1,0,1]).slice(0,3);
+        }
+    },
+    scale: {
+        get: function () {
+            return this._scale;
+        },
+        set: function (value) {
+            this._scale = value;
+        }
+    },
+    forward: {
+        get: function () {
+            return this._forward;
+        }
+    },
+    backward: {
+        get: function () {
+            return v.negate(this.forward);
+        }
+    },
+    right: {
+        get: function () {
+            return this._right;
+        }
+    },
+    left: {
+        get: function () {
+            return v.negate(this.right);
+        }
+    },
+    up: {
+        get: function () {
+            return this._up;
+        }
+    },
+    down: {
+        get: function () {
+            return v.negate(this.up);
+        }
+    }
+});
+
+// Transform.prototype.getTransformMatrix = function () {
+//     let parent = this.getOwner().parent;
+//     let parentMatrix = parent ? parent.getComponent('transform').getTransformMatrix() : Matrix.identityMatrix;
+//     let tm = mat4.create();
+//     let q = quat.create();
+//     quat.rotateX(q, q, this.rotation[0]);
+//     quat.rotateY(q, q, this.rotation[1]);
+//     quat.rotateZ(q, q, this.rotation[2]);
+//     mat4.fromRotationTranslationScale(tm, q, this.position, this.scale);
+//     return Matrix.multiplyMbyM(parentMatrix, tm);
+// };
+
+Transform.prototype.getTransformMatrix = function () {
+    let parent = this.getOwner().parent;
+    let parentMatrix = parent ? parent.getComponent('transform').getTransformMatrix() : Matrix.identityMatrix;
+
+    let p = this.position;
+
+    let r = this.right;
+    let u = this.up;
+    let f = this.forward;
+
+    let sm = Matrix.scaleMatrix(this.scale);
+    let tm = [
+        r[0], r[1], r[2], 0,
+        u[0], u[1], u[2], 0,
+        f[0], f[1], f[2], 0,
+        p[0], p[1], p[2], 1
+    ];
+
+    return Matrix.multiplyMatrixArray([parentMatrix, tm, sm]);
+
+};
+
+Transform.prototype.getInverseTransformMatrix = function () {
+    let parent = this.getOwner().parent;
+    let parentMatrix = parent ? parent.getComponent('transform').getInverseTransformMatrix() : Matrix.identityMatrix;
+    return Matrix.multiplyMatrixArray([
+        Matrix.scaleMatrix      (Vector.invertValues(this.scale)),
+        Matrix.xRotationMatrix   (-this.rotation[0]),
+        Matrix.yRotationMatrix   (-this.rotation[1]),
+        Matrix.zRotationMatrix   (-this.rotation[2]),
+        Matrix.translationMatrix(Vector.negate(this.position)),
+        parentMatrix
+    ]);
+};
+
+// Transform.prototype.forward = function () {
+//     return this._forward;
+// };
+// Transform.prototype.right = function () {
+//     return this._right;
+// };
+// Transform.prototype.up = function () {
+//     return this._up;
+// };
+// Transform.prototype.backward = function () {
+//     return Vector.negate(this.forward());
+// };
+// Transform.prototype.left = function () {
+//     return Vector.negate(this.right());
+// };
+// Transform.prototype.down = function () {
+//     return Vector.negate(this.up());
+// };
+
+Transform.prototype.updateMatrices = function () {
+    //this.transformMatrix =
+};

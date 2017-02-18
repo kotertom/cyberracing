@@ -59,7 +59,23 @@ function initMaterials(gl) {
     m.Flat = function (matInfo) {
         s.Material.call(this, gl, s.programs.flat, matInfo,
             function (mesh, buffers) {
+                if(!buffers.vertices || !gl.isBuffer(buffers.vertices))
+                    buffers.vertices = gl.createBuffer();
+                if(!buffers.vertexNormals || !gl.isBuffer(buffers.vertexNormals))
+                    buffers.vertexNormals = gl.createBuffer();
+                if(! buffers.faces || !gl.isBuffer(buffers.faces))
+                    buffers.faces = gl.createBuffer();
 
+                mesh = duplicateOneFacePerVertex(mesh);
+
+                gl.bindBuffer(gl.ARRAY_BUFFER, buffers.vertices);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(mesh.vertices), gl.STATIC_DRAW);
+
+                gl.bindBuffer(gl.ARRAY_BUFFER, buffers.vertexNormals);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(mesh.vertexNormals), gl.STATIC_DRAW);
+
+                gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.faces);
+                gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(mesh.faces), gl.STATIC_DRAW);
             },
             function (mesh, meshBuffers, lightBuffers, modelMatrix, viewMatrix, projectionMatrix) {
 
@@ -149,7 +165,7 @@ function initMaterials(gl) {
                 let mvp = Matrix.multiplyMbyM(projectionMatrix, mv);
                 let normalMatrix = Matrix.transpose(Matrix.inverse(mv));
                 let camera = App.activeCamera;
-                let cTransform = camera.getComposite('transform');
+                let cTransform = camera.getComponent('transform');
                 gl.uniformMatrix4fv(locations.uniform.mvpMatrix, false, new Float32Array(mvp));
                 gl.uniformMatrix4fv(locations.uniform.mvMatrix, false, new Float32Array(mv));
                 gl.uniformMatrix4fv(locations.uniform.normalMatrix, false, new Float32Array(normalMatrix));
@@ -254,3 +270,70 @@ var SPECULAR_TYPE = {
     PHONG: 0,
     BLINN: 1
 };
+
+
+function duplicateOneFacePerVertex(mesh) {
+    let newMesh = {};
+    for(let array in mesh) {
+        newMesh[array] = [];
+        for(let elem of mesh[array]) {
+            newMesh[array].push(elem);
+        }
+    }
+
+    let vertices = newMesh.vertices,
+        faces = newMesh.faces,
+        vertexNormals = newMesh.vertexNormals;
+
+    let vertexOccurences = [];
+    for(let i = 0; i < faces.length; i++)
+    {
+        let vertex = faces[i];
+        if(vertexOccurences[vertex])
+        {
+            faces[i] = vertices.length / 3;
+            let addr = 3 * vertex;
+            vertices.push(vertices[addr], vertices[addr+1], vertices[addr+2]);
+        }
+        else
+        {
+            vertexOccurences[vertex] = 1;
+        }
+    }
+
+    for(let i = 0; i < faces.length; i+=3)
+    {
+        let face = [faces[i], faces[i+1], faces[i+2]];
+        let verts = [];
+        for(let vertex of face)
+        {
+            let addr = 3 * vertex;
+            verts.push([vertices[addr], vertices[addr+1], vertices[addr+2]]);
+        }
+        let triangle = {
+            p1: verts[0],
+            p2: verts[1],
+            p3: verts[2]
+        };
+        let normal = calculateTriangleNormal(triangle);
+        for(let vertex of face)
+        {
+            let addr = 3 * vertex;
+            vertexNormals[addr]   = normal[0];
+            vertexNormals[addr+1] = normal[1];
+            vertexNormals[addr+2] = normal[2];
+        }
+    }
+}
+
+
+function calculateTriangleNormal(triangle) {
+    let u = vec.sub(triangle.p2, triangle.p1);
+    let v = vec.sub(triangle.p3, triangle.p1);
+
+    let x = u[1]*v[2] - u[2]*v[1];
+    let y = u[2]*v[0] - u[0]*v[2];
+    let z = u[0]*v[1] - u[1]*v[0];
+
+    return [x,y,z];
+}

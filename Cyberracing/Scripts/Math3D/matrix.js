@@ -317,9 +317,9 @@ var Matrix = (function (ns) {
         let c = cos(y),
             s = sin(y);
         return [
-                  c,   0,   s,   0,
+                  c,   0,  -s,   0,
                   0,   1,   0,   0,
-                 -s,   0,   c,   0,
+                  s,   0,   c,   0,
                   0,   0,   0,   1
         ];
     };
@@ -328,13 +328,51 @@ var Matrix = (function (ns) {
         let c = cos(z),
             s = sin(z);
         return [
-            c, -s,    0,    0,
-            s,  c,    0,    0,
+            c, s,    0,    0,
+            -s,  c,    0,    0,
                  0,       0,    1,    0,
                  0,       0,    0,    1
+        ];
+    };
+
+    ns.xRotationMatrix3 = function (x) {
+        let m = ns.xRotationMatrix(x);
+        return [
+            m[0], m[1], m[2],
+            m[4], m[5], m[6],
+            m[8], m[9], m[10]
+        ];
+    };
+
+    ns.yRotationMatrix3 = function (y) {
+        let m = ns.yRotationMatrix(y);
+        return [
+            m[0], m[1], m[2],
+            m[4], m[5], m[6],
+            m[8], m[9], m[10]
+        ];
+    };
+
+    ns.zRotationMatrix3 = function (z) {
+        let m = ns.zRotationMatrix(z);
+        return [
+            m[0], m[1], m[2],
+            m[4], m[5], m[6],
+            m[8], m[9], m[10]
         ];
     };
 
     return ns;
 })(Matrix || {});
 
+var mat = Matrix,
+    m = Matrix;
+
+var ROTATION_MODEL = {
+    EULER_XYZ: [0, 1, 2],
+    EULER_XZY: [0, 2, 1],
+    EULER_YXZ: [1, 0, 2],
+    EULER_YZX: [1, 2, 0],
+    EULER_ZXY: [2, 0, 1],
+    EULER_ZYX: [2, 1, 0]
+};

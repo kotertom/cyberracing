@@ -5,6 +5,6 @@
 
 
 function AiController() {
-    Composite.call(this);
+    Component.call(this);
 }
-AiController.inheritsFrom(Composite);
+AiController.inheritsFrom(Component);

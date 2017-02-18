@@ -4,6 +4,6 @@
 
 
 function PlayerController() {
-    Composite.call(this);
+    Component.call(this);
 }
-PlayerController.inheritsFrom(Composite);
+PlayerController.inheritsFrom(Component);

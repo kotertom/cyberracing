@@ -30,8 +30,8 @@ var App = (function (ns) {
                 exponent: 0
             });
             treeWalkDFSC(this.root, function (obj) {
-                let light = obj.getComposite('light');
-                let transform = obj.getComposite('transform');
+                let light = obj.getComponent('light');
+                let transform = obj.getComponent('transform');
                 if(!light)
                     return false;
 
@@ -46,6 +46,9 @@ var App = (function (ns) {
 
                 return false;
             });
+        };
+        ns.Scene.prototype.start = function () {
+            treeWalkDFS(this.root, 'start');
         };
         ns.Scene.prototype.earlyUpdate = function () {
             treeWalkDFS(this.root, 'earlyUpdate');
@@ -106,6 +109,7 @@ var App = (function (ns) {
                     return false;
             }
 
+            obj.parent = parent;
             parent.children.push(obj);
             return true;
         };
@@ -134,14 +138,14 @@ var App = (function (ns) {
                 for(let child of obj.children)
                     stack.push(child);
 
-                for(let compositeName in obj.composites)
+                for(let componentName in obj.components)
                 {
-                    let composite = obj.composites[compositeName];
-                    if(composite.disabled)
+                    let component = obj.components[componentName];
+                    if(!component || component.disabled)
                         continue;
-                    if(composite[methodName])
+                    if(component[methodName])
                     {
-                        composite[methodName]();
+                        component[methodName]();
                     }
                 }
 

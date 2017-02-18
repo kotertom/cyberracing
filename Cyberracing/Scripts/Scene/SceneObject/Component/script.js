@@ -4,7 +4,7 @@
 
 
 function Script(eventCallbacks, name) {
-    Composite.call(this);
+    Component.call(this);
     this.name = name || Script.nameGen.next().value;
     for(let evt in eventCallbacks)
     {
@@ -13,9 +13,9 @@ function Script(eventCallbacks, name) {
             this[evt] = eventCallbacks[evt];
         }
     }
-    console.log(this);
+    //console.log(this);
 }
-Script.inheritsFrom(Composite);
+Script.inheritsFrom(Component);
 
 Script.prototype.getName = function () {
     return this.name;

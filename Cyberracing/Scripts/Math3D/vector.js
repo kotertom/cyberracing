@@ -3,6 +3,8 @@
  */
 
 var Vector = {};
+var vec = Vector,
+    v = Vector;
 // Vector.prototype.add = function (vector) {
 //     let coords = [];
 //     for(let i = 0; i < this.dim; i++)
@@ -73,10 +75,34 @@ Vector.negate = function (vector) {
     return result;
 };
 Vector.dotProd = function (vec1, vec2) {
-    throw "not implemented";
+    if(vec1.length != vec2.length)
+        throw "Vectors must be of same dimensions.";
+    let sum = 0;
+    for(let i = 0; i < vec1.length; i++)
+    {
+        sum += vec1[i] * vec2[i];
+    }
+    return sum;
 };
-Vector.crossProd = function (vec1, vec2) {
-    throw "not implemented";
+Vector.crossProd3 = function (vec1, vec2) {
+    if(vec1.length != 3 || vec2.length != 3)
+        throw "Vectors must be 3D";
+
+    let f = [0,0,1];
+    let u = [0,1,0];
+    let r = [1,0,0];
+
+    let u1 = vec1[0],
+        u2 = vec1[1],
+        u3 = vec1[2],
+        v1 = vec2[0],
+        v2 = vec2[1],
+        v3 = vec2[2];
+
+    let x = vec.mult(r, u2*v3 - u3*v2);
+    let y = vec.mult(u, u3*v1 - u1*v3);
+    let z = vec.mult(f, u1*v2 - u2*v1);
+    return [x,y,z];
 };
 Vector.invertValues = function (vector) {
     let result = [];
