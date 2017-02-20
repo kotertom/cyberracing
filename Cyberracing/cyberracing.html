@@ -41,12 +41,27 @@
     </script>
 
     <script id="vs-flat" type="x-shader/x-vertex">
-        attribute vec3 aVertexPosition;
-        attribute vec3 aFacePosition;
-        attribute vec3 aFaceNormal;
-        attribute vec3 aVertexNormal;
+        struct light_info {
+            int   type;
+            vec4  color;
+            vec3  position;
+            vec3  direction;
+            float angle;
+            float exponent;
+        };
+        struct material_info {
+            vec3 kA;
+            vec3 kD;
+            vec3 kS;
+            float roughness;
+        };
+        const int maxLights = 32;
 
-        uniform vec4 uMaterialColor;
+
+        attribute vec3 aVertexPosition;
+        attribute vec3 aVertexNormal;
+        attribute vec3 aFaceCenter;
+
         uniform mat4 uMVMatrix;
         uniform mat4 uMVPMatrix;
         uniform mat4 uNormalMatrix;
@@ -54,26 +69,12 @@
         uniform int  uSpecularType;
 
         //lights
-        uniform light_info uLight[64];
+        uniform light_info uLight[maxLights];
         uniform int uNumLights;
         uniform material_info uMaterial;
 
 
-        varying vec4 vPolygonColor;
-
-        struct light_info {
-            int   type;
-            vec4  color;
-            vec4  position;
-            vec4  direction;
-            float angle;
-        };
-        struct material_info {
-            float kA;
-            float kD;
-            float kS;
-            float roughness;
-        };
+        varying vec4 vColor;
 
         // light types
         const int AMBIENT = 0;
@@ -88,79 +89,82 @@
         void main()
         {
             gl_Position = uMVPMatrix * vec4(aVertexPosition, 1.0);
-            vec4 facePosition = PVMMatrix * vec4(aFacePosition, 1.0);
 
             //light
-            vec4 ambientPart = uLight[0].color;
-            vec4 diffusePart = vec4(0.0, 0.0, 0.0, 1.0);
-            vec4 specularPart = vec4(0.0, 0.0, 0.0, 1.0;
+            vec3 ambientPart = uLight[0].color.xyz;
+            vec3 diffusePart = vec3(0.0);
+            vec3 specularPart = vec3(0.0);
 
-            vec4 normal = uNormalMatrix * vec4(aVertexNormal, 1.0);
+            vec4 normal = uNormalMatrix * vec4(aVertexNormal, -dot(aVertexNormal, aFaceCenter));
 
-            vec3 vecToViewer = normalize(uCameraPosition - aVertexPosition);
+            vec3 vecToViewer = normalize(uCameraPosition - aFaceCenter);
 
-            int max = min(uNumLights, 64);
             light_info l;
             float lambert;
+            float squareDistance;
             vec3 specVec;
-            for(int i = 0, i < max; i++)
+            vec3 intensity;
+            vec3 vecToLight;
+            for (int i = 1; i < maxLights; i++)
             {
+                if (i == uNumLights)
+                    break;
+
+                // memory-wise clone for readability -- small performance hit
                 l = uLight[i];
-                switch(l.type)
+                squareDistance = pow(length(l.position - aFaceCenter), 2.0);
+                if (l.type == DIRECTIONAL)
                 {
-                    case DIRECTIONAL:
-                    {
-                        vec3 vecToLight = -l.direction;
-                        lambert = max(dot(aVertexNormal, vecToLight), 0.0);
-                    }
-                    break;
-                    case POINT:
-                    {
-                        vec3 vecToLight = normalize(l.position - aVertexPosition);
-                        lambert = max(dot(aVertexNormal, vecToLight), 0.0);
-                    }
-                    break;
-                    case SPOT:
-                    {
-                        vec3 vecToLight = normalize(l.position - aVertexPosition);
-                        if(dot(l.direction, -vecToLight) < l.angle)
-                            lambert = max(dot(aVertexNormal, vecToLight), 0.0);
-                    }
-                    break;
-                    default:
-                    break;
+                    vecToLight = -l.direction;
+                    intensity = l.color.xyz;
+                }
+                else if (l.type == POINT)
+                {
+                    vecToLight = normalize(l.position - aFaceCenter);
+                    intensity = l.color.xyz;
+                }
+                else if (l.type == SPOT)
+                {
+                    vecToLight = normalize(l.position - aFaceCenter);
+                    float angleCos = dot(-l.direction, vecToLight);
+                    intensity = angleCos < cos(radians(l.angle)) && angleCos > 0.0 ?
+                                l.color.xyz * pow(angleCos, l.exponent) :
+                                vec3(0.0);
                 }
 
+
                 // diffuse
-                diffusePart += vec4(l.color.xyz * lambert, 0.0);
+                lambert = max(dot(aVertexNormal, vecToLight), 0.0);
+                diffusePart += intensity * lambert;
 
                 // specular
-                if(lambert > 0)
+                vec3 specVec;
+                float cosine;
+                if(lambert > 0.0)
                 {
-                    switch(uSpecularType)
+                    if(uSpecularType == PHONG)
                     {
-                        case PHONG:
-                        {
-                            specVec = 2 * dot(aVertexNormal, vecToLight) * aVertexNormal - vecToLight;
-                        }
-                        break;
-                        case BLINN:
-                        {
-                            specVec = 0.5 * (vecToLight + vecToViewer);
-                        }
-                        break;
-                        default:
-                        break;
+                        specVec = 2.0 * dot(aVertexNormal, vecToLight) * aVertexNormal - vecToLight;
+                        cosine = pow(dot(specVec, vecToViewer), uMaterial.roughness);
+                    }
+                    else if (uSpecularType == BLINN)
+                    {
+                        specVec = 0.5 * (vecToLight + vecToViewer);
+                        cosine = pow(dot(aVertexNormal, specVec), uMaterial.roughness);
                     }
 
-                    specularPart += vec4(l.color.xyz * pow(dot(r, vecToViewer), uMaterial.roughness), 0.0);
+                    specularPart += intensity * cosine;
                 }
             }
 
-            vPolygonColor = uMaterial.kA * ambientPart + uMaterial.kD * diffusePart + uMaterial.kS * specularPart;
+            vColor = vec4(uMaterial.kA * ambientPart
+                        + uMaterial.kD * diffusePart
+                        + uMaterial.kS * specularPart, 1.0);
         }
     </script>
     <script id="fs-flat" type="x-shader/x-fragment">
+        precision mediump float;
+
         varying vec4 vColor;
 
         void main()
@@ -173,34 +177,117 @@
         attribute vec3 aVertexPosition;
         attribute vec3 aVertexNormal;
 
-        uniform vec4 uMaterialColor;
         uniform mat4 uMVMatrix;
         uniform mat4 uMVPMatrix;
         uniform mat4 uNormalMatrix;
-        uniform vec3 uCameraPosition;
-        uniform int  uSpecularType;
 
-        //lights
-        uniform light_info uLight[64];
-        uniform int uNumLights;
-        uniform material_info uMaterial;
+        varying vec3 vPosition;
+        varying vec3 vNormal;
+
+        void main()
+        {
+            gl_Position = uMVPMatrix * vec4(aVertexPosition, 1.0);
+            vPosition = aVertexPosition;
+            vNormal = aVertexNormal;
+
+            //light
+            vec3 ambientPart = uLight[0].color.xyz;
+            vec3 diffusePart = vec3(0.0);
+            vec3 specularPart = vec3(0.0);
+
+            vec4 normal = uNormalMatrix * vec4(aVertexNormal, -dot(aVertexNormal, aVertexPosition));
+
+            vec3 vecToViewer = normalize(uCameraPosition - aVertexPosition);
+
+            light_info l;
+            float lambert;
+            float squareDistance;
+            vec3 specVec;
+            vec3 intensity;
+            vec3 vecToLight;
+            for (int i = 1; i < maxLights; i++)
+            {
+                if (i == uNumLights)
+                    break;
+
+                // memory-wise clone for readability -- small performance hit
+                l = uLight[i];
+                squareDistance = pow(length(l.position - aVertexPosition), 2.0);
+                if (l.type == DIRECTIONAL)
+                {
+                    vecToLight = -l.direction;
+                    intensity = l.color.xyz;
+                }
+                else if (l.type == POINT)
+                {
+                    vecToLight = normalize(l.position - aVertexPosition);
+                    intensity = l.color.xyz;
+                }
+                else if (l.type == SPOT)
+                {
+                    vecToLight = normalize(l.position - aVertexPosition);
+                    float angleCos = dot(-l.direction, vecToLight);
+                    intensity = angleCos < cos(radians(l.angle)) && angleCos > 0.0 ?
+                                l.color.xyz * pow(angleCos, l.exponent) :
+                                vec3(0.0);
+                }
 
 
-        varying vec4 vMaterialColor;
+                // diffuse
+                lambert = max(dot(aVertexNormal, vecToLight), 0.0);
+                diffusePart += intensity * lambert;
+
+                // specular
+                vec3 specVec;
+                float cosine;
+                if(lambert > 0.0)
+                {
+                    if(uSpecularType == PHONG)
+                    {
+                        specVec = 2.0 * dot(aVertexNormal, vecToLight) * aVertexNormal - vecToLight;
+                        cosine = pow(dot(specVec, vecToViewer), uMaterial.roughness);
+                    }
+                    else if (uSpecularType == BLINN)
+                    {
+                        specVec = 0.5 * (vecToLight + vecToViewer);
+                        cosine = pow(dot(aVertexNormal, specVec), uMaterial.roughness);
+                    }
+
+                    specularPart += intensity * cosine;
+                }
+            }
+
+            vColor = vec4(uMaterial.kA * ambientPart
+                        + uMaterial.kD * diffusePart
+                        + uMaterial.kS * specularPart, 1.0);
+        }
+    </script>
+    <script id="fs-phong" type="x-shader/x-fragment">
+        precision mediump float;
 
         struct light_info {
             int   type;
             vec4  color;
-            vec4  position;
-            vec4  direction;
+            vec3  position;
+            vec3  direction;
             float angle;
+            float exponent;
         };
         struct material_info {
-            float kA;
-            float kD;
-            float kS;
+            vec3 kA;
+            vec3 kD;
+            vec3 kS;
             float roughness;
         };
+        const int maxLights = 32;
+
+        uniform vec3 uCameraPosition;
+        uniform int  uSpecularType;
+
+        //lights
+        uniform light_info uLight[maxLights];
+        uniform int uNumLights;
+        uniform material_info uMaterial;
 
         // light types
         const int AMBIENT = 0;
@@ -212,85 +299,14 @@
         const int PHONG = 0;
         const int BLINN = 1;
 
+        varying vec3 vNormal;
+        varying vec3 vPosition;
+
         void main()
         {
-            gl_Position = uMVPMatrix * vec4(aVertexPosition, 1.0);
-            vec4 facePosition = PVMMatrix * vec4(aFacePosition, 1.0);
 
-            //light
-            vec4 ambientPart = uLight[0].color;
-            vec4 diffusePart = vec4(0.0, 0.0, 0.0, 1.0);
-            vec4 specularPart = vec4(0.0, 0.0, 0.0, 1.0;
-
-            vec4 normal = uNormalMatrix * vec4(aVertexNormal, 1.0);
-
-            vec3 vecToViewer = normalize(uCameraPosition - aVertexPosition);
-
-            int max = min(uNumLights, 64);
-            light_info l;
-            float lambert;
-            vec3 specVec;
-            for(int i = 0, i < max; i++)
-            {
-                l = uLight[i];
-                switch(l.type)
-                {
-                    case DIRECTIONAL:
-                    {
-                        vec3 vecToLight = -l.direction;
-                        lambert = max(dot(aVertexNormal, vecToLight), 0.0);
-                    }
-                    break;
-                    case POINT:
-                    {
-                        vec3 vecToLight = normalize(l.position - aVertexPosition);
-                        lambert = max(dot(aVertexNormal, vecToLight), 0.0);
-                    }
-                    break;
-                    case SPOT:
-                    {
-                        vec3 vecToLight = normalize(l.position - aVertexPosition);
-                        if(dot(l.direction, -vecToLight) < l.angle)
-                            lambert = max(dot(aVertexNormal, vecToLight), 0.0);
-                    }
-                    break;
-                    default:
-                    break;
-                }
-
-                // diffuse
-                diffusePart += vec4(l.color.xyz * lambert, 0.0);
-
-                // specular
-                if(lambert > 0)
-                {
-                    switch(uSpecularType)
-                    {
-                        case PHONG:
-                        {
-                            specVec = 2 * dot(aVertexNormal, vecToLight) * aVertexNormal - vecToLight;
-                        }
-                        break;
-                        case BLINN:
-                        {
-                            specVec = 0.5 * (vecToLight + vecToViewer);
-                        }
-                        break;
-                        default:
-                        break;
-                    }
-
-                    specularPart += vec4(l.color.xyz * pow(dot(r, vecToViewer), uMaterial.roughness), 0.0);
-                }
-            }
-
-            vMaterialColor = uMaterial.kA * ambientPart + uMaterial.kD * diffusePart + uMaterial.kS * specularPart;
+            gl_FragColor = ...;
         }
-    </script>
-    <script id="fs-phong" type="x-shader/x-fragment">
-        varying vec3 normal;
-        varying vec3
-
     </script>
 
     <script id="vs-gouraud" type="x-shader/x-vertex">
@@ -341,7 +357,12 @@
         void main()
         {
             gl_Position = uMVPMatrix * vec4(aVertexPosition, 1.0);
-
+            gl_Position /= gl_Position.w;
+            /*if(gl_Position.x > 1.0 || gl_Position.x < -1.0 || gl_Position.y > 1.0 || gl_Position.y < -1.0)
+            {
+                vColor = vec4(0.0, 0.0, 0.0, 1.0);
+                return;
+            }*/
             //light
             vec3 ambientPart = uLight[0].color.xyz;
             vec3 diffusePart = vec3(0.0);
@@ -435,8 +456,12 @@
     <script src="Scripts/file_reader.js" type="text/javascript"></script>
     <script src="Scripts/Input/input_manager.js" type="text/javascript"></script>
     <!--math-->
+    <script src="Scripts/Math3D/array_extension.js" type="text/javascript"></script>
     <script src="Scripts/Math3D/vector.js" type="text/javascript"></script>
+    <script src="Scripts/Math3D/vector3.js" type="text/javascript"></script>
     <script src="Scripts/Math3D/matrix.js" type="text/javascript"></script>
+    <script src="Scripts/Math3D/matrix3.js" type="text/javascript"></script>
+    <script src="Scripts/Math3D/matrix4.js" type="text/javascript"></script>
     <script src="Scripts/Math3D/quaternion.js" type="text/javascript"></script>
     <!--shaders-->
     <script src="Scripts/Shaders/shader_loader.js" type="text/javascript"></script>
@@ -452,6 +477,7 @@
     <script src="Scripts/Scene/SceneObject/Component/light.js" type="text/javascript"></script>
     <script src="Scripts/Scene/SceneObject/Component/script.js" type="text/javascript"></script>
     <script src="Scripts/Scene/SceneObject/Component/player_movement.js" type="text/javascript"></script>
+    <script src="Scripts/Scene/SceneObject/Component/follower_camera.js" type="text/javascript"></script>
 
     <!--init: this should be loaded last-->
     <script src="Scripts/init.js" type="text/javascript"></script>

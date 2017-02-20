@@ -11,6 +11,22 @@ Object.defineProperty(Object.prototype, 'inheritsFrom', {
     writable: false
 });
 
+Object.defineProperties(Object.prototype, {
+    defineProperties: {
+        enumerable: false,
+        writable: false,
+        value: function (arg) {
+            return Object.defineProperties(this, arg);
+        }
+    },
+    defineProperty: {
+        enumerable: false,
+        writable: false,
+        value: function (name, opts) {
+            return Object.defineProperty(this, name, opts);
+        }
+    }
+});
 
 function inherit(subConstructor, baseConstructor) {
     subConstructor.prototype = Object.create(baseConstructor.prototype);

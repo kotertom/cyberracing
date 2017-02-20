@@ -26,18 +26,24 @@ Camera.prototype.getPerspectiveMatrix = function () {
 Camera.prototype.getViewMatrix = function () {
     let viewMatrix = mat4.create();
     let transform = App.activeScene.getObjectByName('cube').getComponent('transform');
-    mat4.lookAt(viewMatrix, [5,5,5], [0,0,-5], [0,1,0]);
-
     let t = this.owner.getComponent('transform');
-    t.position = [5,5,5];
-    //viewMatrix = t.getInverseTransformMatrix();
+
+    mat4.lookAt(viewMatrix, t.position, vec.add(t.position, t.forward), [0,1,0]);
+    // viewMatrix = t.getInverseTransformMatrix();
     return viewMatrix;
 };
-Camera.prototype.lookAt = function (target, upVector) {
-    let cameraPos = this.position;
-    let zAxis = Vector.sub(target, cameraPos);
-    let xAxis = Vector.crossProd3(zAxis, upVector);
-    let yAxis = upVector;
+Camera.prototype.lookAt = function (targetPos, upVector) {
+    upVector = upVector || [0,1,0];
 
     let transform = this.owner.getComponent('transform');
+
+    let cameraPos = transform.position;
+
+    let zAxis = Vector.sub(targetPos, cameraPos);
+    let xAxis = Vector.crossProd3(zAxis, upVector);
+    let yAxis = Vector.crossProd3(zAxis, vec.negate(xAxis));
+
+    transform._forward = zAxis;
+    transform._right = xAxis;
+    transform._up = yAxis;
 };

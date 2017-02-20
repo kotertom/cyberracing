@@ -2,37 +2,274 @@
  * Created by tom on 2017-01-12.
  */
 
-var Vector = {};
+
+function Vector(elementArray) {
+    this.elements = elementArray.slice();
+    this.dim = [elementArray.length, 1];
+}
+Vector.prototype[Symbol.iterator] = function* () {
+    for(var i = 0; i < this.dim; i++)
+        yield this.elements[i];
+};
+Object.defineProperties(Vector.prototype, {
+
+    horizontal: {
+        get: function () {
+            return this.dim[0] === 1 || this.dim[0] === this.dim[1];
+        }
+    },
+
+    vertical: {
+        get: function () {
+            return this.dim[1] === 1 || this.dim[0] === this.dim[1];
+        }
+    },
+
+    transposed: {
+        get: function () {
+            return new Vector(this.elements).transpose();
+        }
+    },
+
+    transpose: {
+        value: function () {
+            this.dim = [this.dim[1], this.dim[0]];
+        }
+    },
+
+    ensureHorizontal: {
+        value: function () {
+            if(this.vertical)
+                this.transpose();
+        }
+    },
+
+    ensureVertical: {
+        value: function () {
+            if(this.horizontal)
+                this.transpose();
+        }
+    },
+
+    x: {
+        enumerable: false,
+        get: function () {
+            return this.elements[0];
+        },
+        set: function (value) {
+            this.elements[0] = value;
+        }
+    },
+
+    y: {
+        enumerable: false,
+        get: function () {
+            return this.elements[1];
+        },
+        set: function (value) {
+            this.elements[1] = value;
+        }
+    },
+
+    z: {
+        enumerable: false,
+        get: function () {
+            return this.elements[2];
+        },
+        set: function (value) {
+            this.elements[2] = value;
+        }
+    },
+
+    w: {
+        enumerable: false,
+        get: function () {
+            return this.elements[3];
+        },
+        set: function (value) {
+            this.elements[3] = value;
+        }
+    },
+
+    xyz: {
+        enumerable: false,
+        get: function () {
+            return new Vector3([this.x, this.y, this.z]);
+        },
+        set: function (value) {
+            this.x = value.x || value[0];
+            this.y = value.y || value[1];
+            this.z = value.z || value[2];
+        }
+    },
+
+    r: {
+        enumerable: false,
+        get: function () {
+            return this.elements[0];
+        },
+        set: function (value) {
+            this.elements[0] = value;
+        }
+    },
+
+    g: {
+        enumerable: false,
+        get: function () {
+            return this.elements[1];
+        },
+        set: function (value) {
+            this.elements[1] = value;
+        }
+    },
+
+    b: {
+        enumerable: false,
+        get: function () {
+            return this.elements[2];
+        },
+        set: function (value) {
+            this.elements[2] = value;
+        }
+    },
+
+    a: {
+        enumerable: false,
+        get: function () {
+            return this.elements[3];
+        },
+        set: function (value) {
+            this.elements[3] = value;
+        }
+    },
+
+    rgb: {
+        enumerable: false,
+        get: function () {
+            return new Vector3([this.r, this.g, this.b]);
+        },
+        set: function (value) {
+            this.r = value.r || value[0];
+            this.g = value.g || value[1];
+            this.b = value.b || value[2];
+        }
+    },
+
+    elem: {
+        value: function (id) {
+            return this.elements[id];
+        }
+    },
+
+    // values: {
+    //     enumerable: false,
+    //     get: function () {
+    //         let v = [];
+    //         for(let i = this.dim - 1; i >= 0; i--) {
+    //             v[i] = this[i];
+    //         }
+    //         return v;
+    //     }
+    // },
+
+    toArray: {
+        value: function () {
+            return this.elements.splice();
+        }
+    },
+
+    toString: {
+        value: function () {
+            return this.elements.toString();
+        }
+    },
+
+    clone: {
+        enumerable: false,
+        value: function () {
+            return new Vector(this.elements);
+        }
+    },
+
+    add: {
+        enumerable: false,
+        value: function (vec_num) {
+            return new Vector(Vector.add(this.elements, vec_num.elements || vec_num));
+        }
+    },
+
+    sub: {
+        enumerable: false,
+        value: function (vec_num) {
+            return new Vector(Vector.sub(this.elements, vec_num.elements || vec_num));
+        }
+    },
+
+    neg: {
+        enumerable: false,
+        get: function () {
+            return new Vector(Vector.negate(this.elements));
+        }
+    },
+
+    mult: {
+        enumerable: false,
+        value: function (vec_num) {
+            return new Vector(Vector.mult(this.elements, vec_num.elements || vec_num));
+        }
+    },
+
+    times: {
+        enumerable: false,
+        value: function (vec_num) {
+            return this.mult(vec_num);
+        }
+    },
+
+    scMult: {
+        value: function (vec) {
+            return new Vector(Vector.scalarMult(this.elements, vec.elements));
+        }
+    },
+
+    scTimes: {
+        value: function (vec) {
+            return this.scMult(vec);
+        }
+    },
+
+    inv: {
+        enumerable: false,
+        get: function () {
+            return new Vector(Vector.invertValues(this.elements));
+        }
+    },
+
+    dot: {
+        enumerable: false,
+        value: function (vec) {
+            return new Vector(Vector.dotProd(this.elements, vec.elements));
+        }
+    },
+
+    normalized: {
+        enumerable: false,
+        get: function () {
+            return new Vector(Vector.normalize(this.elements));
+        }
+    },
+
+    normalize: {
+        enumerable: false,
+        value: function () {
+            this.elements = Vector.normalize(this.elements);
+        }
+    }
+});
+
 var vec = Vector,
     v = Vector;
-// Vector.prototype.add = function (vector) {
-//     let coords = [];
-//     for(let i = 0; i < this.dim; i++)
-//         coords.push(this.coords[i] + vector.coords[i]);
-//     return new Vector(coords);
-// };
-// Vector.prototype.mult = function (scalar) {
-//     let coords = [];
-//     for(let value of this.coords)
-//         coords.push(value * scalar);
-//     return new Vector(coords);
-// };
-// Vector.prototype.negate = function () {
-//     let coords = [];
-//     for(let value of this.coords)
-//         coords.push(-value);
-//     return new Vector(coords);
-// };
-// Vector.prototype.normalize = function () {
-//     let coords = [];
-//     let length = 0;
-//     for(let value of this.coords)
-//         length += value*value;
-//     length = Math.sqrt(length);
-//     for(let value of this.coords)
-//         coords.push(value / length);
-//     return new Vector(coords);
-// };
+
 Vector.up3 = [0,1,0];
 Vector.forward3 = [0,0,1];
 Vector.right3 = [1,0,0];
@@ -52,10 +289,25 @@ Vector.add = function (vec1, vec2) {
         result.push(vec1[i] + vec2[i]);
     return result;
 };
-Vector.mult = function (vector, scalar) {
+Vector.mult = function (vector, vec_num) {
+    if(typeof vec_num === 'number') {
+        let res = [];
+        for(let val of vector) {
+            res.push(val * vec_num);
+        }
+        return res;
+    }
+    if(vec_num instanceof Array) {
+        return Vector.dotProd(vector, vec_num);
+    }
+};
+Vector.scalarMult = function (vec1, vec2) {
+    if(vec1.length != vec2.length)
+        throw "Vectors must be of same dimensions";
     let res = [];
-    for(let val of vector)
-        res.push(val * scalar);
+    vec1.forEach(function (e, i, a) {
+        res.push(e + vec2[i]);
+    });
     return res;
 };
 Vector.normalize = function (vector) {
@@ -113,6 +365,16 @@ Vector.invertValues = function (vector) {
 Vector.sub = function (vec1, vec2) {
     return Vector.add(vec1, Vector.negate(vec2));
 };
+Vector.squaredLength = function (vec) {
+    let sum = 0;
+    for(let val of vec) {
+        sum += val*val;
+    }
+    return sum;
+};
+Vector.length = function (vec) {
+    return Math.sqrt(Vector.squaredLength(vec));
+};
 
 Vector.zero = function (dim) {
     let result = [];
@@ -131,4 +393,12 @@ Vector.singleValue = function (dim, value) {
     for(let i = 0; i < dim; i++)
         result.push(value);
     return result;
+};
+Vector.lerp = function (vec1, vec2, t) {
+    if(t <= 0)
+        return vec2;
+    if(t >= 1)
+        return vec1;
+
+    return vec.add(vec.mult(vec1, t), vec.mult(vec2, 1-t));
 };

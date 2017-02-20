@@ -2,8 +2,28 @@
  * Created by tom on 2017-01-26.
  */
 
+function Quaternion(wxyz) {
+    this.w = wxyz[0];
+    this.x = wxyz[1];
+    this.y = wxyz[2];
+    this.z = wxyz[3];
+}
 
-var Quaternion = (function (ns) {
+Object.defineProperties(Quaternion.prototype, {
+
+    xyz: {
+        get: function () {
+            return [this.x, this.y, this.z].vec;
+        },
+        set: function (value) {
+            this.x = value.x || value[0];
+            this.y = value.y || value[1];
+            this.z = value.z || value[2];
+        }
+    }
+});
+
+var quaternion = (function (ns) {
 
     ns.fromAxisRotation = function (radians, axis) {
         let t = 0.5 * radians;
@@ -64,4 +84,4 @@ var Quaternion = (function (ns) {
     };
 
     return ns;
-})(Quaternion || {});
+})(quaternion || {});

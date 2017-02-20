@@ -55,6 +55,15 @@ function initInput() {
             0: true
         }
     }, null));
+    input.registerAxis(new Axis('zoom', {
+        click: {
+            wheel: 1
+        }
+    }, {
+        click: {
+            wheel: -1
+        }
+    }))
 }
 
 
@@ -131,6 +140,8 @@ var input = (function (ns) {
     ns.clickMap = {};
 
     ns.getAxis = function (name) {
+        if(!ns.axes[name])
+            throw 'Such axis doesn\'t exist!';
         for(let a of ns.axes[name])
             if(a.value != 0)
                 return a.value;

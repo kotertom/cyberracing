@@ -63,10 +63,12 @@ function initMaterials(gl) {
                     buffers.vertices = gl.createBuffer();
                 if(!buffers.vertexNormals || !gl.isBuffer(buffers.vertexNormals))
                     buffers.vertexNormals = gl.createBuffer();
-                if(! buffers.faces || !gl.isBuffer(buffers.faces))
+                if(!buffers.faces || !gl.isBuffer(buffers.faces))
                     buffers.faces = gl.createBuffer();
+                if(!buffers.faceCenters || !gl.isBuffer(buffers.faceCenters))
+                    buffers.faceCenters = gl.createBuffer();
 
-                mesh = duplicateOneFacePerVertex(mesh);
+                duplicateOneFacePerVertex(mesh);
 
                 gl.bindBuffer(gl.ARRAY_BUFFER, buffers.vertices);
                 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(mesh.vertices), gl.STATIC_DRAW);
@@ -76,9 +78,106 @@ function initMaterials(gl) {
 
                 gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.faces);
                 gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(mesh.faces), gl.STATIC_DRAW);
-            },
-            function (mesh, meshBuffers, lightBuffers, modelMatrix, viewMatrix, projectionMatrix) {
 
+                gl.bindBuffer(gl.ARRAY_BUFFER, buffers.faceCenters);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(mesh.faceCenters), gl.STATIC_DRAW);
+            },
+            function (mesh, meshBuffers, lights, modelMatrix, viewMatrix, projectionMatrix) {
+                let locations = {};
+                locations.uniform = {};
+                locations.attribute = {};
+
+                let materialLocations = [
+                    'kA',
+                    'kD',
+                    'kS',
+                    'roughness',
+                    'diffColor',
+                    'specColor'
+                ];
+
+                let lightLocations = [
+                    'type',
+                    'color',
+                    'position',
+                    'direction',
+                    'angle',
+                    'exponent'
+                ];
+
+                locations.uniform.mvpMatrix = gl.getUniformLocation(this.shaderProgram, "uMVPMatrix");
+                locations.uniform.mvMatrix = gl.getUniformLocation(this.shaderProgram, "uMVMatrix");
+                locations.uniform.normalMatrix = gl.getUniformLocation(this.shaderProgram, "uNormalMatrix");
+                locations.uniform.cameraPosition = gl.getUniformLocation(this.shaderProgram, "uCameraPosition");
+                locations.uniform.specularType = gl.getUniformLocation(this.shaderProgram, "uSpecularType");
+                locations.uniform.numLights = gl.getUniformLocation(this.shaderProgram, "uNumLights");
+
+                locations.uniform.lights = [];
+                for(let ll = 0; ll < lights.length; ll++)
+                {
+                    locations.uniform.lights[ll] = {};
+                    for(let name of lightLocations)
+                    {
+                        locations.uniform.lights[ll][name] =
+                            gl.getUniformLocation(this.shaderProgram, "uLight[" + ll + "]." + name);
+                    }
+                }
+
+                locations.uniform.material = {};
+                for(let name of materialLocations)
+                {
+                    locations.uniform.material[name] = gl.getUniformLocation(this.shaderProgram, "uMaterial." + name);
+                }
+
+                locations.attribute.vertexPosition = gl.getAttribLocation(this.shaderProgram, "aVertexPosition");
+                locations.attribute.vertexNormal = gl.getAttribLocation(this.shaderProgram, "aVertexNormal");
+                locations.attribute.faceCenter = gl.getAttribLocation(this.shaderProgram, "aFaceCenter");
+
+                gl.enableVertexAttribArray(locations.attribute.vertexPosition);
+                gl.bindBuffer(gl.ARRAY_BUFFER, meshBuffers.vertices);
+                gl.vertexAttribPointer(locations.attribute.vertexPosition, 3, gl.FLOAT, false, 0, 0);
+
+                gl.enableVertexAttribArray(locations.attribute.vertexNormal);
+                gl.bindBuffer(gl.ARRAY_BUFFER, meshBuffers.vertexNormals);
+                gl.vertexAttribPointer(locations.attribute.vertexNormal, 3, gl.FLOAT, false, 0, 0);
+
+                gl.enableVertexAttribArray(locations.attribute.faceCenter);
+                gl.bindBuffer(gl.ARRAY_BUFFER, meshBuffers.faceCenters);
+                gl.vertexAttribPointer(locations.attribute.faceCenter, 3, gl.FLOAT, false, 0, 0);
+
+                let mv = Matrix4.multiplyMbyM(viewMatrix, modelMatrix);
+                let mvp = Matrix4.multiplyMbyM(projectionMatrix, mv);
+                let normalMatrix = Matrix4.transpose(Matrix4.inverse(mv));
+                let camera = App.activeCamera;
+                let cTransform = camera.getComponent('transform');
+                gl.uniformMatrix4fv(locations.uniform.mvpMatrix, false, new Float32Array(mvp));
+                gl.uniformMatrix4fv(locations.uniform.mvMatrix, false, new Float32Array(mv));
+                gl.uniformMatrix4fv(locations.uniform.normalMatrix, false, new Float32Array(normalMatrix));
+                gl.uniform3fv(locations.uniform.cameraPosition, cTransform.position);
+                gl.uniform1i(locations.uniform.specularType, this.specType);
+                gl.uniform1i(locations.uniform.numLights, lights.length);
+
+
+                let u = locations.uniform;
+                for(let ll = 0; ll < lights.length; ll++)
+                {
+                    gl.uniform1i(u.lights[ll].type, lights[ll].type);
+                    gl.uniform4fv(u.lights[ll].color, lights[ll].color);
+                    gl.uniform3fv(u.lights[ll].position, lights[ll].position);
+                    gl.uniform3fv(u.lights[ll].direction, lights[ll].direction);
+                    gl.uniform1f(u.lights[ll].angle, lights[ll].angle);
+                    gl.uniform1f(u.lights[ll].exponent, lights[ll].exponent);
+                }
+
+                gl.uniform3fv(locations.uniform.material.kA, this.kA);
+                gl.uniform3fv(locations.uniform.material.kD, this.kD);
+                gl.uniform3fv(locations.uniform.material.kS, this.kS);
+                gl.uniform1f(locations.uniform.material.roughness, this.roughness);
+                gl.uniform4fv(locations.uniform.material.diffColor, this.diffColor);
+                gl.uniform4fv(locations.uniform.material.specColor, this.specColor);
+
+                gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, meshBuffers.faces);
+                gl.drawElements(gl.TRIANGLES, mesh.faces.length, gl.UNSIGNED_SHORT, 0);
             });
 
     };
@@ -161,9 +260,9 @@ function initMaterials(gl) {
                 gl.bindBuffer(gl.ARRAY_BUFFER, meshBuffers.vertexNormals);
                 gl.vertexAttribPointer(locations.attribute.vertexNormal, 3, gl.FLOAT, false, 0, 0);
 
-                let mv = Matrix.multiplyMbyM(viewMatrix, modelMatrix);
-                let mvp = Matrix.multiplyMbyM(projectionMatrix, mv);
-                let normalMatrix = Matrix.transpose(Matrix.inverse(mv));
+                let mv = Matrix4.multiplyMbyM(viewMatrix, modelMatrix);
+                let mvp = Matrix4.multiplyMbyM(projectionMatrix, mv);
+                let normalMatrix = Matrix4.transpose(Matrix4.inverse(mv));
                 let camera = App.activeCamera;
                 let cTransform = camera.getComponent('transform');
                 gl.uniformMatrix4fv(locations.uniform.mvpMatrix, false, new Float32Array(mvp));
@@ -204,7 +303,7 @@ function initMaterials(gl) {
             function (mesh, buffers) {
 
             },
-            function (mesh, meshBuffers, lightBuffers, modelMatrix, viewMatrix, projectionMatrix) {
+            function (mesh, meshBuffers, lights, modelMatrix, viewMatrix, projectionMatrix) {
 
             });
 
@@ -280,42 +379,63 @@ function duplicateOneFacePerVertex(mesh) {
             newMesh[array].push(elem);
         }
     }
+    newMesh = mesh; // non-functional
+    newMesh.faceCenters = [];
 
     let vertices = newMesh.vertices,
         faces = newMesh.faces,
         vertexNormals = newMesh.vertexNormals;
 
-    let vertexOccurences = [];
+    let vertexOccurrences = [];
     for(let i = 0; i < faces.length; i++)
     {
-        let vertex = faces[i];
-        if(vertexOccurences[vertex])
+        let vertexId = faces[i];
+        if(vertexOccurrences[vertexId])
         {
             faces[i] = vertices.length / 3;
-            let addr = 3 * vertex;
+            let addr = 3 * vertexId;
             vertices.push(vertices[addr], vertices[addr+1], vertices[addr+2]);
         }
         else
         {
-            vertexOccurences[vertex] = 1;
+            vertexOccurrences[vertexId] = 1;
         }
     }
 
     for(let i = 0; i < faces.length; i+=3)
     {
         let face = [faces[i], faces[i+1], faces[i+2]];
-        let verts = [];
+        // let verts = [];
+        let faceCenter = vec.zero(3);
         for(let vertex of face)
         {
             let addr = 3 * vertex;
-            verts.push([vertices[addr], vertices[addr+1], vertices[addr+2]]);
+            let vert = [vertices[addr], vertices[addr+1], vertices[addr+2]];
+            faceCenter = vec.add(faceCenter, vert);
+            // verts.push([vertices[addr], vertices[addr+1], vertices[addr+2]]);
         }
-        let triangle = {
-            p1: verts[0],
-            p2: verts[1],
-            p3: verts[2]
-        };
-        let normal = calculateTriangleNormal(triangle);
+        faceCenter = vec.mult(faceCenter, 1/3);
+        for(let vertex of face)
+        {
+            let addr = 3 * vertex;
+            newMesh.faceCenters[addr] = faceCenter[0];
+            newMesh.faceCenters[addr+1] = faceCenter[1];
+            newMesh.faceCenters[addr+2] = faceCenter[2];
+        }
+        // let triangle = {
+        //     p1: verts[0],
+        //     p2: verts[1],
+        //     p3: verts[2]
+        // };
+        // let normal = calculateTriangleNormal(triangle);
+        let normal = vec.zero(3);
+        for(let vertex of face)
+        {
+            let addr = 3 * vertex;
+            let n = [vertexNormals[addr], vertexNormals[addr+1], vertexNormals[addr+2]];
+            normal = vec.add(normal, n);
+        }
+        normal = vec.mult(normal, 1/3);
         for(let vertex of face)
         {
             let addr = 3 * vertex;
@@ -324,6 +444,7 @@ function duplicateOneFacePerVertex(mesh) {
             vertexNormals[addr+2] = normal[2];
         }
     }
+    return newMesh;
 }
 
 
@@ -336,4 +457,15 @@ function calculateTriangleNormal(triangle) {
     let z = u[0]*v[1] - u[1]*v[0];
 
     return [x,y,z];
+}
+
+function cloneArrays(obj) {
+    let ret = {};
+    for(let array in obj) {
+        ret[array] = [];
+        for(let elem of obj[array]) {
+            ret[array].push(elem);
+        }
+    }
+    return ret;
 }

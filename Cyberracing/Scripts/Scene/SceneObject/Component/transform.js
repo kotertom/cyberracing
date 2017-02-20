@@ -85,19 +85,19 @@ Object.defineProperties(Transform.prototype, {
 
 // Transform.prototype.getTransformMatrix = function () {
 //     let parent = this.getOwner().parent;
-//     let parentMatrix = parent ? parent.getComponent('transform').getTransformMatrix() : Matrix.identityMatrix;
+//     let parentMatrix = parent ? parent.getComponent('transform').getTransformMatrix() : matrix.identityMatrix;
 //     let tm = mat4.create();
 //     let q = quat.create();
 //     quat.rotateX(q, q, this.rotation[0]);
 //     quat.rotateY(q, q, this.rotation[1]);
 //     quat.rotateZ(q, q, this.rotation[2]);
 //     mat4.fromRotationTranslationScale(tm, q, this.position, this.scale);
-//     return Matrix.multiplyMbyM(parentMatrix, tm);
+//     return matrix.multiplyMbyM(parentMatrix, tm);
 // };
 
 Transform.prototype.getTransformMatrix = function () {
     let parent = this.getOwner().parent;
-    let parentMatrix = parent ? parent.getComponent('transform').getTransformMatrix() : Matrix.identityMatrix;
+    let parentMatrix = parent ? parent.getComponent('transform').getTransformMatrix() : Matrix4.identityMatrix;
 
     let p = this.position;
 
@@ -105,7 +105,7 @@ Transform.prototype.getTransformMatrix = function () {
     let u = this.up;
     let f = this.forward;
 
-    let sm = Matrix.scaleMatrix(this.scale);
+    let sm = Matrix4.scaleMatrix(this.scale);
     let tm = [
         r[0], r[1], r[2], 0,
         u[0], u[1], u[2], 0,
@@ -113,19 +113,19 @@ Transform.prototype.getTransformMatrix = function () {
         p[0], p[1], p[2], 1
     ];
 
-    return Matrix.multiplyMatrixArray([parentMatrix, tm, sm]);
+    return Matrix4.multiplyMatrixArray([parentMatrix, tm, sm]);
 
 };
 
 Transform.prototype.getInverseTransformMatrix = function () {
     let parent = this.getOwner().parent;
-    let parentMatrix = parent ? parent.getComponent('transform').getInverseTransformMatrix() : Matrix.identityMatrix;
-    return Matrix.multiplyMatrixArray([
-        Matrix.scaleMatrix      (Vector.invertValues(this.scale)),
-        Matrix.xRotationMatrix   (-this.rotation[0]),
-        Matrix.yRotationMatrix   (-this.rotation[1]),
-        Matrix.zRotationMatrix   (-this.rotation[2]),
-        Matrix.translationMatrix(Vector.negate(this.position)),
+    let parentMatrix = parent ? parent.getComponent('transform').getInverseTransformMatrix() : Matrix4.identityMatrix;
+    return Matrix4.multiplyMatrixArray([
+        Matrix4.scaleMatrix      (Vector.invertValues(this.scale)),
+        Matrix4.xRotationMatrix   (-this.rotation[0]),
+        Matrix4.yRotationMatrix   (-this.rotation[1]),
+        Matrix4.zRotationMatrix   (-this.rotation[2]),
+        Matrix4.translationMatrix(Vector.negate(this.position)),
         parentMatrix
     ]);
 };
@@ -149,6 +149,16 @@ Transform.prototype.getInverseTransformMatrix = function () {
 //     return Vector.negate(this.up());
 // };
 
-Transform.prototype.updateMatrices = function () {
-    //this.transformMatrix =
+Transform.prototype.lookAt = function (targetPos, upVector) {
+    upVector = upVector || [0,1,0];
+
+    let pos = this.position;
+
+    let zAxis = Vector.sub(targetPos, pos);
+    let xAxis = Vector.crossProd3(zAxis, upVector);
+    let yAxis = Vector.crossProd3(zAxis, vec.negate(xAxis));
+
+    this._forward = zAxis;
+    this._right = xAxis;
+    this._up = yAxis;
 };

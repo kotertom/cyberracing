@@ -53,6 +53,23 @@ var gameCanvas = document.getElementById("game-canvas");
 
     App.activeScene = new App.Scene.Scene();
 
+    let track = [];
+    let track1 = new SceneObject('track1');
+    track1.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/track_crossing.obj')));
+    App.activeScene.add(track1);
+    track.push(track1);
+
+    let track2 = new SceneObject('track2');
+    track2.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/track_straight.obj')));
+    track2.addComponent(new Script({
+        start: function () {
+            let t = this.owner.getComponent('transform');
+            t.position = [10,0,0];
+        }
+    }));
+    App.activeScene.add(track2);
+    track.push(track2);
+
     let cube = new SceneObject('cube');
     cube.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/toyota.obj')));
     cube.addComponent(new Script({
@@ -68,6 +85,10 @@ var gameCanvas = document.getElementById("game-canvas");
 
     let camera = new SceneObject('camera');
     camera.addComponent(new Camera(75, null, 0.1, 1000));
+    let fc = new FollowerCamera();
+    fc.objectToFollow = cube;
+    fc.relativePosition = [0, 5, -10];
+    camera.addComponent(fc);
     App.activeScene.add(camera);
     App.activeCamera = camera;
 

@@ -2,28 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="00a3d8e5-163e-4cce-a964-a21951eb4aca" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Scripts/Math3D/quaternion.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Scripts/OOP/property_exposure.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/player_movement.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/transform.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Composite/transform.js" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Scripts/Editor/editor.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Scripts/Math3D/array_extension.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Scripts/Math3D/matrix3.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Scripts/Math3D/matrix4.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Scripts/Math3D/vector3.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/follower_camera.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Input/input_manager.js" afterPath="$PROJECT_DIR$/Scripts/Input/input_manager.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Math3D/matrix.js" afterPath="$PROJECT_DIR$/Scripts/Math3D/matrix.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Math3D/quaternion.js" afterPath="$PROJECT_DIR$/Scripts/Math3D/quaternion.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Math3D/vector.js" afterPath="$PROJECT_DIR$/Scripts/Math3D/vector.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/OOP/inheritance.js" afterPath="$PROJECT_DIR$/Scripts/OOP/inheritance.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Scene/SceneObject/scene_object.js" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/scene_object.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Scene/scene.js" afterPath="$PROJECT_DIR$/Scripts/Scene/scene.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/camera.js" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/camera.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/player_movement.js" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/player_movement.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/transform.js" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/transform.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Shaders/materials.js" afterPath="$PROJECT_DIR$/Scripts/Shaders/materials.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Shaders/shader_loader.js" afterPath="$PROJECT_DIR$/Scripts/Shaders/shader_loader.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/gl-matrix.js" afterPath="$PROJECT_DIR$/Scripts/gl-matrix.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/init.js" afterPath="$PROJECT_DIR$/Scripts/init.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cyberracing.html" afterPath="$PROJECT_DIR$/cyberracing.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Composite/ai_controller.js" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/ai_controller.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Composite/camera.js" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/camera.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Composite/light.js" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/light.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Composite/mesh_renderer.js" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/mesh_renderer.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Composite/player_controller.js" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/player_controller.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Composite/script.js" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/script.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Scripts/Scene/SceneObject/composite.js" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/component.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -44,84 +42,68 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="cyberracing.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="cyberracing.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cyberracing.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1577">
-              <caret line="352" column="0" lean-forward="true" selection-start-line="352" selection-start-column="0" selection-end-line="352" selection-end-column="0" />
+            <state relative-caret-position="6536">
+              <caret line="474" column="28" lean-forward="false" selection-start-line="474" selection-start-column="28" selection-end-line="474" selection-end-column="28" />
               <folding>
                 <element signature="n#script#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#script#4;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#script#3;n#body#0;n#html#0;n#!!top" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="materials.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Scripts/Shaders/materials.js">
+      <file leaf-file-name="matrix.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Scripts/Math3D/matrix.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="80" column="0" lean-forward="true" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+            <state relative-caret-position="76">
+              <caret line="4" column="12" lean-forward="false" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="shader_loader.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Scripts/Shaders/shader_loader.js">
+      <file leaf-file-name="transform.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/transform.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="500">
-              <caret line="78" column="60" lean-forward="true" selection-start-line="78" selection-start-column="60" selection-end-line="78" selection-end-column="60" />
+            <state relative-caret-position="304">
+              <caret line="120" column="40" lean-forward="true" selection-start-line="120" selection-start-column="40" selection-end-line="120" selection-end-column="40" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="init.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Scripts/init.js">
+      <file leaf-file-name="matrix4.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Scripts/Math3D/matrix4.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1919">
-              <caret line="101" column="23" lean-forward="false" selection-start-line="101" selection-start-column="23" selection-end-line="101" selection-end-column="23" />
-              <folding />
+            <state relative-caret-position="7106">
+              <caret line="376" column="6" lean-forward="false" selection-start-line="376" selection-start-column="6" selection-end-line="376" selection-end-column="6" />
+              <folding>
+                <element signature="n#!!doc;n#Matrix4#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scene_object.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/scene_object.js">
+      <file leaf-file-name="matrix3.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Scripts/Math3D/matrix3.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="779">
-              <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="247">
+              <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+              <folding>
+                <element signature="n#!!doc;n#Matrix3#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="camera.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/camera.js">
+      <file leaf-file-name="inheritance.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Scripts/OOP/inheritance.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="779">
-              <caret line="41" column="57" lean-forward="false" selection-start-line="41" selection-start-column="57" selection-end-line="41" selection-end-column="57" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="scene.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Scripts/Scene/scene.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2812">
-              <caret line="148" column="21" lean-forward="true" selection-start-line="148" selection-start-column="21" selection-end-line="148" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="vector.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Scripts/Math3D/vector.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1976">
-              <caret line="104" column="19" lean-forward="false" selection-start-line="104" selection-start-column="19" selection-end-line="104" selection-end-column="19" />
+            <state relative-caret-position="532">
+              <caret line="28" column="3" lean-forward="false" selection-start-line="28" selection-start-column="3" selection-end-line="28" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -130,21 +112,41 @@
       <file leaf-file-name="player_movement.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/player_movement.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
-              <caret line="28" column="66" lean-forward="false" selection-start-line="28" selection-start-column="66" selection-end-line="28" selection-end-column="66" />
-              <folding>
-                <element signature="n#!!doc;n#PlayerMovement#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="703">
+              <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mesh_renderer.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/mesh_renderer.js">
+      <file leaf-file-name="init.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Scripts/init.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-659">
-              <caret line="148" column="62" lean-forward="true" selection-start-line="148" selection-start-column="62" selection-end-line="148" selection-end-column="62" />
+            <state relative-caret-position="1254">
+              <caret line="66" column="28" lean-forward="false" selection-start-line="66" selection-start-column="28" selection-end-line="66" selection-end-column="28" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="vector.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Scripts/Math3D/vector.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5054">
+              <caret line="266" column="5" lean-forward="true" selection-start-line="266" selection-start-column="5" selection-end-line="266" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="vector3.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Scripts/Math3D/vector3.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="437">
+              <caret line="25" column="6" lean-forward="true" selection-start-line="25" selection-start-column="6" selection-end-line="25" selection-end-column="6" />
+              <folding>
+                <element signature="n#!!doc;n#Vector3#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -170,9 +172,11 @@
       <find>posite</find>
       <find>compo</find>
       <find>quat</find>
+      <find>track1</find>
     </findStrings>
     <replaceStrings>
       <replace>ponent</replace>
+      <replace>track2</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -197,34 +201,40 @@
         <option value="$PROJECT_DIR$/Scripts/utils.js" />
         <option value="$PROJECT_DIR$/Scripts/Shaders/flat.js" />
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/transform.js" />
-        <option value="$PROJECT_DIR$/Scripts/Shaders/shader_loader.js" />
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Composite/player_controller.js" />
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Composite/ai_controller.js" />
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Composite/script.js" />
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Composite/light.js" />
-        <option value="$PROJECT_DIR$/Scripts/Math3D/quaternion.js" />
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Composite/camera.js" />
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Composite/transform.js" />
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Composite/mesh_renderer.js" />
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/composite.js" />
         <option value="$PROJECT_DIR$/Scripts/OOP/property_exposition.js" />
-        <option value="$PROJECT_DIR$/Scripts/OOP/inheritance.js" />
         <option value="$PROJECT_DIR$/Scripts/OOP/property_exposure.js" />
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component.js" />
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/script.js" />
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/component.js" />
-        <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/player_movement.js" />
-        <option value="$PROJECT_DIR$/Scripts/Math3D/matrix.js" />
-        <option value="$PROJECT_DIR$/Scripts/Input/input_manager.js" />
-        <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/transform.js" />
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/scene_object.js" />
-        <option value="$PROJECT_DIR$/Scripts/init.js" />
         <option value="$PROJECT_DIR$/Scripts/Scene/scene.js" />
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/mesh_renderer.js" />
-        <option value="$PROJECT_DIR$/cyberracing.html" />
-        <option value="$PROJECT_DIR$/Scripts/Math3D/vector.js" />
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/camera.js" />
         <option value="$PROJECT_DIR$/Scripts/Shaders/materials.js" />
+        <option value="$PROJECT_DIR$/Scripts/Shaders/shader_loader.js" />
+        <option value="$PROJECT_DIR$/Scripts/Editor/editor.js" />
+        <option value="$PROJECT_DIR$/Scripts/Input/input_manager.js" />
+        <option value="$PROJECT_DIR$/Scripts/Math3D/quaternion.js" />
+        <option value="$PROJECT_DIR$/Scripts/init.js" />
+        <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/follower_camera.js" />
+        <option value="$PROJECT_DIR$/Scripts/OOP/inheritance.js" />
+        <option value="$PROJECT_DIR$/Scripts/Math3D/array_extension.js" />
+        <option value="$PROJECT_DIR$/Scripts/Math3D/matrix3.js" />
+        <option value="$PROJECT_DIR$/cyberracing.html" />
+        <option value="$PROJECT_DIR$/Scripts/Math3D/matrix4.js" />
+        <option value="$PROJECT_DIR$/Scripts/Math3D/matrix.js" />
+        <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/transform.js" />
+        <option value="$PROJECT_DIR$/Scripts/Math3D/vector.js" />
+        <option value="$PROJECT_DIR$/Scripts/Math3D/vector3.js" />
+        <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/player_movement.js" />
       </list>
     </option>
   </component>
@@ -262,7 +272,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -437,13 +447,31 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="Scripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Editor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Cyberracing" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Cyberracing" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="CSS" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -452,7 +480,7 @@
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
-    <property name="settings.editor.selected.configurable" value="settings.nodejs" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.JavaScript" />
     <property name="JavaScriptPreferStrict" value="false" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
   </component>
@@ -463,7 +491,7 @@
     </key>
   </component>
   <component name="RunManager" selected="JavaScript Debug.cyberracing.html">
-    <configuration default="false" name="cyberracing.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/Cyberracing/cyberracing.html">
+    <configuration default="false" name="cyberracing.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" engineId="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" uri="http://localhost:63342/Cyberracing/cyberracing.html">
       <method />
     </configuration>
     <configuration default="false" name="gl-matrix.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="gl-matrix.js" working-dir="$PROJECT_DIR$/Scripts">
@@ -588,7 +616,11 @@
       <workItem from="1487268427700" duration="11229000" />
       <workItem from="1487291222305" duration="1270000" />
       <workItem from="1487355600934" duration="628000" />
-      <workItem from="1487442915018" duration="2834000" />
+      <workItem from="1487442915018" duration="13050000" />
+      <workItem from="1487511696077" duration="1566000" />
+      <workItem from="1487519217380" duration="13604000" />
+      <workItem from="1487542624587" duration="13849000" />
+      <workItem from="1487592551081" duration="38000" />
     </task>
     <task id="LOCAL-00001" summary="Some vector and matrix math">
       <created>1484190478176</created>
@@ -660,11 +692,18 @@
       <option name="project" value="LOCAL" />
       <updated>1485402337429</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="flat shader work&#10;">
+      <created>1487445767431</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1487445767431</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="230827000" />
+    <option name="totallyTimeSpent" value="270100000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -683,20 +722,20 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32135308" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39957717" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39957717" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -716,7 +755,8 @@
     <MESSAGE value="working on shaders 4 (some working)" />
     <MESSAGE value="working on shaders 5 (some working)" />
     <MESSAGE value="working on shaders 6 (some working)" />
-    <option name="LAST_COMMIT_MESSAGE" value="working on shaders 6 (some working)" />
+    <MESSAGE value="flat shader work&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="flat shader work&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -725,52 +765,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/scene_object.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Scene/scene.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/transform.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/component.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/OOP/interface.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cyberracing.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="44" lean-forward="false" selection-start-line="9" selection-start-column="44" selection-end-line="9" selection-end-column="44" />
-          <folding>
-            <element signature="n#script#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#script#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Scripts/init.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="741">
@@ -819,7 +813,7 @@
           <caret line="9" column="44" lean-forward="false" selection-start-line="9" selection-start-column="44" selection-end-line="9" selection-end-column="44" />
           <folding>
             <element signature="n#script#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#script#4;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#script#3;n#body#0;n#html#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -921,13 +915,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/OOP/event.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/ai_controller.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
@@ -935,24 +922,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Math3D/quaternion.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/player_controller.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="8" column="41" lean-forward="false" selection-start-line="8" selection-start-column="41" selection-end-line="8" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/OOP/inheritance.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="10" column="19" lean-forward="false" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -987,51 +960,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Math3D/matrix.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6384">
-          <caret line="336" column="0" lean-forward="false" selection-start-line="336" selection-start-column="0" selection-end-line="336" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/transform.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1982">
-          <caret line="117" column="2" lean-forward="false" selection-start-line="117" selection-start-column="2" selection-end-line="117" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Input/input_manager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2356">
-          <caret line="124" column="24" lean-forward="false" selection-start-line="124" selection-start-column="24" selection-end-line="124" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/player_movement.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="28" column="66" lean-forward="false" selection-start-line="28" selection-start-column="66" selection-end-line="28" selection-end-column="66" />
-          <folding>
-            <element signature="n#!!doc;n#PlayerMovement#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Scripts/Scene/scene.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2812">
           <caret line="148" column="21" lean-forward="true" selection-start-line="148" selection-start-column="21" selection-end-line="148" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/mesh_renderer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="931">
+          <caret line="49" column="0" lean-forward="true" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Shaders/materials.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-769">
+          <caret line="383" column="0" lean-forward="true" selection-start-line="383" selection-start-column="0" selection-end-line="383" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/init.js">
+    <entry file="file://$PROJECT_DIR$/Scripts/Shaders/shader_loader.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1919">
-          <caret line="101" column="23" lean-forward="false" selection-start-line="101" selection-start-column="23" selection-end-line="101" selection-end-column="23" />
-          <folding />
+        <state relative-caret-position="614">
+          <caret line="115" column="26" lean-forward="true" selection-start-line="115" selection-start-column="26" selection-end-line="115" selection-end-column="26" />
         </state>
       </provider>
     </entry>
@@ -1039,66 +993,161 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="779">
           <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/camera.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="627">
+          <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Math3D/vector.js">
+    <entry file="file://$PROJECT_DIR$/Scripts/OOP/event.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1976">
-          <caret line="104" column="19" lean-forward="false" selection-start-line="104" selection-start-column="19" selection-end-line="104" selection-end-column="19" />
+        <state relative-caret-position="285">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Editor/editor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="6" column="51" lean-forward="false" selection-start-line="6" selection-start-column="51" selection-end-line="6" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Input/input_manager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2622">
+          <caret line="138" column="16" lean-forward="true" selection-start-line="138" selection-start-column="16" selection-end-line="138" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/follower_camera.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1368">
+          <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc;n#FollowerCamera#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Math3D/quaternion.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" column="47" lean-forward="false" selection-start-line="11" selection-start-column="47" selection-end-line="11" selection-end-column="47" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Scripts/gl-matrix.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="4213" column="41" lean-forward="false" selection-start-line="4213" selection-start-column="37" selection-end-line="4213" selection-end-column="41" />
+        <state relative-caret-position="74119">
+          <caret line="4038" column="14" lean-forward="false" selection-start-line="4038" selection-start-column="14" selection-end-line="4038" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/camera.js">
+    <entry file="file://$PROJECT_DIR$/Scripts/Math3D/array_extension.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="779">
-          <caret line="41" column="57" lean-forward="false" selection-start-line="41" selection-start-column="57" selection-end-line="41" selection-end-column="57" />
-          <folding />
+        <state relative-caret-position="513">
+          <caret line="29" column="42" lean-forward="false" selection-start-line="29" selection-start-column="42" selection-end-line="29" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#40#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/mesh_renderer.js">
+    <entry file="file://$PROJECT_DIR$/Scripts/OOP/inheritance.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-659">
-          <caret line="148" column="62" lean-forward="true" selection-start-line="148" selection-start-column="62" selection-end-line="148" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Shaders/shader_loader.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="78" column="60" lean-forward="true" selection-start-line="78" selection-start-column="60" selection-end-line="78" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Shaders/materials.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="80" column="0" lean-forward="true" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+        <state relative-caret-position="532">
+          <caret line="28" column="3" lean-forward="false" selection-start-line="28" selection-start-column="3" selection-end-line="28" selection-end-column="3" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cyberracing.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1577">
-          <caret line="352" column="0" lean-forward="true" selection-start-line="352" selection-start-column="0" selection-end-line="352" selection-end-column="0" />
+        <state relative-caret-position="6536">
+          <caret line="474" column="28" lean-forward="false" selection-start-line="474" selection-start-column="28" selection-end-line="474" selection-end-column="28" />
           <folding>
             <element signature="n#script#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#script#4;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#script#3;n#body#0;n#html#0;n#!!top" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Math3D/matrix4.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7106">
+          <caret line="376" column="6" lean-forward="false" selection-start-line="376" selection-start-column="6" selection-end-line="376" selection-end-column="6" />
+          <folding>
+            <element signature="n#!!doc;n#Matrix4#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Math3D/matrix3.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc;n#Matrix3#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Math3D/matrix.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="12" lean-forward="false" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/player_movement.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="703">
+          <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/init.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1254">
+          <caret line="66" column="28" lean-forward="false" selection-start-line="66" selection-start-column="28" selection-end-line="66" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Math3D/vector.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5054">
+          <caret line="266" column="5" lean-forward="true" selection-start-line="266" selection-start-column="5" selection-end-line="266" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Math3D/vector3.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="25" column="6" lean-forward="true" selection-start-line="25" selection-start-column="6" selection-end-line="25" selection-end-column="6" />
+          <folding>
+            <element signature="n#!!doc;n#Vector3#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/transform.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="120" column="40" lean-forward="true" selection-start-line="120" selection-start-column="40" selection-end-line="120" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>

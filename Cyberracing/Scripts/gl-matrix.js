@@ -222,7 +222,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var glMatrix = __webpack_require__(1);
 
 	/**
-	 * @class 2x2 Matrix
+	 * @class 2x2 matrix
 	 * @name mat2
 	 */
 	var mat2 = {};
@@ -664,7 +664,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var glMatrix = __webpack_require__(1);
 
 	/**
-	 * @class 2x3 Matrix
+	 * @class 2x3 matrix
 	 * @name mat2d
 	 * 
 	 * @description 
@@ -1139,7 +1139,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var glMatrix = __webpack_require__(1);
 
 	/**
-	 * @class 3x3 Matrix
+	 * @class 3x3 matrix
 	 * @name mat3
 	 */
 	var mat3 = {};
@@ -1891,7 +1891,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var glMatrix = __webpack_require__(1);
 
 	/**
-	 * @class 4x4 Matrix
+	 * @class 4x4 matrix
 	 * @name mat4
 	 */
 	var mat4 = {
@@ -3359,7 +3359,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *  the returned vector will be the same as the translation vector
 	 *  originally supplied.
 	 * @param  {vec3} out Vector to receive translation component
-	 * @param  {mat4} mat Matrix to be decomposed (input)
+	 * @param  {mat4} mat matrix to be decomposed (input)
 	 * @return {vec3} out
 	 */
 	mat4.getTranslation = function (out, mat) {
@@ -3376,7 +3376,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *  fromRotationTranslation, the returned quaternion will be the
 	 *  same as the quaternion originally supplied.
 	 * @param {quat} out Quaternion to receive the rotation component
-	 * @param {mat4} mat Matrix to be decomposed (input)
+	 * @param {mat4} mat matrix to be decomposed (input)
 	 * @return {quat} out
 	 */
 	mat4.getRotation = function (out, mat) {
