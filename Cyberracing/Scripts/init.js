@@ -45,7 +45,8 @@ var gameCanvas = document.getElementById("game-canvas");
 
 
 
-    App.fixedDeltaT = 1000/60;
+    App.fixedDeltaT = 1 / 60;
+    App.fixedDeltaTms = 1000 * App.fixedDeltaT;
 
     App.running = true;
     App.lastUpdate = performance.now();
@@ -83,14 +84,35 @@ var gameCanvas = document.getElementById("game-canvas");
     App.activeScene.add(cube);
     console.log(cube);
 
-    let camera = new SceneObject('camera');
-    camera.addComponent(new Camera(75, null, 0.1, 1000));
+    let followerCamera = new SceneObject('camera');
+    followerCamera.addComponent(new Camera(75, null, 0.1, 1000));
     let fc = new FollowerCamera();
     fc.objectToFollow = cube;
     fc.relativePosition = [0, 5, -10];
-    camera.addComponent(fc);
-    App.activeScene.add(camera);
-    App.activeCamera = camera;
+    followerCamera.addComponent(fc);
+    App.activeScene.add(followerCamera);
+    App.activeCamera = followerCamera;
+
+    let staticCamera = new SceneObject('staticCamera');
+    staticCamera.addComponent(new Camera(75, null, 0.1, 1000));
+    staticCamera.addComponent(new Script({
+        start: function () {
+            let transform = this.getComponent('transform');
+            transform.position = [-50,50,50];
+        },
+        update: function () {
+            let transform = this.getComponent('transform');
+            transform.lookAt(cube.getComponent('transform').position);
+        }
+    }));
+
+
+    let helperObject = new SceneObject('helperObject');
+    helperObject.addComponent(new SwapCamera([
+        followerCamera,
+        staticCamera
+    ]));
+    App.activeScene.add(helperObject);
 
     let pLight = new SceneObject('pLight');
     pLight.addComponent(new Light(PointLightEmitter));
@@ -169,15 +191,15 @@ function mainLoop(tFrame) {
     if(App.running)
         window.requestAnimationFrame(mainLoop);
 
-    App.nextUpdate = App.lastUpdate + App.fixedDeltaT;
+    App.nextUpdate = App.lastUpdate + App.fixedDeltaTms;
     let catchupTicks = 0;
 
     let timeSinceLastUpdate = tFrame - App.nextUpdate;
     if(timeSinceLastUpdate > 0)
     {
-        for(let timeRemaining = timeSinceLastUpdate; timeRemaining >= App.fixedDeltaT; timeRemaining -= App.fixedDeltaT)
+        for(let timeRemaining = timeSinceLastUpdate; timeRemaining >= App.fixedDeltaTms; timeRemaining -= App.fixedDeltaTms)
         {
-            App.lastUpdate += App.fixedDeltaT;
+            App.lastUpdate += App.fixedDeltaTms;
 
             App.earlyUpdate.raise();
             App.update.raise();

@@ -8,7 +8,7 @@ function Transform(position, rotation, scale) {
     this.position = position || Vector.zero(3);
     this.rotation = rotation || Vector.zero(3);
     this.scale = scale || Vector.one(3);
-    this.rotationModel = ROTATION_MODEL.EULER_XYZ;
+    this.rotationModel = RotationOrder.EulerXYZ;
 
     this._forward = [0,0,1];
     this._up = [0,1,0];
@@ -19,6 +19,7 @@ function Transform(position, rotation, scale) {
 Transform.inheritsFrom(Component);
 
 Object.defineProperties(Transform.prototype, {
+
     position: {
         get: function () {
             return this._position;
@@ -27,6 +28,7 @@ Object.defineProperties(Transform.prototype, {
             this._position = value;
         }
     },
+
     rotation: {
         get: function () {
             return this._rotation;
@@ -43,6 +45,7 @@ Object.defineProperties(Transform.prototype, {
             this._up = mat.multiplyMbyV(rm, [0,1,0,1]).slice(0,3);
         }
     },
+
     scale: {
         get: function () {
             return this._scale;
@@ -51,34 +54,58 @@ Object.defineProperties(Transform.prototype, {
             this._scale = value;
         }
     },
+
     forward: {
         get: function () {
-            return this._forward;
+            return this._forward.slice();
         }
     },
+
     backward: {
         get: function () {
             return v.negate(this.forward);
         }
     },
+
     right: {
         get: function () {
-            return this._right;
+            return this._right.slice();
         }
     },
+
     left: {
         get: function () {
             return v.negate(this.right);
         }
     },
+
     up: {
         get: function () {
-            return this._up;
+            return this._up.slice();
         }
     },
+
     down: {
         get: function () {
             return v.negate(this.up);
+        }
+    },
+
+    rotate: {
+        value: function (xyz) {
+            this.rotation = this.rotation.vec3.add(xyz).toArray();
+        }
+    },
+
+    translate: {
+        value: function (xyz) {
+            this.position = this.position.vec3.add(xyz).toArray();
+        }
+    },
+
+    applyScale: {
+        value: function (xyz) {
+            this.scale = this.scale.vec3.scalarMult(xyz).toArray();
         }
     }
 });

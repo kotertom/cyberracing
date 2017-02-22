@@ -2,7 +2,7 @@
  * Created by tom on 2017-01-12.
  */
 
-function Matrix4(dim, array) {
+function Matrix(dim, array) {
     if(typeof dim == 'number')
         dim = [dim, dim];
     this.dim = dim.slice();
@@ -14,7 +14,7 @@ function Matrix4(dim, array) {
     this.elements = array.slice(0, len);
 }
 
-Matrix4.prototype.defineProperties({
+Matrix.prototype.defineProperties({
 
     rowNum: {
         get: function () {
@@ -68,6 +68,12 @@ Matrix4.prototype.defineProperties({
         }
     },
 
+    set: {
+        value: function (matrix) {
+            Matrix.call(this, matrix.dim, matrix.elements);
+        }
+    },
+
     mult: {
         value: function (arg) {
             if(typeof arg === 'number') {
@@ -75,13 +81,13 @@ Matrix4.prototype.defineProperties({
                 arr.forEach(function (element, index, array) {
                     array[index] = element * arg;
                 });
-                return new Matrix4(this.dim, arr);
+                return new Matrix(this.dim, arr);
             }
             if(arg instanceof Vector) {
-                return Matrix4.multiplyMbyV(this, arg);
+                return Matrix.multiplyMbyV(this, arg);
             }
-            if(arg instanceof Matrix4) {
-                return Matrix4.multiplyMbyM(this, arg);
+            if(arg instanceof Matrix) {
+                return Matrix.multiplyMbyM(this, arg);
             }
         }
     },
@@ -107,7 +113,7 @@ Matrix4.prototype.defineProperties({
                 r += this.colNum;
             }
 
-            return new Matrix4(dim, elements);
+            return new Matrix(dim, elements);
         }
     },
 
@@ -133,7 +139,7 @@ Matrix4.prototype.defineProperties({
     }
 });
 
-Matrix4.defineProperties({
+Matrix.defineProperties({
 
     multiplyMbyV: {
         value: function (mat, vec) {
@@ -154,7 +160,7 @@ Matrix4.defineProperties({
             if(matL.colNum != matR.rowNum) {
                 throw 'Matrices\' dimensions don\'t match for multiplication';
             }
-            let res = new Matrix4([matL.rowNum, matR.colNum], []);
+            let res = new Matrix([matL.rowNum, matR.colNum], []);
             let leftRows = matL.rows,
                 rightCols = matR.cols;
             for(let i = 0; i < matL.rowNum; i++) {
@@ -180,15 +186,23 @@ Matrix4.defineProperties({
                 }
                 c += matL.rowNum;
             }
-            return new Matrix4(matL.dim, elements);
+            return new Matrix(matL.dim, elements);
         }
     },
 
-
-
     identity: {
         value: function (dim) {
-
+            let elements = [];
+            let column = [1];
+            for(let i = 1; i < dim; i++) {
+                column.push(0);
+            }
+            for(let i = 0; i < dim; i++) {
+                elements.concat(column);
+                column[i] = 0;
+                column[i+1] = 1;
+            }
+            return new Matrix(dim, elements);
         }
     }
 });

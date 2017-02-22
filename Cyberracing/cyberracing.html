@@ -3,12 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Cyberracing</title>
+    <link rel="stylesheet" type="text/css" href="CSS/cyberracing.css">
 </head>
-<body style="margin: 0; padding: 0">
-    <canvas id="game-canvas" style="display: block; width: 100%; height: 100%">
+<body>
+    <canvas id="game-canvas">
         Your browser doesn't appear to support the
         <code>&lt;canvas&gt;</code> element.
     </canvas>
+
+    <div id="menu">
+        <fieldset>
+            <legend>Scene Tree</legend>
+            <div id="scene-tree">
+
+            </div>
+        </fieldset>
+        <hr/>
+        <div class="button-roll" id="menu-buttons">
+            <button class="button-roll-button"></button>
+        </div>
+        <fieldset>
+            <legend>Selected object</legend>
+            <div id="selected-object-area">
+
+            </div>
+        </fieldset>
+    </div>
 
 
 <!--SHADERS-->
@@ -179,7 +199,6 @@
 
         uniform mat4 uMVMatrix;
         uniform mat4 uMVPMatrix;
-        uniform mat4 uNormalMatrix;
 
         varying vec3 vPosition;
         varying vec3 vNormal;
@@ -189,77 +208,6 @@
             gl_Position = uMVPMatrix * vec4(aVertexPosition, 1.0);
             vPosition = aVertexPosition;
             vNormal = aVertexNormal;
-
-            //light
-            vec3 ambientPart = uLight[0].color.xyz;
-            vec3 diffusePart = vec3(0.0);
-            vec3 specularPart = vec3(0.0);
-
-            vec4 normal = uNormalMatrix * vec4(aVertexNormal, -dot(aVertexNormal, aVertexPosition));
-
-            vec3 vecToViewer = normalize(uCameraPosition - aVertexPosition);
-
-            light_info l;
-            float lambert;
-            float squareDistance;
-            vec3 specVec;
-            vec3 intensity;
-            vec3 vecToLight;
-            for (int i = 1; i < maxLights; i++)
-            {
-                if (i == uNumLights)
-                    break;
-
-                // memory-wise clone for readability -- small performance hit
-                l = uLight[i];
-                squareDistance = pow(length(l.position - aVertexPosition), 2.0);
-                if (l.type == DIRECTIONAL)
-                {
-                    vecToLight = -l.direction;
-                    intensity = l.color.xyz;
-                }
-                else if (l.type == POINT)
-                {
-                    vecToLight = normalize(l.position - aVertexPosition);
-                    intensity = l.color.xyz;
-                }
-                else if (l.type == SPOT)
-                {
-                    vecToLight = normalize(l.position - aVertexPosition);
-                    float angleCos = dot(-l.direction, vecToLight);
-                    intensity = angleCos < cos(radians(l.angle)) && angleCos > 0.0 ?
-                                l.color.xyz * pow(angleCos, l.exponent) :
-                                vec3(0.0);
-                }
-
-
-                // diffuse
-                lambert = max(dot(aVertexNormal, vecToLight), 0.0);
-                diffusePart += intensity * lambert;
-
-                // specular
-                vec3 specVec;
-                float cosine;
-                if(lambert > 0.0)
-                {
-                    if(uSpecularType == PHONG)
-                    {
-                        specVec = 2.0 * dot(aVertexNormal, vecToLight) * aVertexNormal - vecToLight;
-                        cosine = pow(dot(specVec, vecToViewer), uMaterial.roughness);
-                    }
-                    else if (uSpecularType == BLINN)
-                    {
-                        specVec = 0.5 * (vecToLight + vecToViewer);
-                        cosine = pow(dot(aVertexNormal, specVec), uMaterial.roughness);
-                    }
-
-                    specularPart += intensity * cosine;
-                }
-            }
-
-            vColor = vec4(uMaterial.kA * ambientPart
-                        + uMaterial.kD * diffusePart
-                        + uMaterial.kS * specularPart, 1.0);
         }
     </script>
     <script id="fs-phong" type="x-shader/x-fragment">
@@ -283,6 +231,7 @@
 
         uniform vec3 uCameraPosition;
         uniform int  uSpecularType;
+        uniform mat4 uNormalMatrix;
 
         //lights
         uniform light_info uLight[maxLights];
@@ -304,8 +253,77 @@
 
         void main()
         {
+            //light
+            vec3 ambientPart = uLight[0].color.xyz;
+            vec3 diffusePart = vec3(0.0);
+            vec3 specularPart = vec3(0.0);
 
-            gl_FragColor = ...;
+            vec4 normal = uNormalMatrix * vec4(vNormal, -dot(vNormal, vPosition));
+
+            vec3 vecToViewer = normalize(uCameraPosition - vPosition);
+
+            light_info l;
+            float lambert;
+            float squareDistance;
+            vec3 specVec;
+            vec3 intensity;
+            vec3 vecToLight;
+            for (int i = 1; i < maxLights; i++)
+            {
+                if (i == uNumLights)
+                    break;
+
+                // memory-wise clone for readability -- small performance hit
+                l = uLight[i];
+                squareDistance = pow(length(l.position - vPosition), 2.0);
+                if (l.type == DIRECTIONAL)
+                {
+                    vecToLight = -l.direction;
+                    intensity = l.color.xyz;
+                }
+                else if (l.type == POINT)
+                {
+                    vecToLight = normalize(l.position - vPosition);
+                    intensity = l.color.xyz;
+                }
+                else if (l.type == SPOT)
+                {
+                    vecToLight = normalize(l.position - vPosition);
+                    float angleCos = dot(-l.direction, vecToLight);
+                    intensity = angleCos < cos(radians(l.angle)) && angleCos > 0.0 ?
+                                l.color.xyz * pow(angleCos, l.exponent) :
+                                vec3(0.0);
+                }
+
+
+                // diffuse
+                lambert = max(dot(vNormal, vecToLight), 0.0);
+                diffusePart += intensity * lambert;
+
+                // specular
+                vec3 specVec;
+                float cosine;
+                if(lambert > 0.0)
+                {
+                    if(uSpecularType == PHONG)
+                    {
+                        specVec = 2.0 * dot(vNormal, vecToLight) * vNormal - vecToLight;
+                        cosine = pow(dot(specVec, vecToViewer), uMaterial.roughness);
+                    }
+                    else if (uSpecularType == BLINN)
+                    {
+                        specVec = 0.5 * (vecToLight + vecToViewer);
+                        cosine = pow(dot(vNormal, specVec), uMaterial.roughness);
+                    }
+
+                    specularPart += intensity * cosine;
+                }
+            }
+
+
+            gl_FragColor = vec4(uMaterial.kA * ambientPart
+                              + uMaterial.kD * diffusePart
+                              + uMaterial.kS * specularPart, 1.0);
         }
     </script>
 
@@ -455,7 +473,9 @@
     <script src="Scripts/OOP/event.js" type="text/javascript"></script>
     <script src="Scripts/file_reader.js" type="text/javascript"></script>
     <script src="Scripts/Input/input_manager.js" type="text/javascript"></script>
+    <script src="Scripts/Editor/editor.js" type="text/javascript"></script>
     <!--math-->
+    <script src="Scripts/Math3D/utils.js" type="text/javascript"></script>
     <script src="Scripts/Math3D/array_extension.js" type="text/javascript"></script>
     <script src="Scripts/Math3D/vector.js" type="text/javascript"></script>
     <script src="Scripts/Math3D/vector3.js" type="text/javascript"></script>
@@ -463,6 +483,7 @@
     <script src="Scripts/Math3D/matrix3.js" type="text/javascript"></script>
     <script src="Scripts/Math3D/matrix4.js" type="text/javascript"></script>
     <script src="Scripts/Math3D/quaternion.js" type="text/javascript"></script>
+    <script src="Scripts/Math3D/bezier_curve.js" type="text/javascript"></script>
     <!--shaders-->
     <script src="Scripts/Shaders/shader_loader.js" type="text/javascript"></script>
     <script src="Scripts/Shaders/materials.js" type="text/javascript"></script>
@@ -478,6 +499,7 @@
     <script src="Scripts/Scene/SceneObject/Component/script.js" type="text/javascript"></script>
     <script src="Scripts/Scene/SceneObject/Component/player_movement.js" type="text/javascript"></script>
     <script src="Scripts/Scene/SceneObject/Component/follower_camera.js" type="text/javascript"></script>
+    <script src="Scripts/Scene/SceneObject/Component/swap_camera.js" type="text/javascript"></script>
 
     <!--init: this should be loaded last-->
     <script src="Scripts/init.js" type="text/javascript"></script>

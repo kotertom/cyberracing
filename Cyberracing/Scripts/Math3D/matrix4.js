@@ -3,17 +3,76 @@
  */
 
 
-function Matrix4(dim, array) {
-    Matrix4.call(this, dim, array.slice(0,4));
+function Matrix4(array) {
+    if(!array)
+        array = Matrix4.identity.elements;
+    Matrix.call(this, 4, array.slice(0,16));
 }
-Matrix4.inheritsFrom(Matrix4);
+Matrix4.inheritsFrom(Matrix);
 
 Matrix4.prototype.defineProperties({
 
+    det: {
+        get: function () {
+            let m = this.elements;
+            let a11 = m[0],
+                a12 = m[4],
+                a13 = m[8],
+                a14 = m[12],
+
+                a21 = m[1],
+                a22 = m[5],
+                a23 = m[9],
+                a24 = m[13],
+
+                a31 = m[2],
+                a32 = m[6],
+                a33 = m[10],
+                a34 = m[14],
+
+                a41 = m[3],
+                a42 = m[7],
+                a43 = m[11],
+                a44 = m[15];
+
+            return a11 * (a22 * (a33 * a44 - a34 * a43) + a23 * (a34 * a42 - a32 * a44) + a24 * (a32 * a43 - a33 * a42)) +
+                a12 * (a21 * (a34 * a43 - a33 * a44) + a23 * (a31 * a44 - a34 * a41) + a24 * (a33 * a41 - a31 * a43)) +
+                a13 * (a21 * (a32 * a44 - a34 * a42) + a22 * (a34 * a41 - a31 * a44) + a24 * (a31 * a42 - a32 * a41)) +
+                a14 * (a21 * (a33 * a42 - a32 * a43) + a22 * (a31 * a43 - a33 * a41) + a23 * (a32 * a41 - a31 * a42));
+        }
+    },
+
+    inverted: {
+        get: function () {
+            return new Matrix4(this.dim, this.elements).invert();
+        }
+    },
+
+    inv: {
+        get: function () {
+            return this.inverted;
+        }
+    },
+
+    invert: {
+        value: function () {
+            this.elements = Matrix4.inverse(this.elements);
+        }
+    }
 });
 
 Matrix4.defineProperties({
 
+    identity: {
+        get: function () {
+            return new Matrix4([
+                1, 0, 0, 0,
+                0, 1, 0, 0,
+                0, 0, 1, 0,
+                0, 0, 0, 1
+            ]);
+        }
+    }
 });
 
 
@@ -382,11 +441,11 @@ Matrix4 = (function (ns) {
 var mat = Matrix4,
     m = Matrix4;
 
-var ROTATION_MODEL = {
-    EULER_XYZ: [0, 1, 2],
-    EULER_XZY: [0, 2, 1],
-    EULER_YXZ: [1, 0, 2],
-    EULER_YZX: [1, 2, 0],
-    EULER_ZXY: [2, 0, 1],
-    EULER_ZYX: [2, 1, 0]
+var RotationOrder = {
+    EulerXYZ: [0, 1, 2],
+    EulerXZY: [0, 2, 1],
+    EulerYXZ: [1, 0, 2],
+    EulerYZX: [1, 2, 0],
+    EulerZXY: [2, 0, 1],
+    EulerZYX: [2, 1, 0]
 };

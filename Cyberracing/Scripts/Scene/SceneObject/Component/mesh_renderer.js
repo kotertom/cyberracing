@@ -29,12 +29,12 @@ MeshRenderer.prototype.init = function () {
 
     //this.setMaterial(Shaders.materials.testing);
 
-    this.setMaterial(new Shaders.materials.Gouraud({
+    this.setMaterial(new Shaders.materials.Phong({
         kA: [0.0, 0.0, 0.0],
         kD: [1.0, 1.0, 1.0],
         kS: [0.0, 0.0, 0.0],
         roughness: 1,
-        specType: SPECULAR_TYPE.BLINN
+        specType: SPECULAR_TYPE.PHONG
     }));
 };
 

@@ -3,9 +3,7 @@
  */
 
 function Component() {
-    this.owner = null;
-    this.disabled = false;
-    this.hidden = false;
+    INotifyPropertyChanged.call(this);
 }
 Component.prototype.getName = function () {
     let str = this.constructor.name;
@@ -27,12 +25,30 @@ Object.defineProperties(
 
         owner: {
             get: function () {
-                return this._owner;
+                return this._owner || null;
             },
             set: function (value) {
                 this._owner = value;
             },
             enumerable: true
+        },
+
+        disabled: {
+            get: function () {
+                return this._disabled || false;
+            },
+            set: function (value) {
+                this._disabled = value;
+            }
+        },
+
+        hidden: {
+            get: function () {
+                return this._hidden || false;
+            },
+            set: function (value) {
+                this._hidden = value;
+            }
         }
 
         // earlyRender: {

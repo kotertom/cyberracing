@@ -14,6 +14,20 @@ var App = (function (ns) {
             this.activeCamera = null;
             this.restart();
         };
+
+        ns.Scene.defineProperties({
+
+            root: {
+                get: function () {
+                    return this._root;
+                },
+                set: function (value) {
+                    this._root = value;
+                    editor.notifyPropertyChanged.raise(this, 'root');
+                }
+            }
+        });
+
         ns.Scene.prototype.restart = function () {
             let clr = this.backgroundColor;
             gl.clearColor(clr[0], clr[1], clr[2], clr[3]);
@@ -111,6 +125,7 @@ var App = (function (ns) {
 
             obj.parent = parent;
             parent.children.push(obj);
+            editor.notifyPropertyChanged.raise(this, 'root');
             return true;
         };
         ns.Scene.prototype.remove = function (obj_or_name) {
@@ -125,6 +140,7 @@ var App = (function (ns) {
             parent.children.splice(id,1);
             obj.parent = null;
 
+            editor.notifyPropertyChanged.raise(this, 'root');
             return true;
         };
 

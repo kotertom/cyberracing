@@ -1,0 +1,33 @@
+
+:root {
+    --bgcolor: #444444;
+    --hlcolor: #888888;
+}
+
+* {
+    font-family: Calibri, Arial, sans-serif;
+    color: #EEEEEE;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#game-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+#menu {
+    display: inline;
+    position: absolute;
+    left: 78%;
+    right: 10px;
+    top: 10px;
+    bottom: 10px;
+    background-color: var(--bgcolor);
+    padding: 10px;
+    border: solid 1px var(--hlcolor);
+}

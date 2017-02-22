@@ -8,20 +8,20 @@ function Vector(elementArray) {
     this.dim = [elementArray.length, 1];
 }
 Vector.prototype[Symbol.iterator] = function* () {
-    for(var i = 0; i < this.dim; i++)
+    for(var i = 0; i < this.elements.length; i++)
         yield this.elements[i];
 };
 Object.defineProperties(Vector.prototype, {
 
     horizontal: {
         get: function () {
-            return this.dim[0] === 1 || this.dim[0] === this.dim[1];
+            return this.dim[1] == this.elements.length;
         }
     },
 
     vertical: {
         get: function () {
-            return this.dim[1] === 1 || this.dim[0] === this.dim[1];
+            return this.dim[0] == this.elements.length;
         }
     },
 
@@ -34,6 +34,25 @@ Object.defineProperties(Vector.prototype, {
     transpose: {
         value: function () {
             this.dim = [this.dim[1], this.dim[0]];
+        }
+    },
+
+    properDim: {
+        get: function () {
+            return this.elements.length;
+        }
+    },
+
+    epsEqual: {
+        value: function (vec, eps) {
+            if(vec.properDim != this.properDim)
+                return false;
+            eps = eps || 1e-10;
+            for(let i = 0; i < this.properDim; i++) {
+                if(Math.abs(this.elem[i] - vec.elem[i]) > eps)
+                    return false;
+            }
+            return true;
         }
     },
 
@@ -174,7 +193,7 @@ Object.defineProperties(Vector.prototype, {
 
     toArray: {
         value: function () {
-            return this.elements.splice();
+            return this.elements.slice();
         }
     },
 

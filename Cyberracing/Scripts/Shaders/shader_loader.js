@@ -119,7 +119,7 @@ function initShaders(gl) {
 
     p.flat = s.createProgramFromIds(gl, 'vs-flat', 'fs-flat');
     p.gouraud = s.createProgramFromIds(gl, 'vs-gouraud', 'fs-gouraud');
-    //p.phong = s.createProgramFromIds(gl, 'vs-phong', 'fs-phong');
+    p.phong = s.createProgramFromIds(gl, 'vs-phong', 'fs-phong');
 
 
     p.testing = s.createProgramFromIds(gl, 'vertex-shader', 'fragment-shader');

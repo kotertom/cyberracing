@@ -27,21 +27,21 @@ Object.defineProperties(Array.prototype, {
     mat: {
         enumerable: false,
         value: function (dim) {
-            return new Matrix4(dim, this);
+            return new Matrix(dim, this);
         }
     },
 
     mat3: {
         enumerable: false,
         get: function () {
-            return new Matrix4(3, this);
+            return new Matrix3(this);
         }
     },
 
     mat4: {
         enumerable: false,
         get: function () {
-            return new Matrix4(4, this);
+            return new Matrix4(this);
         }
     }
 });

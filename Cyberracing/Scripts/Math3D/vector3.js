@@ -43,5 +43,13 @@ Vector3.defineProperties({
 
     backward: {
         value: [0,0,-1].vec3
+    },
+
+    zero: {
+        value: [0,0,0].vec3
+    },
+
+    ones: {
+        value: [1,1,1].vec3
     }
 });
