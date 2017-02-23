@@ -141,7 +141,7 @@ var input = (function (ns) {
 
     ns.getAxis = function (name) {
         if(!ns.axes[name])
-            throw 'Such axis doesn\'t exist!';
+            throw name + ': such axis doesn\'t exist!';
         for(let a of ns.axes[name])
             if(a.value != 0)
                 return a.value;

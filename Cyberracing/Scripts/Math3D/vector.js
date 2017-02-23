@@ -60,6 +60,7 @@ Object.defineProperties(Vector.prototype, {
         value: function () {
             if(this.vertical)
                 this.transpose();
+            return this;
         }
     },
 
@@ -67,6 +68,7 @@ Object.defineProperties(Vector.prototype, {
         value: function () {
             if(this.horizontal)
                 this.transpose();
+            return this;
         }
     },
 
@@ -180,6 +182,30 @@ Object.defineProperties(Vector.prototype, {
         }
     },
 
+    project: {
+        value: function (vec) {
+            let unit = vec.normalized;
+            return unit.mult(this.dot(unit));
+        }
+    },
+
+    decomposeAlong: {
+        value: function (vec) {
+            let parallel = this.project(vec);
+            let perpendicular = this.sub(parallel);
+            return {
+                parallel: parallel,
+                perpendicular: perpendicular
+            };
+        }
+    },
+
+    dist: {
+        value: function (vec) {
+            return this.sub(vec).length;
+        }
+    },
+
     // values: {
     //     enumerable: false,
     //     get: function () {
@@ -234,7 +260,10 @@ Object.defineProperties(Vector.prototype, {
     mult: {
         enumerable: false,
         value: function (vec_num) {
-            return new Vector(Vector.mult(this.elements, vec_num.elements || vec_num));
+            let res = Vector.mult(this.elements, vec_num.elements || vec_num);
+            if(res instanceof Array)
+                return new Vector(res);
+            return res;
         }
     },
 
@@ -257,6 +286,18 @@ Object.defineProperties(Vector.prototype, {
         }
     },
 
+    scalarMult: {
+        get: function () {
+            return this.scMult;
+        }
+    },
+
+    scalarTimes: {
+        get: function () {
+            return this.scTimes;
+        }
+    },
+
     inv: {
         enumerable: false,
         get: function () {
@@ -267,7 +308,7 @@ Object.defineProperties(Vector.prototype, {
     dot: {
         enumerable: false,
         value: function (vec) {
-            return new Vector(Vector.dotProd(this.elements, vec.elements));
+            return Vector.dotProd(this.elements, vec.elements);
         }
     },
 
@@ -282,6 +323,17 @@ Object.defineProperties(Vector.prototype, {
         enumerable: false,
         value: function () {
             this.elements = Vector.normalize(this.elements);
+        }
+    },
+
+    length: {
+        enumerable: false,
+        get: function () {
+            // return Vector.length(this.elements);
+            let sum = 0;
+            for(let x of this.elements)
+                sum += x*x;
+            return Math.sqrt(sum);
         }
     }
 });
@@ -325,7 +377,7 @@ Vector.scalarMult = function (vec1, vec2) {
         throw "Vectors must be of same dimensions";
     let res = [];
     vec1.forEach(function (e, i, a) {
-        res.push(e + vec2[i]);
+        res.push(e * vec2[i]);
     });
     return res;
 };

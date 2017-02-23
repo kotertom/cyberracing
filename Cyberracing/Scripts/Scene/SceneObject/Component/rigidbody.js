@@ -16,7 +16,7 @@ Rigidbody.prototype.defineProperties({
         },
         set: function (value) {
             this._mass = value;
-            this.notifyPropertyChanged(this, 'mass');
+            this.notifyPropertyChanged.raise(this, 'mass');
         }
     },
 
@@ -26,7 +26,7 @@ Rigidbody.prototype.defineProperties({
         },
         set: function () {
             this._centerOfMass = value;
-            this.notifyPropertyChanged(this, 'centerOfMass');
+            this.notifyPropertyChanged.raise(this, 'centerOfMass');
         }
     },
 
@@ -36,7 +36,7 @@ Rigidbody.prototype.defineProperties({
         },
         set: function (value) {
             this._velocity = value;
-            this.notifyPropertyChanged(this, 'velocity');
+            this.notifyPropertyChanged.raise(this, 'velocity');
         }
     },
 
@@ -52,41 +52,58 @@ Rigidbody.prototype.defineProperties({
         },
         set: function (value) {
             this._force = value;
-            this.notifyPropertyChanged(this, 'velocity');
+            this.notifyPropertyChanged.raise(this, 'velocity');
         }
     },
 
-    applyForce: {
+    addForce: {
         value: function (force, displacement) {
             if(!displacement)
                 this.force = this.force.add(force);
             else {
-                this.applyTorque(displacement.cross(force));
+                let radForce = force.project(displacement);
+                let tanForce = force.sub(radForce);
+
+                this.addTorque(displacement.cross(tanForce));
+                this.force = this.force.add(radForce);
             }
         }
     },
 
     acceleration: {
         get: function () {
-            return this.force.mult(1/this.mass);
+            let dragVector = this.drag.mult(this.velocity.length).scalarMult(this.velocity);
+            return this.force.sub(dragVector).mult(1/this.mass);
+        }
+    },
+
+    drag: {
+        get: function () {
+            return this._drag || Vector3.zero;
+        },
+        set: function (value) {
+            this._drag = value;
+            this.notifyPropertyChanged.raise(this, 'drag');
         }
     },
 
     angularVelocity: {
         get: function () {
-
+            return this._angularVelocity || Vector3.zero;
         },
         set: function (value) {
-
+            this._angularVelocity = value;
+            this.notifyPropertyChanged.raise(this, 'angularVelocity');
         }
     },
 
     angularMass: {
         get: function () {
-
+            return this._angularMass || Vector3.ones;
         },
         set: function (value) {
-
+            this._angularMass = value;
+            this.notifyPropertyChanged.raise(this, 'angularMass');
         }
     },
 
@@ -102,11 +119,11 @@ Rigidbody.prototype.defineProperties({
         },
         set: function (value) {
             this._torque = value;
-            this.notifyPropertyChanged(this, 'torque');
+            this.notifyPropertyChanged.raise(this, 'torque');
         }
     },
 
-    applyTorque: {
+    addTorque: {
         value: function (value, axis) {
             if(!axis)
                 this.torque = this.torque.add(value);
@@ -118,25 +135,28 @@ Rigidbody.prototype.defineProperties({
 
     angularAcceleration: {
         get: function () {
-            return this.torque.scalarMult(this.angularMass.inv);
+            let dragVector = this.angularDrag.mult(this.angularVelocity.length).scMult(this.angularVelocity);
+            return this.torque.sub(dragVector).scalarMult(this.angularMass.inv);
+        }
+    },
+
+    angularDrag: {
+        get: function () {
+            return this._angularDrag || [0,0,0].vec3;
+        },
+        set: function (value) {
+            this._angularDrag = value;
+            this.notifyPropertyChanged.raise(this, 'angularDrag');
         }
     },
 
     friction: {
         get: function () {
-
+            return this._friction || 0;
         },
         set: function (value) {
-
-        }
-    },
-
-    bodyCollider: {
-        get: function () {
-
-        },
-        set: function (value) {
-
+            this._friction = value;
+            this.notifyPropertyChanged.raise(this, 'friction');
         }
     },
 
@@ -149,7 +169,6 @@ Rigidbody.prototype.defineProperties({
             let transform = this.owner.getComponent('transform');
             transform.translate(this.velocity.mult(App.fixedDeltaT));
             transform.rotate(this.angularVelocity.mult(App.fixedDeltaT));
-
         }
     }
 });

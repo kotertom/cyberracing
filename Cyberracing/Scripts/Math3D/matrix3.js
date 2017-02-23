@@ -109,10 +109,12 @@ Matrix3.defineProperties({
 
     rotation: {
         value: function (xyz, order) {
+            order = order || RotationOrder.EulerXYZ;
+
             let matrices = [
-                Matrix3.RotationX(xyz.x || xyz[0]),
-                Matrix3.rotationY(xyz.y || xyz[1]),
-                Matrix3.rotationZ(xyz.z || xyz[2])
+                Matrix3.rotationX(xyz.x),
+                Matrix3.rotationY(xyz.y),
+                Matrix3.rotationZ(xyz.z)
             ];
             return matrices[order[0]].mult(matrices[order[1]]).mult(matrices[order[2]]);
         }

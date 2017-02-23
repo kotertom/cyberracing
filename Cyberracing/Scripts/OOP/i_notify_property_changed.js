@@ -4,16 +4,5 @@
 
 
 function INotifyPropertyChanged() {
-
+    this.notifyPropertyChanged = new CustomEvent();
 }
-
-INotifyPropertyChanged.prototype.defineProperties({
-
-    notifyPropertyChanged: {
-        get: function () {
-            if(!this._notifyPropertyChanged)
-                this._notifyPropertyChanged = new CustomEvent();
-            return this._notifyPropertyChanged;
-        }
-    }
-});

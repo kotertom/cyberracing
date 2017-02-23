@@ -14,7 +14,7 @@ function PlayerMovement() {
     this.steerSpeed = toRad(200);
     this.steerAngle = 0;
     this.steerRecoveryRate = toRad(300);
-    this.velocityDamp = 8;
+    this.drag = 8;
     this.vehicleLength = 1;
 }
 PlayerMovement.inheritsFrom(Component);
@@ -31,9 +31,9 @@ Object.defineProperties(
                 let a = input.getAxis('accelerate');
                 if(a == 0) {
                     if(this.velocity < 0) {
-                        this.velocity = Math.min(0, this.velocity + this.velocityDamp * App.fixedDeltaT);
+                        this.velocity = Math.min(0, this.velocity + this.drag * App.fixedDeltaT);
                     } else if(this.velocity > 0) {
-                        this.velocity = Math.max(0, this.velocity - this.velocityDamp * App.fixedDeltaT);
+                        this.velocity = Math.max(0, this.velocity - this.drag * App.fixedDeltaT);
                     }
                 } else if(a < 0) {
                     this.velocity = Math.max(this.minVelocity, this.velocity - this.braking * App.fixedDeltaT);

@@ -80,8 +80,23 @@ var gameCanvas = document.getElementById("game-canvas");
            // transform.rotation = [Math.PI/4,(performance.now()/1000),0];
         }
     }));
-    cube.addComponent(new PlayerMovement());
+    cube.addComponent(new Rigidbody());
+    cube.addComponent(new CarMovement());
     App.activeScene.add(cube);
+    let wheels = {
+        fl: new SceneObject('wheel_fl'),
+        fr: new SceneObject('wheel_fr'),
+        rl: new SceneObject('wheel_rl'),
+        rr: new SceneObject('wheel_rr')
+    };
+    wheels.fl.parent = cube;
+    wheels.fr.parent = cube;
+    wheels.rl.parent = cube;
+    wheels.rr.parent = cube;
+    wheels.fl.getComponent('transform').position = [0,0,1];
+    wheels.fr.getComponent('transform').position = [0,0,1];
+    cube.getComponent('carMovement').wheels = wheels;
+
     console.log(cube);
 
     let followerCamera = new SceneObject('camera');

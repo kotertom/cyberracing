@@ -16,6 +16,43 @@ Vector3.prototype.defineProperties({
         value: function (vec) {
             return new Vector3(Vector.crossProd3(this.elements, vec.elements));
         }
+    },
+
+    scale: {
+        value: function (xyz) {
+            this.elements = Vector.scalarMult(this.elements, xyz);
+        }
+    },
+
+    translate: {
+        value: function (xyz) {
+            this.elements = Vector.add(this.elements, xyz);
+        }
+    },
+
+    rotate: {
+        value: function (xyz) {
+            let rotMatrix = Matrix3.rotation(xyz);
+            this.elements = rotMatrix.times(this).toArray();
+        }
+    },
+
+    scaled: {
+        value: function (xyz) {
+            return this.scalarMult(xyz);
+        }
+    },
+
+    translated: {
+        value: function (xyz) {
+            return this.add(xyz);
+        }
+    },
+
+    rotated: {
+        value: function (xyz) {
+            return Matrix3.rotation(xyz).times(this);
+        }
     }
 });
 

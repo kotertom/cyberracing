@@ -93,8 +93,8 @@ Matrix.prototype.defineProperties({
     },
 
     times: {
-        value: function (arg) {
-            return this.mult(arg);
+        get: function () {
+            return this.mult;
         }
     },
 
@@ -147,7 +147,7 @@ Matrix.defineProperties({
             if(vec.dim[0] == mat.dim[0] && vec.vertical) {
                 let elements = [];
                 for(let row of mat.rows) {
-                    elements.push(row.vec.times(vec));
+                    elements.push(row.vec.mult(vec));
                 }
                 return new Vector(elements);
             }
@@ -165,7 +165,7 @@ Matrix.defineProperties({
                 rightCols = matR.cols;
             for(let i = 0; i < matL.rowNum; i++) {
                 for(let j = 0; j < matR.colNum; j++) {
-                    res.setElem(i, j, leftRows[i].vec.times(rightCols[j].vec));
+                    res.setElem(i, j, leftRows[i].vec.mult(rightCols[j].vec));
                 }
             }
             return res;
