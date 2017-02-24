@@ -112,20 +112,39 @@ var gameCanvas = document.getElementById("game-canvas");
     staticCamera.addComponent(new Camera(75, null, 0.1, 1000));
     staticCamera.addComponent(new Script({
         start: function () {
-            let transform = this.getComponent('transform');
+            let transform = this.owner.getComponent('transform');
             transform.position = [-50,50,50];
         },
-        update: function () {
-            let transform = this.getComponent('transform');
+        lateUpdate: function () {
+            let transform = this.owner.getComponent('transform');
             transform.lookAt(cube.getComponent('transform').position);
         }
     }));
+    App.activeScene.add(staticCamera);
+
+    let dashboardHelper = new SceneObject('dashboardHelper');
+    App.activeScene.add(dashboardHelper, cube);
+    dashboardHelper.addComponent(new Script({
+        start: function () {
+            let ct = cube.getComponent('transform');
+            let t = this.owner.getComponent('transform');
+            t.position = ct.position.vec3.add([0,1,2].vec3).toArray();
+        }
+    }));
+    let dashboardCamera = new SceneObject('dashboardCamera', cube);
+    dashboardCamera.addComponent(new Camera(75, null, 0.1, 1000));
+    let dc = new FollowerCamera();
+    dc.objectToFollow = dashboardHelper;
+    dc.relativePosition = [0, 0, -2];
+    dashboardCamera.addComponent(dc);
+    App.activeScene.add(dashboardCamera);
 
 
     let helperObject = new SceneObject('helperObject');
     helperObject.addComponent(new SwapCamera([
         followerCamera,
-        staticCamera
+        staticCamera,
+        dashboardCamera
     ]));
     App.activeScene.add(helperObject);
 

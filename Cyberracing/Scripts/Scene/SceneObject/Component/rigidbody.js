@@ -72,7 +72,8 @@ Rigidbody.prototype.defineProperties({
 
     acceleration: {
         get: function () {
-            let dragVector = this.drag.mult(this.velocity.length).scalarMult(this.velocity);
+            let rot = this.owner.getComponent('transform').rotation.vec3;
+            let dragVector = this.drag.rotated(rot).scMult(this.velocity).scMult(this.velocity).scMult(this.velocity.sgn);
             return this.force.sub(dragVector).mult(1/this.mass);
         }
     },
@@ -135,7 +136,8 @@ Rigidbody.prototype.defineProperties({
 
     angularAcceleration: {
         get: function () {
-            let dragVector = this.angularDrag.mult(this.angularVelocity.length).scMult(this.angularVelocity);
+            let rot = this.owner.getComponent('transform').rotation.vec3;
+            let dragVector = this.angularDrag.rotated(rot).scMult(this.angularVelocity).scMult(this.angularVelocity).scMult(this.angularVelocity.sgn);
             return this.torque.sub(dragVector).scalarMult(this.angularMass.inv);
         }
     },

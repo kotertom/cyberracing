@@ -157,25 +157,6 @@ Transform.prototype.getInverseTransformMatrix = function () {
     ]);
 };
 
-// Transform.prototype.forward = function () {
-//     return this._forward;
-// };
-// Transform.prototype.right = function () {
-//     return this._right;
-// };
-// Transform.prototype.up = function () {
-//     return this._up;
-// };
-// Transform.prototype.backward = function () {
-//     return Vector.negate(this.forward());
-// };
-// Transform.prototype.left = function () {
-//     return Vector.negate(this.right());
-// };
-// Transform.prototype.down = function () {
-//     return Vector.negate(this.up());
-// };
-
 Transform.prototype.lookAt = function (targetPos, upVector) {
     upVector = upVector || [0,1,0];
 

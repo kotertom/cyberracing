@@ -63,7 +63,7 @@ CarMovement.prototype.defineProperties({
 
     acceleration: {
         get: function () {
-            return this._acceleration || 10;
+            return this._acceleration || 50;
         },
         set: function (value) {
             this._acceleration = value;
@@ -73,7 +73,7 @@ CarMovement.prototype.defineProperties({
 
     braking: {
         get: function () {
-            return this._braking || 20;
+            return this._braking || 50;
         },
         set: function (value) {
             this._braking = value;
@@ -83,7 +83,7 @@ CarMovement.prototype.defineProperties({
 
     engineDrag: {
         get: function () {
-            return this._engineDrag || 4;
+            return this._engineDrag || 0.1;
         },
         set: function (value) {
             this._engineDrag = value;
@@ -136,8 +136,6 @@ CarMovement.prototype.defineProperties({
 
             let rb = this.owner.getComponent('rigidbody');
             let tr = this.owner.getComponent('transform');
-            //rb.drag = tr.forward.vec3.mult(this.engineDrag);
-            rb.drag = Vector3.zero;
 
             console.log(tr.position);
 
@@ -153,13 +151,7 @@ CarMovement.prototype.defineProperties({
                 this.steeringAngle = clamp(this.steeringAngle + (r * this.steeringSensitivity - Math.sign(this.steeringAngle) * this.steeringRecoverySpeed) * App.fixedDeltaT,
             -this.maxSteeringAngle, this.maxSteeringAngle);
             }
-            // if (r > 0) {
-            //     this.steeringAngle = Math.min(this.maxSteeringAngle,
-            //         this.steeringAngle + (this.steeringSensitivity - Math.sign(this.steeringAngle) * this.steeringRecoverySpeed) * App.fixedDeltaT);
-            // } else if (r < 0) {
-            //     this.steeringAngle = Math.max(-this.maxSteeringAngle,
-            //         this.steeringAngle - (this.steeringSensitivity + Math.sign(this.steeringAngle) * this.steeringRecoverySpeed) * App.fixedDeltaT);
-            // }
+
 
             let goingForward = Math.sign(rb.velocity.dot(tr.forward.vec3));
 
@@ -169,30 +161,33 @@ CarMovement.prototype.defineProperties({
                 accel = a * this.acceleration;
             else if (a < 0 && goingForward > 0 || a > 0 && goingForward < 0)
                 accel = a * this.braking;
-            // else
-            //     accel = 1 / this.engineDrag;
 
-            // if (this.appliedForce)
-            //     rb.addForce(this.appliedForce.neg);
-            // // this.appliedForce = tr.forward.vec3.rotated([0, toRad(this.steeringAngle), 0].vec3).mult(accel * rb.mass);
-            // this.appliedForce = tr.forward.vec3.mult(accel * rb.mass);
-            // rb.addForce(this.appliedForce);
 
+            // rb.drag = [this.engineDrag,this.engineDrag,this.engineDrag].vec3;
             rb.force = tr.forward.vec3.mult(accel * rb.mass);
+
+            let vel = rb. velocity.length;
+            let drag = 0.2;
+            let rr = 0.1;
+            rb.force = rb.force.sub(tr.forward.vec3.mult((drag * vel + rr) * vel * goingForward));
+            rb.velocity = tr.forward.vec3.mult(rb.velocity.length * goingForward).add(rb.acceleration.mult(App.fixedDeltaT));
+
             console.log('force: ' + rb.force.toString());
             console.log('drag: ' + rb.drag.toString());
-            console.log('acceleration: ' + rb.acceleration.toString());
+            console.log('acceleration: ' + (rb.acceleration.length * -goingForward));
+            console.log('velocity: ' + (rb.velocity.length * goingForward));
 
-            // rb.velocity = tr.forward.vec3.mult(5 * accel * App.fixedDeltaT);
+            rb.force= Vector3.zero;
 
 
-            if(this.steeringAngle != 0) {
-                let axleDistance = this.steeringAxle.sub(this.rearAxle).length;
-                let radius = axleDistance / Math.sin(toRad(this.steeringAngle));
-                let angularVelocity = rb.velocity.length / radius;
+            let axleDistance = this.steeringAxle.sub(this.rearAxle).length;
+            let radius = axleDistance / Math.sin(toRad(this.steeringAngle)) * (rb.velocity.length + 5) * 0.2;
+            let angularVelocity = rb.velocity.length / radius;
 
-                rb.angularVelocity = [0, goingForward * angularVelocity, 0].vec3;
-            }
+            console.log('radius: ' + radius);
+
+            rb.angularVelocity = [0, goingForward * angularVelocity, 0].vec3;
+
 
             console.log('w: ' + rb.angularVelocity.y);
 

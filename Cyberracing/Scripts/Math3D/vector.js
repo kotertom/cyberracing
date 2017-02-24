@@ -298,6 +298,16 @@ Object.defineProperties(Vector.prototype, {
         }
     },
 
+    sgn: {
+        get: function () {
+            let res = [];
+            for(let val of this.elements) {
+                res.push(Math.sign(val));
+            }
+            return res.vec;
+        }
+    },
+
     inv: {
         enumerable: false,
         get: function () {
