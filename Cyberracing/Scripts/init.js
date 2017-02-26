@@ -80,6 +80,7 @@ var gameCanvas = document.getElementById("game-canvas");
            // transform.rotation = [Math.PI/4,(performance.now()/1000),0];
         }
     }));
+    cube.addComponent(new PlayerController());
     cube.addComponent(new Rigidbody());
     cube.addComponent(new CarMovement());
     App.activeScene.add(cube);
@@ -195,6 +196,9 @@ var gameCanvas = document.getElementById("game-canvas");
     });
     App.lateRender.subscribe(function () {
         App.activeScene.lateRender();
+    });
+    App.earlyUpdate.subscribe(function () {
+        App.activeScene.earlyUpdate();
     });
     App.update.subscribe(function () {
         App.activeScene.update();

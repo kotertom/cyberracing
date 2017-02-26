@@ -131,6 +131,18 @@ CarMovement.prototype.defineProperties({
         }
     },
 
+    steer: {
+        value: function (strength) {
+            this.steeringToConsume += strength;
+        }
+    },
+
+    accelerate: {
+        value: function (strength) {
+            this.accelerationToConsume += strength;
+        }
+    },
+
     update: {
         value: function () {
 
@@ -139,7 +151,8 @@ CarMovement.prototype.defineProperties({
 
             console.log(tr.position);
 
-            let r = -input.getAxis('steerRight');
+            let r = this.steeringToConsume;
+            this.steeringToConsume = 0;
 
             if(r == 0) {
                 if(this.steeringAngle < 0) {
@@ -156,7 +169,8 @@ CarMovement.prototype.defineProperties({
             let goingForward = Math.sign(rb.velocity.dot(tr.forward.vec3));
 
             let accel = 0;
-            let a = input.getAxis('accelerate');
+            let a = this.accelerationToConsume;
+            this.accelerationToConsume = 0;
             if (a > 0 && goingForward >= 0 || a < 0 && goingForward <= 0)
                 accel = a * this.acceleration;
             else if (a < 0 && goingForward > 0 || a > 0 && goingForward < 0)

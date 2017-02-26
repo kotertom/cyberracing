@@ -3,12 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="00a3d8e5-163e-4cce-a964-a21951eb4aca" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Math3D/matrix3.js" afterPath="$PROJECT_DIR$/Scripts/Math3D/matrix3.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Math3D/vector.js" afterPath="$PROJECT_DIR$/Scripts/Math3D/vector.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/car_movement.js" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/car_movement.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/rigidbody.js" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/rigidbody.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/transform.js" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/transform.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/player_controller.js" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/player_controller.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/init.js" afterPath="$PROJECT_DIR$/Scripts/init.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cyberracing.html" afterPath="$PROJECT_DIR$/cyberracing.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -29,11 +27,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="car_movement.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="cyberracing.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cyberracing.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="702">
+              <caret line="505" column="98" lean-forward="false" selection-start-line="505" selection-start-column="98" selection-end-line="505" selection-end-column="98" />
+              <folding>
+                <element signature="n#script#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#script#3;n#body#0;n#html#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="car_movement.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/car_movement.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3021">
-              <caret line="161" column="76" lean-forward="false" selection-start-line="161" selection-start-column="76" selection-end-line="161" selection-end-column="76" />
+            <state relative-caret-position="272">
+              <caret line="150" column="0" lean-forward="true" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc;n#CarMovement#0" expanded="false" />
               </folding>
@@ -41,81 +52,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="init.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="init.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Scripts/init.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
-              <caret line="164" column="43" lean-forward="true" selection-start-line="164" selection-start-column="43" selection-end-line="164" selection-end-column="43" />
+            <state relative-caret-position="633">
+              <caret line="133" column="8" lean-forward="true" selection-start-line="133" selection-start-column="8" selection-end-line="133" selection-end-column="8" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="transform.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/transform.js">
+      <file leaf-file-name="scene.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Scripts/Scene/scene.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2983">
-              <caret line="157" column="2" lean-forward="false" selection-start-line="157" selection-start-column="2" selection-end-line="157" selection-end-column="2" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="camera.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/camera.js">
+      <file leaf-file-name="player_controller.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/player_controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="779">
-              <caret line="41" column="49" lean-forward="false" selection-start-line="41" selection-start-column="49" selection-end-line="41" selection-end-column="49" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="rigidbody.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/rigidbody.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="34" column="40" lean-forward="false" selection-start-line="34" selection-start-column="40" selection-end-line="34" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="vector.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Scripts/Math3D/vector.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5814">
-              <caret line="306" column="27" lean-forward="false" selection-start-line="306" selection-start-column="27" selection-end-line="306" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="matrix3.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Scripts/Math3D/matrix3.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2109">
-              <caret line="111" column="48" lean-forward="false" selection-start-line="111" selection-start-column="48" selection-end-line="111" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="matrix4.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Scripts/Math3D/matrix4.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1026">
-              <caret line="54" column="6" lean-forward="false" selection-start-line="54" selection-start-column="6" selection-end-line="54" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="vector3.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Scripts/Math3D/vector3.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="551">
-              <caret line="29" column="9" lean-forward="false" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="9" />
+            <state relative-caret-position="266">
+              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -166,14 +127,13 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="threejs" />
+        <entry key="$PROJECT_DIR$/.." value="master" />
       </map>
     </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/CSS/cyberracing.css" />
         <option value="$PROJECT_DIR$/Scripts/OOP/property_exposure.js" />
         <option value="$PROJECT_DIR$/Scripts/Editor/gui/component_dom_generator.js" />
         <option value="$PROJECT_DIR$/Scripts/Editor/gui/component_list_control.js" />
@@ -213,7 +173,6 @@
         <option value="$PROJECT_DIR$/Scripts/OOP/i_notify_property_changed.js" />
         <option value="$PROJECT_DIR$/Scripts/Input/input_manager.js" />
         <option value="$PROJECT_DIR$/Scripts/Math3D/vector3.js" />
-        <option value="$PROJECT_DIR$/cyberracing.html" />
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/player_movement.js" />
         <option value="$PROJECT_DIR$/Scripts/Math3D/matrix.js" />
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/waypoint_driver.js" />
@@ -222,8 +181,10 @@
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/transform.js" />
         <option value="$PROJECT_DIR$/Scripts/Math3D/matrix3.js" />
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/rigidbody.js" />
-        <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/car_movement.js" />
+        <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/player_controller.js" />
+        <option value="$PROJECT_DIR$/cyberracing.html" />
         <option value="$PROJECT_DIR$/Scripts/init.js" />
+        <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/car_movement.js" />
       </list>
     </option>
   </component>
@@ -387,36 +348,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Scene" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SceneObject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Component" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Colliders" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Cyberracing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Cyberracing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="OOP" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -436,6 +367,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Math3D" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Cyberracing" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Cyberracing" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Scripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Input" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -721,7 +670,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="378750000" />
+    <option name="totallyTimeSpent" value="380142000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -786,13 +735,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Scripts/Editor/gui/Views/component_view.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Scripts/Editor/gui/Controllers/scene_object_controller.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="475">
@@ -930,7 +872,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -945,7 +886,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-57">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -953,14 +893,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="25">
           <caret line="31" column="49" lean-forward="false" selection-start-line="31" selection-start-column="49" selection-end-line="31" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/player_controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1027,24 +959,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cyberracing.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7106">
-          <caret line="504" column="90" lean-forward="false" selection-start-line="504" selection-start-column="90" selection-end-line="504" selection-end-column="90" />
-          <folding>
-            <element signature="n#script#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#script#3;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Input/input_manager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="880">
-          <caret line="143" column="29" lean-forward="false" selection-start-line="143" selection-start-column="29" selection-end-line="143" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Scripts/Math3D/matrix.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1824">
@@ -1095,14 +1009,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Math3D/vector.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5814">
-          <caret line="306" column="27" lean-forward="false" selection-start-line="306" selection-start-column="27" selection-end-line="306" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Scripts/Math3D/matrix3.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2109">
@@ -1123,7 +1029,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="551">
           <caret line="29" column="9" lean-forward="false" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1131,7 +1036,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="779">
           <caret line="41" column="49" lean-forward="false" selection-start-line="41" selection-start-column="49" selection-end-line="41" selection-end-column="49" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1143,21 +1047,64 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/car_movement.js">
+    <entry file="file://$PROJECT_DIR$/Scripts/Math3D/vector.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3021">
-          <caret line="161" column="76" lean-forward="false" selection-start-line="161" selection-start-column="76" selection-end-line="161" selection-end-column="76" />
+        <state relative-caret-position="880">
+          <caret line="353" column="21" lean-forward="false" selection-start-line="353" selection-start-column="21" selection-end-line="353" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Input/input_manager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2533">
+          <caret line="143" column="29" lean-forward="false" selection-start-line="143" selection-start-column="29" selection-end-line="143" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cyberracing.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="702">
+          <caret line="505" column="98" lean-forward="false" selection-start-line="505" selection-start-column="98" selection-end-line="505" selection-end-column="98" />
           <folding>
-            <element signature="n#!!doc;n#CarMovement#0" expanded="false" />
+            <element signature="n#script#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#script#3;n#body#0;n#html#0;n#!!top" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/player_controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Scene/scene.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Scripts/init.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="164" column="43" lean-forward="true" selection-start-line="164" selection-start-column="43" selection-end-line="164" selection-end-column="43" />
+        <state relative-caret-position="633">
+          <caret line="133" column="8" lean-forward="true" selection-start-line="133" selection-start-column="8" selection-end-line="133" selection-end-column="8" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/car_movement.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="150" column="0" lean-forward="true" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc;n#CarMovement#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
