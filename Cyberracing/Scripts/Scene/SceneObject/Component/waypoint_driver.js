@@ -63,16 +63,46 @@ WaypointDriver.prototype.defineProperties({
         }
     },
 
+    defaultRadius: {
+        get: function () {
+            return this._defaultRadius || 7;
+        },
+        set: function (value) {
+            this._defaultRadius = value;
+        }
+    },
+
     update: {
         value: function () {
 
             let tr = this.owner.getComponent('transform');
-            let wp = this.getNextWaypoint();
+            let rb = this.owner.getComponent('rigidbody');
+
+            this.currentWaypoint = this.currentWaypoint || this.getNextWaypoint();
+            let wp = this.currentWaypoint;
             if(!wp)
                 return;
+            let wpt = wp.getComponent('transform');
 
-            let desiredDirection = wp.getComponent('transform').position.sub(tr.position).normalized;
+            if(tr.position.vec3.dist(wpt.position.vec3) < this.defaultRadius)
+                this.currentWaypoint = this.getNextWaypoint();
 
+            let desiredDirection = wpt.position.vec3.sub(tr.position.vec3).normalized;
+            let currentDirection = tr.forward.vec3;
+
+            let cdCross = new Vector3(currentDirection.elements).cross(desiredDirection);
+            let cdAngleSin = cdCross.dot(tr.up.vec3);
+            let cdAngleCos = currentDirection.dot(desiredDirection);
+
+            let accel = (cdAngleCos + 1.1) / 2.1;
+            accel *= accel;
+            let toTheLeft = Math.sign(cdAngleSin);
+
+            let carControl = this.owner.getComponent('carMovement');
+            console.log('steering to the left: ' + toTheLeft);
+            console.log('accelerating: ' + accel);
+            carControl.steer(toTheLeft);
+            carControl.accelerate(accel);
         }
     }
 });

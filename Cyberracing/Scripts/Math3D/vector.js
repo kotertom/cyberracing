@@ -223,11 +223,11 @@ Object.defineProperties(Vector.prototype, {
         }
     },
 
-    toString: {
-        value: function () {
-            return this.elements.toString();
-        }
-    },
+    // toString: {
+    //     value: function () {
+    //         return this.elements.toString();
+    //     }
+    // },
 
     clone: {
         enumerable: false,
@@ -345,6 +345,17 @@ Object.defineProperties(Vector.prototype, {
                 sum += x*x;
             return Math.sqrt(sum);
         }
+    },
+
+    toString: {
+        value: function () {
+            let str = ['|'];
+            for(let val of this) {
+                str.push(val);
+            }
+            str.push('|');
+            return str.join('\t');
+        }
     }
 });
 
@@ -398,7 +409,7 @@ Vector.normalize = function (vector) {
         length += value*value;
     length = Math.sqrt(length);
     for(let value of vector)
-        result.push(value / length);
+        result.push(value == 0 ? 0 : value / length);
     return result;
 };
 Vector.negate = function (vector) {
@@ -432,9 +443,9 @@ Vector.crossProd3 = function (vec1, vec2) {
         v2 = vec2[1],
         v3 = vec2[2];
 
-    let x = vec.mult(r, u2*v3 - u3*v2);
-    let y = vec.mult(u, u3*v1 - u1*v3);
-    let z = vec.mult(f, u1*v2 - u2*v1);
+    let x = u2*v3 - u3*v2;
+    let y = u3*v1 - u1*v3;
+    let z = u1*v2 - u2*v1;
     return [x,y,z];
 };
 Vector.invertValues = function (vector) {

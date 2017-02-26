@@ -186,10 +186,10 @@ CarMovement.prototype.defineProperties({
             rb.force = rb.force.sub(tr.forward.vec3.mult((drag * vel + rr) * vel * goingForward));
             rb.velocity = tr.forward.vec3.mult(rb.velocity.length * goingForward).add(rb.acceleration.mult(App.fixedDeltaT));
 
-            console.log('force: ' + rb.force.toString());
-            console.log('drag: ' + rb.drag.toString());
-            console.log('acceleration: ' + (rb.acceleration.length * -goingForward));
-            console.log('velocity: ' + (rb.velocity.length * goingForward));
+            // console.log('force: ' + rb.force.toString());
+            // console.log('drag: ' + rb.drag.toString());
+            // console.log('acceleration: ' + (rb.acceleration.length * -goingForward));
+            // console.log('velocity: ' + (rb.velocity.length * goingForward));
 
             rb.force= Vector3.zero;
 
@@ -198,12 +198,12 @@ CarMovement.prototype.defineProperties({
             let radius = axleDistance / Math.sin(toRad(this.steeringAngle)) * (rb.velocity.length + 5) * 0.2;
             let angularVelocity = rb.velocity.length / radius;
 
-            console.log('radius: ' + radius);
+            // console.log('radius: ' + radius);
 
             rb.angularVelocity = [0, goingForward * angularVelocity, 0].vec3;
 
 
-            console.log('w: ' + rb.angularVelocity.y);
+            // console.log('w: ' + rb.angularVelocity.y);
 
         }
     }

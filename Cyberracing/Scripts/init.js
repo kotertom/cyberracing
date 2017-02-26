@@ -184,6 +184,37 @@ var gameCanvas = document.getElementById("game-canvas");
     App.activeScene.add(sLight);
 
 
+    let wp1 = new SceneObject('wp1');
+    wp1.getComponent('transform').position = [0,0,50];
+    wp1.addComponent(new MeshRenderer(gl));
+    let wp2 = new SceneObject('wp2');
+    wp2.getComponent('transform').position = [50,0,50];
+    wp2.addComponent(new MeshRenderer(gl));
+    let wp3 = new SceneObject('wp3');
+    wp3.getComponent('transform').position = [50,0,-50];
+    wp3.addComponent(new MeshRenderer(gl));
+    let wp4 = new SceneObject('wp4');
+    wp4.getComponent('transform').position = [-50,0,-50];
+    wp4.addComponent(new MeshRenderer(gl));
+    let waypoints = [wp1,wp2,wp3,wp4];
+    for(let wp of waypoints)
+        App.activeScene.add(wp);
+
+    let opp = new SceneObject('opp');
+    opp.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/toyota.obj')));
+    opp.addComponent(new Script({
+        start: function () {
+            let transform = this.getOwner().getComponent('transform');
+            transform.position = [0,0,-5];//[10*Math.sin(performance.now()/1000),0,-5];
+            // transform.rotation = [Math.PI/4,(performance.now()/1000),0];
+        }
+    }));
+    opp.addComponent(new Rigidbody());
+    opp.addComponent(new CarMovement());
+    opp.addComponent(new WaypointDriver());
+    opp.getComponent('waypointDriver').waypoints = waypoints;
+    App.activeScene.add(opp);
+
     App.getViewMatrix = function () {
         return this.activeCamera.getComponent('camera').getViewMatrix();
     };

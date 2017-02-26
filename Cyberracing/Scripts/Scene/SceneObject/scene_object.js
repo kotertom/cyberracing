@@ -25,6 +25,7 @@ SceneObject.nameGen = (function* () {
 })();
 
 Object.defineProperties(SceneObject.prototype, {
+
     getComponent: {
         value: function (componentName) {
             return this.components[componentName];
