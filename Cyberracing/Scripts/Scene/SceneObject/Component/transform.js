@@ -55,6 +55,33 @@ Object.defineProperties(Transform.prototype, {
         }
     },
 
+    worldPosition: {
+        get: function () {
+            return this._worldPosition;
+        },
+        set: function (value) {
+            this._worldPosition = value;
+        }
+    },
+
+    worldRotation: {
+        get: function () {
+
+        },
+        set: function (value) {
+
+        }
+    },
+
+    worldScale: {
+        get: function () {
+
+        },
+        set: function (value) {
+
+        }
+    },
+
     forward: {
         get: function () {
             return this._forward.slice();
@@ -123,7 +150,9 @@ Object.defineProperties(Transform.prototype, {
 // };
 
 Transform.prototype.getTransformMatrix = function () {
-    let parent = this.getOwner().parent;
+    let parent = this.owner.parent;
+    if(this.owner.name == 'dashboardCamera')
+        console.log(parent.name);
     let parentMatrix = parent ? parent.getComponent('transform').getTransformMatrix() : Matrix4.identityMatrix;
 
     let p = this.position;

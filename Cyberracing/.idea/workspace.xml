@@ -3,12 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="00a3d8e5-163e-4cce-a964-a21951eb4aca" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Math3D/vector.js" afterPath="$PROJECT_DIR$/Scripts/Math3D/vector.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/car_movement.js" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/car_movement.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/camera.js" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/camera.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/mesh_renderer.js" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/mesh_renderer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/transform.js" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/transform.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/waypoint_driver.js" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/waypoint_driver.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Scene/SceneObject/scene_object.js" afterPath="$PROJECT_DIR$/Scripts/Scene/SceneObject/scene_object.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Scene/scene.js" afterPath="$PROJECT_DIR$/Scripts/Scene/scene.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/init.js" afterPath="$PROJECT_DIR$/Scripts/init.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cyberracing.html" afterPath="$PROJECT_DIR$/cyberracing.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -29,10 +29,50 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="cyberracing.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="scene_object.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/scene_object.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="95">
+              <caret line="5" column="9" lean-forward="false" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="scene.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Scripts/Scene/scene.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3154">
+              <caret line="166" column="0" lean-forward="false" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="transform.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/transform.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2584">
+              <caret line="136" column="5" lean-forward="true" selection-start-line="136" selection-start-column="5" selection-end-line="136" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="waypoint_driver.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/waypoint_driver.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="139">
+              <caret line="60" column="13" lean-forward="true" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cyberracing.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cyberracing.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="728">
+            <state relative-caret-position="5699">
               <caret line="506" column="96" lean-forward="false" selection-start-line="506" selection-start-column="96" selection-end-line="506" selection-end-column="96" />
               <folding>
                 <element signature="n#script#2;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -42,43 +82,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="car_movement.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/car_movement.js">
+      <file leaf-file-name="mesh_renderer.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/mesh_renderer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="899">
-              <caret line="206" column="0" lean-forward="true" selection-start-line="206" selection-start-column="0" selection-end-line="206" selection-end-column="0" />
-              <folding>
-                <element signature="n#!!doc;n#CarMovement#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="scene_object.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/scene_object.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="576">
-              <caret line="31" column="9" lean-forward="true" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="component.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/component.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="741">
-              <caret line="84" column="38" lean-forward="true" selection-start-line="84" selection-start-column="38" selection-end-line="84" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="waypoint_driver.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/waypoint_driver.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="994">
-              <caret line="99" column="0" lean-forward="true" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+            <state relative-caret-position="158">
+              <caret line="32" column="24" lean-forward="true" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -87,48 +95,38 @@
       <file leaf-file-name="vector.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Scripts/Math3D/vector.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="610">
-              <caret line="420" column="40" lean-forward="true" selection-start-line="420" selection-start-column="40" selection-end-line="420" selection-end-column="40" />
+            <state relative-caret-position="7980">
+              <caret line="420" column="40" lean-forward="false" selection-start-line="420" selection-start-column="40" selection-end-line="420" selection-end-column="40" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="vector3.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Scripts/Math3D/vector3.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="16" column="43" lean-forward="true" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="matrix.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Scripts/Math3D/matrix.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-317">
-              <caret line="96" column="29" lean-forward="false" selection-start-line="96" selection-start-column="29" selection-end-line="96" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="init.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="init.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Scripts/init.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="722">
-              <caret line="199" column="28" lean-forward="true" selection-start-line="199" selection-start-column="28" selection-end-line="199" selection-end-column="28" />
+            <state relative-caret-position="823">
+              <caret line="371" column="14" lean-forward="false" selection-start-line="371" selection-start-column="14" selection-end-line="371" selection-end-column="14" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scene.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Scripts/Scene/scene.js">
+      <file leaf-file-name="camera.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/camera.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="646">
+              <caret line="34" column="50" lean-forward="true" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="swap_camera.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/swap_camera.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="627">
+              <caret line="33" column="13" lean-forward="true" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -186,8 +184,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Scripts/Editor/gui/component_dom_generator.js" />
-        <option value="$PROJECT_DIR$/Scripts/Editor/gui/component_list_control.js" />
         <option value="$PROJECT_DIR$/Scripts/Editor/gui/content_control.js" />
         <option value="$PROJECT_DIR$/Scripts/Editor/gui/collection_control.js" />
         <option value="$PROJECT_DIR$/Scripts/Editor/editor.js" />
@@ -226,8 +222,6 @@
         <option value="$PROJECT_DIR$/Scripts/Math3D/vector3.js" />
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/player_movement.js" />
         <option value="$PROJECT_DIR$/Scripts/Math3D/matrix.js" />
-        <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/camera.js" />
-        <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/transform.js" />
         <option value="$PROJECT_DIR$/Scripts/Math3D/matrix3.js" />
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/rigidbody.js" />
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/player_controller.js" />
@@ -235,8 +229,12 @@
         <option value="$PROJECT_DIR$/cyberracing.html" />
         <option value="$PROJECT_DIR$/Scripts/Math3D/vector.js" />
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/car_movement.js" />
+        <option value="$PROJECT_DIR$/Scripts/Scene/scene.js" />
+        <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/transform.js" />
+        <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/camera.js" />
         <option value="$PROJECT_DIR$/Scripts/init.js" />
         <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/waypoint_driver.js" />
+        <option value="$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/mesh_renderer.js" />
       </list>
     </option>
   </component>
@@ -274,8 +272,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -456,6 +452,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -619,6 +617,8 @@
       <workItem from="1487883439148" duration="8324000" />
       <workItem from="1487935685865" duration="6258000" />
       <workItem from="1487965393603" duration="152000" />
+      <workItem from="1488144530673" duration="2166000" />
+      <workItem from="1488150886287" duration="6593000" />
     </task>
     <task id="LOCAL-00001" summary="Some vector and matrix math">
       <created>1484190478176</created>
@@ -725,11 +725,18 @@
       <option name="project" value="LOCAL" />
       <updated>1488109410316</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="ai waypoint movement">
+      <created>1488124324951</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1488124324951</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="390459000" />
+    <option name="totallyTimeSpent" value="402671000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -786,7 +793,8 @@
     <MESSAGE value="some editor work and camera swapping" />
     <MESSAGE value="various work" />
     <MESSAGE value="car movement controller-independent" />
-    <option name="LAST_COMMIT_MESSAGE" value="car movement controller-independent" />
+    <MESSAGE value="ai waypoint movement" />
+    <option name="LAST_COMMIT_MESSAGE" value="ai waypoint movement" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -795,13 +803,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Scripts/Editor/gui/Controllers/scene_object_controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="27" column="5" lean-forward="true" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Scripts/Editor/gui/Controllers/controller.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -932,14 +933,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/follower_camera.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1203">
-          <caret line="92" column="53" lean-forward="false" selection-start-line="92" selection-start-column="53" selection-end-line="92" selection-end-column="53" />
         </state>
       </provider>
     </entry>
@@ -947,13 +940,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-57">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/mesh_renderer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="31" column="49" lean-forward="false" selection-start-line="31" selection-start-column="49" selection-end-line="31" selection-end-column="49" />
         </state>
       </provider>
     </entry>
@@ -1013,13 +999,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/swap_camera.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="21" column="9" lean-forward="false" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Scripts/Shaders/materials.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-228">
@@ -1038,7 +1017,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1026">
           <caret line="54" column="6" lean-forward="false" selection-start-line="54" selection-start-column="6" selection-end-line="54" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1046,7 +1024,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2109">
           <caret line="111" column="48" lean-forward="false" selection-start-line="111" selection-start-column="48" selection-end-line="111" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1054,22 +1031,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="646">
           <caret line="34" column="40" lean-forward="false" selection-start-line="34" selection-start-column="40" selection-end-line="34" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/camera.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="779">
-          <caret line="41" column="49" lean-forward="false" selection-start-line="41" selection-start-column="49" selection-end-line="41" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/transform.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2983">
-          <caret line="157" column="2" lean-forward="false" selection-start-line="157" selection-start-column="2" selection-end-line="157" selection-end-column="2" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1077,7 +1038,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2533">
           <caret line="143" column="29" lean-forward="false" selection-start-line="143" selection-start-column="29" selection-end-line="143" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1085,17 +1045,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
           <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding>
-            <marker date="1488108999836" expanded="true" signature="208:452" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Scene/scene.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1103,7 +1052,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="741">
           <caret line="84" column="38" lean-forward="true" selection-start-line="84" selection-start-column="38" selection-end-line="84" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1111,7 +1059,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
           <caret line="16" column="43" lean-forward="true" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1119,60 +1066,114 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-317">
           <caret line="96" column="29" lean-forward="false" selection-start-line="96" selection-start-column="29" selection-end-line="96" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/scene_object.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="31" column="9" lean-forward="true" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cyberracing.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="728">
-          <caret line="506" column="96" lean-forward="false" selection-start-line="506" selection-start-column="96" selection-end-line="506" selection-end-column="96" />
-          <folding>
-            <element signature="n#script#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#script#3;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Math3D/vector.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="610">
-          <caret line="420" column="40" lean-forward="true" selection-start-line="420" selection-start-column="40" selection-end-line="420" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/car_movement.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="899">
-          <caret line="206" column="0" lean-forward="true" selection-start-line="206" selection-start-column="0" selection-end-line="206" selection-end-column="0" />
+        <state relative-caret-position="3876">
+          <caret line="206" column="0" lean-forward="false" selection-start-line="206" selection-start-column="0" selection-end-line="206" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc;n#CarMovement#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/waypoint_driver.js">
+    <entry file="file://$PROJECT_DIR$/Scripts/Scene/scene.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="994">
-          <caret line="99" column="0" lean-forward="true" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+        <state relative-caret-position="3154">
+          <caret line="166" column="0" lean-forward="false" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Math3D/vector.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7980">
+          <caret line="420" column="40" lean-forward="false" selection-start-line="420" selection-start-column="40" selection-end-line="420" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/follower_camera.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="81" column="0" lean-forward="true" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/swap_camera.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="627">
+          <caret line="33" column="13" lean-forward="true" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/gl-matrix.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="3733" column="4" lean-forward="false" selection-start-line="3733" selection-start-column="4" selection-end-line="3733" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/transform.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2584">
+          <caret line="136" column="5" lean-forward="true" selection-start-line="136" selection-start-column="5" selection-end-line="136" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/camera.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="34" column="50" lean-forward="true" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/scene_object.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="9" lean-forward="false" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Scripts/init.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="722">
-          <caret line="199" column="28" lean-forward="true" selection-start-line="199" selection-start-column="28" selection-end-line="199" selection-end-column="28" />
+        <state relative-caret-position="823">
+          <caret line="371" column="14" lean-forward="false" selection-start-line="371" selection-start-column="14" selection-end-line="371" selection-end-column="14" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/waypoint_driver.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="60" column="13" lean-forward="true" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/Scene/SceneObject/Component/mesh_renderer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="32" column="24" lean-forward="true" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cyberracing.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5699">
+          <caret line="506" column="96" lean-forward="false" selection-start-line="506" selection-start-column="96" selection-end-line="506" selection-end-column="96" />
+          <folding>
+            <element signature="n#script#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#script#3;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

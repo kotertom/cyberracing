@@ -65,7 +65,7 @@ WaypointDriver.prototype.defineProperties({
 
     defaultRadius: {
         get: function () {
-            return this._defaultRadius || 7;
+            return this._defaultRadius || 17;
         },
         set: function (value) {
             this._defaultRadius = value;

@@ -7,7 +7,7 @@ var App = (function (ns) {
     ns.Scene = (function (ns) {
 
         ns.Scene = function Scene() {
-            this.root = new SceneObject(undefined, 'root');
+            this.root = new SceneObject('root');
             this.ambientLightColor = [0.2,0.2,0.2,1];
             this.backgroundColor = [0.1,0.1,0.1,1];
             this.lights = [];

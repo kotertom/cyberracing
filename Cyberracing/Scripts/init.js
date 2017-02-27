@@ -54,22 +54,24 @@ var gameCanvas = document.getElementById("game-canvas");
 
     App.activeScene = new App.Scene.Scene();
 
-    let track = [];
-    let track1 = new SceneObject('track1');
-    track1.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/track_crossing.obj')));
-    App.activeScene.add(track1);
-    track.push(track1);
+    // let track = [];
+    // let track1 = new SceneObject('track1');
+    // track1.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/track_crossing.obj')));
+    // App.activeScene.add(track1);
+    // track.push(track1);
+    //
+    // let track2 = new SceneObject('track2');
+    // track2.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/track_straight.obj')));
+    // track2.addComponent(new Script({
+    //     start: function () {
+    //         let t = this.owner.getComponent('transform');
+    //         t.position = [10,0,0];
+    //     }
+    // }));
+    // App.activeScene.add(track2);
+    // track.push(track2);
 
-    let track2 = new SceneObject('track2');
-    track2.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/track_straight.obj')));
-    track2.addComponent(new Script({
-        start: function () {
-            let t = this.owner.getComponent('transform');
-            t.position = [10,0,0];
-        }
-    }));
-    App.activeScene.add(track2);
-    track.push(track2);
+    createTrack();
 
     let cube = new SceneObject('cube');
     cube.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/toyota.obj')));
@@ -132,13 +134,15 @@ var gameCanvas = document.getElementById("game-canvas");
             t.position = ct.position.vec3.add([0,1,2].vec3).toArray();
         }
     }));
-    let dashboardCamera = new SceneObject('dashboardCamera', cube);
-    dashboardCamera.addComponent(new Camera(75, null, 0.1, 1000));
+    let dashboardCamera = new SceneObject('dashboardCamera');
+    dashboardCamera.addComponent(new Camera(90, null, 0.1, 1000));
+    dashboardCamera.getComponent('transform').position = [0,1.3,0];
     let dc = new FollowerCamera();
     dc.objectToFollow = dashboardHelper;
-    dc.relativePosition = [0, 0, -2];
-    dashboardCamera.addComponent(dc);
-    App.activeScene.add(dashboardCamera);
+    dc.relativePosition = [0, 1, -2];
+    // dashboardCamera.addComponent(dc);
+    App.activeScene.add(dashboardCamera, cube);
+    console.log("dash parent: ",dashboardCamera.parent);
 
 
     let helperObject = new SceneObject('helperObject');
@@ -157,6 +161,9 @@ var gameCanvas = document.getElementById("game-canvas");
     pLight.addComponent(new Script({
         render: function () {
             let transform = this.getOwner().getComponent('transform');
+            transform.position = [-10,4,-5];
+            transform.rotation = [0,Math.PI/4,0];
+            return;
             let t = App.activeScene.getObjectByName('cube').getComponent('transform');
             transform.position = Vector.add(t.position, [5*Math.sin(performance.now()/1000), 3, 5*Math.cos(performance.now()/1000)]);
         }
@@ -184,19 +191,46 @@ var gameCanvas = document.getElementById("game-canvas");
     App.activeScene.add(sLight);
 
 
-    let wp1 = new SceneObject('wp1');
-    wp1.getComponent('transform').position = [0,0,50];
-    wp1.addComponent(new MeshRenderer(gl));
-    let wp2 = new SceneObject('wp2');
-    wp2.getComponent('transform').position = [50,0,50];
-    wp2.addComponent(new MeshRenderer(gl));
-    let wp3 = new SceneObject('wp3');
-    wp3.getComponent('transform').position = [50,0,-50];
-    wp3.addComponent(new MeshRenderer(gl));
-    let wp4 = new SceneObject('wp4');
-    wp4.getComponent('transform').position = [-50,0,-50];
-    wp4.addComponent(new MeshRenderer(gl));
-    let waypoints = [wp1,wp2,wp3,wp4];
+    // let wp1 = new SceneObject('wp1');
+    // wp1.getComponent('transform').position = [0,0,50];
+    // wp1.addComponent(new MeshRenderer(gl));
+    // let wp2 = new SceneObject('wp2');
+    // wp2.getComponent('transform').position = [50,0,50];
+    // wp2.addComponent(new MeshRenderer(gl));
+    // let wp3 = new SceneObject('wp3');
+    // wp3.getComponent('transform').position = [50,0,-50];
+    // wp3.addComponent(new MeshRenderer(gl));
+    // let wp4 = new SceneObject('wp4');
+    // wp4.getComponent('transform').position = [-50,0,-50];
+    // wp4.addComponent(new MeshRenderer(gl));
+    // let waypoints = [wp1,wp2,wp3,wp4];
+    let waypoints = [
+        createWaypoint([0,0,20]),
+        createWaypoint([0,0,40]),
+        createWaypoint([0,0,60]),
+
+        createWaypoint([20,0,60]),
+        createWaypoint([40,0,60]),
+        createWaypoint([40,0,40]),
+        createWaypoint([40,0,20]),
+
+        createWaypoint([20,0,20]),
+        createWaypoint([0,0,20]),
+        createWaypoint([-20,0,20]),
+        createWaypoint([-40,0,20]),
+        createWaypoint([-60,0,20]),
+
+        createWaypoint([-60,0,0]),
+        createWaypoint([-60,0,-20]),
+        createWaypoint([-60,0,-40]),
+
+        createWaypoint([-40,0,-40]),
+        createWaypoint([-20,0,-40]),
+        createWaypoint([0,0,-40]),
+
+        createWaypoint([0,0,-20]),
+        createWaypoint([0,0,0])
+    ];
     for(let wp of waypoints)
         App.activeScene.add(wp);
 
@@ -289,4 +323,51 @@ function resizeCanvas() {
     gameCanvas.width = window.innerWidth;//document.body.clientWidth;
     gameCanvas.height = window.innerHeight;// document.body.clientHeight;
     gl.viewport(0, 0, gameCanvas.width, gameCanvas.height);
+}
+
+function createTrack() {
+    createTrackSegment('track_finish', [0,0,0], [0,toRad(90),0]);
+    createTrackSegment('track_crossing', [0,0,20], [0,0,0]);
+    createTrackSegment('track_straight', [0,0,40], [0,toRad(90),0]);
+    createTrackSegment('track_turn', [0,0,60], [0,0,0]);
+
+    createTrackSegment('track_straight', [20,0,60], [0,0,0]);
+    createTrackSegment('track_turn', [40,0,60], [0,toRad(90),0]);
+    createTrackSegment('track_straight', [40,0,40], [0,toRad(90),0]);
+    createTrackSegment('track_turn', [40,0,20], [0,toRad(180),0]);
+
+    createTrackSegment('track_straight', [20,0,20], [0,0,0]);
+    createTrackSegment('track_straight', [-20,0,20], [0,0,0]);
+    createTrackSegment('track_straight', [-40,0,20], [0,0,0]);
+    createTrackSegment('track_turn', [-60,0,20], [0,0,0]);
+
+    createTrackSegment('track_straight', [-60,0,0], [0,toRad(90),0]);
+    createTrackSegment('track_straight', [-60,0,-20], [0,toRad(90),0]);
+    createTrackSegment('track_turn', [-60,0,-40], [0,toRad(-90),0]);
+    createTrackSegment('track_straight', [-40,0,-40], [0,0,0]);
+
+    createTrackSegment('track_straight', [-20,0,-40], [0,0,0]);
+    createTrackSegment('track_turn', [0,0,-40], [0,toRad(180),0]);
+    createTrackSegment('track_straight', [0,0,-20], [0,toRad(90),0]);
+}
+
+function createTrackSegment(name, pos, rot) {
+    let track = new SceneObject();
+    track.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/'+name+'.obj')));
+    track.addComponent(new Script({
+        start: function () {
+            let t = this.owner.getComponent('transform');
+            t.position = pos;
+            t.rotation = rot;
+        }
+    }));
+    App.activeScene.add(track);
+}
+
+function createWaypoint(pos) {
+    let wp = new SceneObject();
+    wp.getComponent('transform').position = pos;
+    wp.addComponent(new MeshRenderer(gl));
+
+    return wp;
 }

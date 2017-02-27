@@ -34,7 +34,7 @@ MeshRenderer.prototype.init = function () {
         kD: [1.0, 1.0, 1.0],
         kS: [0.0, 0.0, 0.0],
         roughness: 1,
-        specType: SPECULAR_TYPE.PHONG
+        specType: SPECULAR_TYPE.BLINN
     }));
 };
 
