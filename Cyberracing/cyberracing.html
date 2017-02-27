@@ -199,7 +199,7 @@
 
         uniform mat4 uMVMatrix;
         uniform mat4 uMVPMatrix;
-        uniform mat4 uNormalMatrix;
+        uniform mat3 uNormalMatrix;
 
         varying vec3 vPosition;
         varying vec3 vNormal;
@@ -209,7 +209,7 @@
             vec4 pos = uMVMatrix * vec4(aVertexPosition, 1.0);
             vPosition = pos.xyz / pos.w;
             gl_Position = uMVPMatrix * vec4(aVertexPosition, 1.0);
-            vNormal = normalize((uNormalMatrix * vec4(aVertexNormal, 0.0)).xyz);
+            vNormal = normalize(uNormalMatrix * aVertexNormal);
         }
     </script>
     <script id="fs-phong" type="x-shader/x-fragment">
@@ -350,7 +350,7 @@
 
         uniform mat4 uMVMatrix;
         uniform mat4 uMVPMatrix;
-        uniform mat4 uNormalMatrix;
+        uniform mat3 uNormalMatrix;
         uniform vec3 uCameraPosition;
         uniform int  uSpecularType;
 
@@ -386,9 +386,11 @@
             vec3 diffusePart = vec3(0.0);
             vec3 specularPart = vec3(0.0);
 
-            vec4 normal = uNormalMatrix * vec4(aVertexNormal, -dot(aVertexNormal, aVertexPosition));
+            vec3 normal = uNormalMatrix * aVertexNormal;
 
-            vec3 vecToViewer = normalize(uCameraPosition - aVertexPosition);
+            vec4 position4 = uMVMatrix * vec4(aVertexPosition, 1.0);
+            vec3 position = position4.xyz / position4.w;
+            vec3 vecToViewer = normalize(-position);
 
             light_info l;
             float lambert;
@@ -403,7 +405,7 @@
 
                 // memory-wise clone for readability -- small performance hit
                 l = uLight[i];
-                squareDistance = pow(length(l.position - aVertexPosition), 2.0);
+                squareDistance = pow(length(l.position - position), 2.0);
                 if (l.type == DIRECTIONAL)
                 {
                     vecToLight = -l.direction;
@@ -411,12 +413,12 @@
                 }
                 else if (l.type == POINT)
                 {
-                    vecToLight = normalize(l.position - aVertexPosition);
+                    vecToLight = normalize(l.position - position);
                     intensity = l.color.xyz;
                 }
                 else if (l.type == SPOT)
                 {
-                    vecToLight = normalize(l.position - aVertexPosition);
+                    vecToLight = normalize(l.position - position);
                     float angleCos = dot(-l.direction, vecToLight);
                     intensity = angleCos < cos(radians(l.angle)) && angleCos > 0.0 ?
                                 l.color.xyz * pow(angleCos, l.exponent) :
@@ -425,7 +427,7 @@
 
 
                 // diffuse
-                lambert = max(dot(aVertexNormal, vecToLight), 0.0);
+                lambert = max(dot(normal, vecToLight), 0.0);
                 diffusePart += intensity * lambert;
 
                 // specular
@@ -435,13 +437,13 @@
                 {
                     if(uSpecularType == PHONG)
                     {
-                        specVec = 2.0 * dot(aVertexNormal, vecToLight) * aVertexNormal - vecToLight;
+                        specVec = 2.0 * dot(normal, vecToLight) * normal - vecToLight;
                         cosine = pow(dot(specVec, vecToViewer), uMaterial.roughness);
                     }
                     else if (uSpecularType == BLINN)
                     {
                         specVec = 0.5 * (vecToLight + vecToViewer);
-                        cosine = pow(dot(aVertexNormal, specVec), uMaterial.roughness);
+                        cosine = pow(dot(normal, specVec), uMaterial.roughness);
                     }
 
                     specularPart += intensity * cosine;
