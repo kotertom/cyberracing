@@ -180,7 +180,7 @@ CarMovement.prototype.defineProperties({
             // rb.drag = [this.engineDrag,this.engineDrag,this.engineDrag].vec3;
             rb.force = tr.forward.vec3.mult(accel * rb.mass);
 
-            let vel = rb. velocity.length;
+            let vel = rb.velocity.length;
             let drag = 0.2;
             let rr = 0.1;
             rb.force = rb.force.sub(tr.forward.vec3.mult((drag * vel + rr) * vel * goingForward));
@@ -191,7 +191,7 @@ CarMovement.prototype.defineProperties({
             // console.log('acceleration: ' + (rb.acceleration.length * -goingForward));
             // console.log('velocity: ' + (rb.velocity.length * goingForward));
 
-            rb.force= Vector3.zero;
+            rb.force = Vector3.zero;
 
 
             let axleDistance = this.steeringAxle.sub(this.rearAxle).length;
@@ -201,6 +201,14 @@ CarMovement.prototype.defineProperties({
             // console.log('radius: ' + radius);
 
             rb.angularVelocity = [0, goingForward * angularVelocity, 0].vec3;
+
+            let addRot = rb.velocity.length * goingForward * 0.25 * App.fixedDeltaT;
+            let rot = this.wheels.fl.getComponent('transform').rotation;
+            this.wheels.fl.getComponent('transform').rotation = [rot[0] + addRot, toRad(this.steeringAngle), rot[2]];
+            rot = this.wheels.fr.getComponent('transform').rotation;
+            this.wheels.fr.getComponent('transform').rotation = [rot[0] + addRot, toRad(this.steeringAngle), rot[2]];
+            this.wheels.rr.getComponent('transform').rotate([addRot,0,0]);
+            this.wheels.rl.getComponent('transform').rotate([addRot,0,0]);
 
 
             // console.log('w: ' + rb.angularVelocity.y);

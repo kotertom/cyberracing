@@ -74,7 +74,7 @@ var gameCanvas = document.getElementById("game-canvas");
     createTrack();
 
     let cube = new SceneObject('cube');
-    cube.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/toyota.obj')));
+    cube.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/toyota_chassis.obj')));
     cube.addComponent(new Script({
         start: function () {
             let transform = this.getOwner().getComponent('transform');
@@ -86,19 +86,36 @@ var gameCanvas = document.getElementById("game-canvas");
     cube.addComponent(new Rigidbody());
     cube.addComponent(new CarMovement());
     App.activeScene.add(cube);
-    let wheels = {
-        fl: new SceneObject('wheel_fl'),
-        fr: new SceneObject('wheel_fr'),
-        rl: new SceneObject('wheel_rl'),
-        rr: new SceneObject('wheel_rr')
+    cube.getComponent('carMovement').wheels = {
+        fr: (function () {
+            let o = new SceneObject();
+            o.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/toyota_wheel.obj')));
+            o.getComponent('transform').position = [-0.85168, 0.36941, 1.62293];
+            App.activeScene.add(o,cube);
+            return o;
+        })(),
+        fl: (function () {
+            let o = new SceneObject();
+            o.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/toyota_wheel.obj')));
+            o.getComponent('transform').position = [ 0.85168, 0.36941, 1.62293];
+            App.activeScene.add(o,cube);
+            return o;
+        })(),
+        rr: (function () {
+            let o = new SceneObject();
+            o.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/toyota_wheel.obj')));
+            o.getComponent('transform').position = [-0.85168, 0.36941, -1.34925];
+            App.activeScene.add(o,cube);
+            return o;
+        })(),
+        rl: (function () {
+            let o = new SceneObject();
+            o.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/toyota_wheel.obj')));
+            o.getComponent('transform').position = [ 0.85168, 0.36941, -1.34925];
+            App.activeScene.add(o,cube);
+            return o;
+        })()
     };
-    wheels.fl.parent = cube;
-    wheels.fr.parent = cube;
-    wheels.rl.parent = cube;
-    wheels.rr.parent = cube;
-    wheels.fl.getComponent('transform').position = [0,0,1];
-    wheels.fr.getComponent('transform').position = [0,0,1];
-    cube.getComponent('carMovement').wheels = wheels;
 
     console.log(cube);
 
@@ -370,7 +387,7 @@ function createWaypoint(pos) {
 
 function createOpponent(pos, waypoints) {
     let opp = new SceneObject();
-    opp.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/toyota.obj')));
+    opp.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/toyota_chassis.obj')));
     opp.addComponent(new Script({
         start: function () {
             let transform = this.getOwner().getComponent('transform');
@@ -378,9 +395,39 @@ function createOpponent(pos, waypoints) {
             // transform.rotation = [Math.PI/4,(performance.now()/1000),0];
         }
     }));
+    App.activeScene.add(opp);
     opp.addComponent(new Rigidbody());
     opp.addComponent(new CarMovement());
+    opp.getComponent('carMovement').wheels = {
+        fr: (function () {
+            let o = new SceneObject();
+            o.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/toyota_wheel.obj')));
+            o.getComponent('transform').position = [-0.85168, 0.36941, 1.62293];
+            App.activeScene.add(o,opp);
+            return o;
+        })(),
+        fl: (function () {
+            let o = new SceneObject();
+            o.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/toyota_wheel.obj')));
+            o.getComponent('transform').position = [ 0.85168, 0.36941, 1.62293];
+            App.activeScene.add(o,opp);
+            return o;
+        })(),
+        rr: (function () {
+            let o = new SceneObject();
+            o.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/toyota_wheel.obj')));
+            o.getComponent('transform').position = [-0.85168, 0.36941, -1.34925];
+            App.activeScene.add(o,opp);
+            return o;
+        })(),
+        rl: (function () {
+            let o = new SceneObject();
+            o.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/toyota_wheel.obj')));
+            o.getComponent('transform').position = [ 0.85168, 0.36941, -1.34925];
+            App.activeScene.add(o,opp);
+            return o;
+        })()
+    };
     opp.addComponent(new WaypointDriver());
     opp.getComponent('waypointDriver').waypoints = waypoints;
-    App.activeScene.add(opp);
 }
