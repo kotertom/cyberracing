@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="00a3d8e5-163e-4cce-a964-a21951eb4aca" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/Shaders/materials.js" afterPath="$PROJECT_DIR$/Scripts/Shaders/materials.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cyberracing.html" afterPath="$PROJECT_DIR$/cyberracing.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -638,7 +636,7 @@
       <workItem from="1487935685865" duration="6258000" />
       <workItem from="1487965393603" duration="152000" />
       <workItem from="1488144530673" duration="2166000" />
-      <workItem from="1488150886287" duration="23742000" />
+      <workItem from="1488150886287" duration="23757000" />
     </task>
     <task id="LOCAL-00001" summary="Some vector and matrix math">
       <created>1484190478176</created>
@@ -766,11 +764,18 @@
       <option name="project" value="LOCAL" />
       <updated>1488228856449</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="PHONG WORKING">
+      <created>1488229757021</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1488229757021</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="419820000" />
+    <option name="totallyTimeSpent" value="419835000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -830,7 +835,8 @@
     <MESSAGE value="ai waypoint movement" />
     <MESSAGE value="track ready" />
     <MESSAGE value="messing with shaders" />
-    <option name="LAST_COMMIT_MESSAGE" value="messing with shaders" />
+    <MESSAGE value="PHONG WORKING" />
+    <option name="LAST_COMMIT_MESSAGE" value="PHONG WORKING" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
