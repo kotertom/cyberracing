@@ -34,6 +34,8 @@ Camera.prototype.getViewMatrix = function () {
     // mat4.lookAt(viewMatrix, t.position, vec.add(t.position, t.forward), [0,1,0]);
     mat4.lookAt(viewMatrix, center, fwd, [0,1,0]);
     // viewMatrix = t.getInverseTransformMatrix();
+    // mat4.invert(viewMatrix, t.getTransformMatrix());
+    // mat4.transpose(viewMatrix, viewMatrix);
     return viewMatrix;
 };
 Camera.prototype.lookAt = function (targetPos, upVector) {

@@ -40,6 +40,58 @@ Matrix3.prototype.defineProperties({
         value: function (xyz, order) {
             this.set(Matrix3.rotation(xyz, order).mult(this));
         }
+    },
+
+    inverted: {
+        get: function () {
+            return new Matrix3(this.elements).invert();
+        }
+    },
+
+    inv: {
+        get: function () {
+            return this.inverted;
+        }
+    },
+
+    invert: {
+        value: function () {
+            let a11 = this.elements[0],
+                a21 = this.elements[1],
+                a31 = this.elements[2],
+
+                a12 = this.elements[3],
+                a22 = this.elements[4],
+                a32 = this.elements[5],
+
+                a13 = this.elements[6],
+                a23 = this.elements[7],
+                a33 = this.elements[8];
+
+            let det = a11*a22*a33 + a21*a32*a13 + a31*a12*a23 -
+                a11*a32*a23 - a31*a22*a13 - a21*a12*a33;
+
+            if(det == 0)
+                throw "Can't invert matrix: det == 0";
+
+            let b11 = a22*a33 - a23*a32,
+                b21 = a23*a31 - a21*a33,
+                b31 = a21*a32 - a22*a31,
+
+                b12 = a13*a32 - a12*a33,
+                b22 = a11*a33 - a13*a31,
+                b32 = a12*a31 - a11*a32,
+
+                b13 = a12*a23 - a13*a22,
+                b23 = a13*a21 - a11*a23,
+                b33 = a11*a22 - a12*a21;
+
+            this.elements = [b11, b21, b31,
+                b12, b22, b32,
+                b13, b23, b33];
+
+            return this;
+        }
     }
 });
 
@@ -120,53 +172,11 @@ Matrix3.defineProperties({
         }
     },
 
-    inverted: {
-        get: function () {
-            return new Matrix3(this.elements).invert();
-        }
-    },
-
-    inv: {
-        get: function () {
-            return this.inverted;
-        }
-    },
-
-    invert: {
-        value: function () {
-            let a11 = this.elements[0],
-                a21 = this.elements[1],
-                a31 = this.elements[2],
-
-                a12 = this.elements[3],
-                a22 = this.elements[4],
-                a32 = this.elements[5],
-
-                a13 = this.elements[6],
-                a23 = this.elements[7],
-                a33 = this.elements[8];
-
-            let det = a11*a22*a33 + a21*a32*a13 + a31*a12*a23 -
-                      a11*a32*a23 - a31*a22*a13 - a21*a12*a33;
-
-            if(det == 0)
-                throw "Can't invert matrix: det == 0";
-
-            let b11 = a22*a33 - a23*a32,
-                b21 = a23*a31 - a21*a33,
-                b31 = a21*a32 - a22*a31,
-
-                b12 = a13*a32 - a12*a33,
-                b22 = a11*a33 - a13*a31,
-                b32 = a12*a31 - a11*a32,
-
-                b13 = a12*a23 - a13*a22,
-                b23 = a13*a21 - a11*a23,
-                b33 = a11*a22 - a12*a21;
-
-            this.elements = [b11, b21, b31,
-                             b12, b22, b32,
-                             b13, b23, b33];
+    fromMat4: {
+        value: function (m) {
+            return new Matrix3([m[0], m[1], m[2],
+                                m[4], m[5], m[6],
+                                m[8], m[9], m[10]]);
         }
     }
 });

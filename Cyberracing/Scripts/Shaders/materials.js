@@ -377,13 +377,14 @@ function initMaterials(gl) {
 
                 let mv = Matrix4.multiplyMbyM(viewMatrix, modelMatrix);
                 let mvp = Matrix4.multiplyMbyM(projectionMatrix, mv);
-                let normalMatrix = Matrix4.transpose(Matrix4.inverse(mv));
+                // let normalMatrix = Matrix4.transpose(Matrix4.inverse(mv));
+                let normalMatrix = mv.mat4.inverted.transposed.toArray();
                 let camera = App.activeCamera;
                 let cTransform = camera.getComponent('transform');
                 gl.uniformMatrix4fv(locations.uniform.mvpMatrix, false, new Float32Array(mvp));
                 gl.uniformMatrix4fv(locations.uniform.mvMatrix, false, new Float32Array(mv));
                 gl.uniformMatrix4fv(locations.uniform.normalMatrix, false, new Float32Array(normalMatrix));
-                gl.uniform3fv(locations.uniform.cameraPosition, cTransform.position);
+                gl.uniform3fv(locations.uniform.cameraPosition, [0,0,0]);
                 gl.uniform1i(locations.uniform.specularType, this.specType);
                 gl.uniform1i(locations.uniform.numLights, lights.length);
 

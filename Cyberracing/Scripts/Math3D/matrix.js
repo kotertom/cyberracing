@@ -110,6 +110,7 @@ Matrix.prototype.defineProperties({
                     elements[col + r] = this.elements[row + c];
                     c += this.rowNum;
                 }
+                c = 0;
                 r += this.colNum;
             }
 
@@ -117,9 +118,16 @@ Matrix.prototype.defineProperties({
         }
     },
 
-    transpose: {
+    transposed: {
         get: function () {
             return this.t;
+        }
+    },
+
+    transpose: {
+        value: function () {
+            this.elements = this.t.elements;
+            return this;
         }
     },
 
@@ -135,6 +143,12 @@ Matrix.prototype.defineProperties({
                 ret.push(line.join('\t'));
             }
             return ret.join('\n');
+        }
+    },
+
+    toArray: {
+        value: function () {
+            return this.elements.slice();
         }
     }
 });

@@ -43,17 +43,31 @@ var App = (function (ns) {
                 angle: 0,
                 exponent: 0
             });
+            var vMatrix = Array.prototype.slice.call(App.getViewMatrix()).mat4;
             treeWalkDFSC(this.root, function (obj) {
                 let light = obj.getComponent('light');
                 let transform = obj.getComponent('transform');
                 if(!light)
                     return false;
 
+                let mMatrix = transform.getTransformMatrix();
+                let mvMatrix = vMatrix.mult(mMatrix.mat4).elements.mat4;
+                let pos = transform.position.slice();
+                pos.push(1);
+                let transformedPos = mvMatrix.mult(pos.vec);
+                transformedPos = transformedPos.mult(1/transformedPos.w).toArray().slice(0,3);
+                let transformedDir = Vector.zero(3);
+                if(light.emitter.direction) {
+                    let dir = light.emitter.direction.slice();
+                    dir.push(0);
+                    transformedDir = mvMatrix.inverted.transposed.mult(dir.vec).toArray().slice(0,3);
+                }
+
                 lights.push({
                     type: lightEmitterTypeToInt(light.getEmitterType()),
                     color: light.emitter.color,
-                    position: transform.position,
-                    direction: light.emitter.direction || Vector.zero(3),
+                    position: transformedPos,
+                    direction: transformedDir,
                     angle: light.emitter.angle || 0,
                     exponent: light.emitter.exponent || 0
                 });

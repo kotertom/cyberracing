@@ -99,8 +99,8 @@ WaypointDriver.prototype.defineProperties({
             let toTheLeft = Math.sign(cdAngleSin);
 
             let carControl = this.owner.getComponent('carMovement');
-            console.log('steering to the left: ' + toTheLeft);
-            console.log('accelerating: ' + accel);
+            // console.log('steering to the left: ' + toTheLeft);
+            // console.log('accelerating: ' + accel);
             carControl.steer(toTheLeft);
             carControl.accelerate(accel);
         }

@@ -149,7 +149,7 @@ CarMovement.prototype.defineProperties({
             let rb = this.owner.getComponent('rigidbody');
             let tr = this.owner.getComponent('transform');
 
-            console.log(tr.position);
+            // console.log(tr.position);
 
             let r = this.steeringToConsume;
             this.steeringToConsume = 0;

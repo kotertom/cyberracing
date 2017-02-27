@@ -157,7 +157,7 @@ var gameCanvas = document.getElementById("game-canvas");
     pLight.addComponent(new Light(PointLightEmitter));
     let ple = pLight.getComponent('light');
     ple.emitter.color = [1.0, 0.0, 0.0, 1.0];
-    pLight.addComponent(new MeshRenderer(gl));
+    pLight.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/bulb.obj')));
     pLight.addComponent(new Script({
         render: function () {
             let transform = this.getOwner().getComponent('transform');
@@ -176,7 +176,7 @@ var gameCanvas = document.getElementById("game-canvas");
     le.emitter.exponent = 2;
     le.emitter.angle = 40;
     le.emitter.color = [0.0, 0.0, 1.0, 1.0];
-    sLight.addComponent(new MeshRenderer(gl));
+    sLight.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/bulb.obj')));
     sLight.addComponent(new Script({
         render: function () {
             let t = this.getOwner().getComponent('transform');
@@ -190,42 +190,43 @@ var gameCanvas = document.getElementById("game-canvas");
     }));
     App.activeScene.add(sLight);
 
+    // let sun = new SceneObject('sun');
+    // sun.addComponent(new Light(DirectionalLightEmitter, [1,1,0,1]));
+    // sun.addComponent(new MeshRenderer(gl));
+    // sun.addComponent(new Script({
+    //     update: function () {
+    //         let t = this.owner.getComponent('transform');
+    //         let l = this.owner.getComponent('light');
+    //
+    //         t.rotation = [0,0,performance.now()/10000];
+    //         l.emitter.direction = [0,-1,0];
+    //     }
+    // }));
+    // App.activeScene.add(sun);
 
-    // let wp1 = new SceneObject('wp1');
-    // wp1.getComponent('transform').position = [0,0,50];
-    // wp1.addComponent(new MeshRenderer(gl));
-    // let wp2 = new SceneObject('wp2');
-    // wp2.getComponent('transform').position = [50,0,50];
-    // wp2.addComponent(new MeshRenderer(gl));
-    // let wp3 = new SceneObject('wp3');
-    // wp3.getComponent('transform').position = [50,0,-50];
-    // wp3.addComponent(new MeshRenderer(gl));
-    // let wp4 = new SceneObject('wp4');
-    // wp4.getComponent('transform').position = [-50,0,-50];
-    // wp4.addComponent(new MeshRenderer(gl));
-    // let waypoints = [wp1,wp2,wp3,wp4];
+
     let waypoints = [
         createWaypoint([0,0,20]),
-        createWaypoint([0,0,40]),
+        // createWaypoint([0,0,40]),
         createWaypoint([0,0,60]),
 
-        createWaypoint([20,0,60]),
+        // createWaypoint([20,0,60]),
         createWaypoint([40,0,60]),
-        createWaypoint([40,0,40]),
+        // createWaypoint([40,0,40]),
         createWaypoint([40,0,20]),
 
-        createWaypoint([20,0,20]),
-        createWaypoint([0,0,20]),
-        createWaypoint([-20,0,20]),
-        createWaypoint([-40,0,20]),
+        // createWaypoint([20,0,20]),
+        // createWaypoint([0,0,20]),
+        // createWaypoint([-20,0,20]),
+        // createWaypoint([-40,0,20]),
         createWaypoint([-60,0,20]),
 
-        createWaypoint([-60,0,0]),
-        createWaypoint([-60,0,-20]),
+        // createWaypoint([-60,0,0]),
+        // createWaypoint([-60,0,-20]),
         createWaypoint([-60,0,-40]),
 
-        createWaypoint([-40,0,-40]),
-        createWaypoint([-20,0,-40]),
+        // createWaypoint([-40,0,-40]),
+        // createWaypoint([-20,0,-40]),
         createWaypoint([0,0,-40]),
 
         createWaypoint([0,0,-20]),
@@ -234,20 +235,15 @@ var gameCanvas = document.getElementById("game-canvas");
     for(let wp of waypoints)
         App.activeScene.add(wp);
 
-    let opp = new SceneObject('opp');
-    opp.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/toyota.obj')));
-    opp.addComponent(new Script({
-        start: function () {
-            let transform = this.getOwner().getComponent('transform');
-            transform.position = [0,0,-5];//[10*Math.sin(performance.now()/1000),0,-5];
-            // transform.rotation = [Math.PI/4,(performance.now()/1000),0];
-        }
-    }));
-    opp.addComponent(new Rigidbody());
-    opp.addComponent(new CarMovement());
-    opp.addComponent(new WaypointDriver());
-    opp.getComponent('waypointDriver').waypoints = waypoints;
-    App.activeScene.add(opp);
+
+    createOpponent([7.5,0,5], waypoints);
+    createOpponent([-7.5,0,-5], waypoints);
+    createOpponent([7.5,0,-15], waypoints);
+    createOpponent([-7.5,0,-25], waypoints);
+    createOpponent([7.5,0,-35], waypoints);
+    // createOpponent([-7.5,0,-20], waypoints);
+    // createOpponent([7.5,0,-25], waypoints);
+    // createOpponent([-7.5,0,-30], waypoints);
 
     App.getViewMatrix = function () {
         return this.activeCamera.getComponent('camera').getViewMatrix();
@@ -370,4 +366,21 @@ function createWaypoint(pos) {
     wp.addComponent(new MeshRenderer(gl));
 
     return wp;
+}
+
+function createOpponent(pos, waypoints) {
+    let opp = new SceneObject();
+    opp.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/toyota.obj')));
+    opp.addComponent(new Script({
+        start: function () {
+            let transform = this.getOwner().getComponent('transform');
+            transform.position = pos;//[10*Math.sin(performance.now()/1000),0,-5];
+            // transform.rotation = [Math.PI/4,(performance.now()/1000),0];
+        }
+    }));
+    opp.addComponent(new Rigidbody());
+    opp.addComponent(new CarMovement());
+    opp.addComponent(new WaypointDriver());
+    opp.getComponent('waypointDriver').waypoints = waypoints;
+    App.activeScene.add(opp);
 }

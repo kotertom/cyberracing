@@ -44,7 +44,7 @@ Matrix4.prototype.defineProperties({
 
     inverted: {
         get: function () {
-            return new Matrix4(this.dim, this.elements).invert();
+            return new Matrix4(this.elements).invert();
         }
     },
 
@@ -57,6 +57,7 @@ Matrix4.prototype.defineProperties({
     invert: {
         value: function () {
             this.elements = Matrix4.inverse(this.elements);
+            return this;
         }
     }
 });

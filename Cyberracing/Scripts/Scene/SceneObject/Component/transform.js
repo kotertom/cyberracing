@@ -174,6 +174,7 @@ Transform.prototype.getTransformMatrix = function () {
 };
 
 Transform.prototype.getInverseTransformMatrix = function () {
+    // return this.getTransformMatrix().mat4.inverted.toArray();
     let parent = this.getOwner().parent;
     let parentMatrix = parent ? parent.getComponent('transform').getInverseTransformMatrix() : Matrix4.identityMatrix;
     return Matrix4.multiplyMatrixArray([

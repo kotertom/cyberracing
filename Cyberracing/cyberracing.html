@@ -199,15 +199,17 @@
 
         uniform mat4 uMVMatrix;
         uniform mat4 uMVPMatrix;
+        uniform mat4 uNormalMatrix;
 
         varying vec3 vPosition;
         varying vec3 vNormal;
 
         void main()
         {
+            vec4 pos = uMVMatrix * vec4(aVertexPosition, 1.0);
+            vPosition = pos.xyz / pos.w;
             gl_Position = uMVPMatrix * vec4(aVertexPosition, 1.0);
-            vPosition = aVertexPosition;
-            vNormal = aVertexNormal;
+            vNormal = normalize((uNormalMatrix * vec4(aVertexNormal, 0.0)).xyz);
         }
     </script>
     <script id="fs-phong" type="x-shader/x-fragment">
@@ -231,7 +233,7 @@
 
         uniform vec3 uCameraPosition;
         uniform int  uSpecularType;
-        uniform mat4 uNormalMatrix;
+
 
         //lights
         uniform light_info uLight[maxLights];
@@ -258,9 +260,7 @@
             vec3 diffusePart = vec3(0.0);
             vec3 specularPart = vec3(0.0);
 
-            vec4 normal = uNormalMatrix * vec4(vNormal, -dot(vNormal, vPosition));
-
-            vec3 vecToViewer = normalize(uCameraPosition - vPosition);
+            vec3 vecToViewer = normalize(-vPosition);
 
             light_info l;
             float lambert;
@@ -297,7 +297,7 @@
 
 
                 // diffuse
-                lambert = max(dot(vNormal, vecToLight), 0.0);
+                lambert = max(dot(normalize(vNormal), vecToLight), 0.0);
                 diffusePart += intensity * lambert;
 
                 // specular
@@ -313,7 +313,7 @@
                     else if (uSpecularType == BLINN)
                     {
                         specVec = 0.5 * (vecToLight + vecToViewer);
-                        cosine = pow(dot(vNormal, specVec), uMaterial.roughness);
+                        cosine = pow(dot(normalize(vNormal), specVec), uMaterial.roughness);
                     }
 
                     specularPart += intensity * cosine;
