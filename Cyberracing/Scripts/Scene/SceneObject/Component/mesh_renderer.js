@@ -29,7 +29,7 @@ MeshRenderer.prototype.init = function () {
 
     //this.setMaterial(Shaders.materials.testing);
 
-    this.setMaterial(new Shaders.materials.Phong({
+    this.setMaterial(new Shaders.materials.Gouraud({
         kA: [0.0, 0.0, 0.0],
         kD: [1.0, 1.0, 1.0],
         kS: [0.0, 0.0, 0.0],
