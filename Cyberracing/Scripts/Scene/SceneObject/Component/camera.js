@@ -32,6 +32,7 @@ Camera.prototype.getViewMatrix = function () {
     let center = mt.mult([0,0,0,1].vec).toArray().slice(0,3);
     let fwd = mt.mult([0,0,1,1].vec).toArray().slice(0,3);
     // mat4.lookAt(viewMatrix, t.position, vec.add(t.position, t.forward), [0,1,0]);
+    // mat4.lookAt(viewMatrix, center, vec.add(center,fwd), [0,1,0]);
     mat4.lookAt(viewMatrix, center, fwd, [0,1,0]);
     // viewMatrix = t.getInverseTransformMatrix();
     // mat4.invert(viewMatrix, t.getTransformMatrix());
