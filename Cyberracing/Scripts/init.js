@@ -116,6 +116,11 @@ var gameCanvas = document.getElementById("game-canvas");
             return o;
         })()
     };
+    let carLight = new Light(SpotLightEmitter, [0,1,0,1]);
+    carLight.emitter.direction = [0,0,1];
+    carLight.emitter.exponent = 2;
+    carLight.emitter.angle = 60;
+    cube.addComponent(carLight);
 
     console.log(cube);
 
@@ -207,19 +212,21 @@ var gameCanvas = document.getElementById("game-canvas");
     }));
     App.activeScene.add(sLight);
 
-    // let sun = new SceneObject('sun');
-    // sun.addComponent(new Light(DirectionalLightEmitter, [1,1,0,1]));
-    // sun.addComponent(new MeshRenderer(gl));
-    // sun.addComponent(new Script({
-    //     update: function () {
-    //         let t = this.owner.getComponent('transform');
-    //         let l = this.owner.getComponent('light');
-    //
-    //         t.rotation = [0,0,performance.now()/10000];
-    //         l.emitter.direction = [0,-1,0];
-    //     }
-    // }));
-    // App.activeScene.add(sun);
+    addLight([0,1,0,1], [-60, 4, 20]);
+
+    let sun = new SceneObject('sun');
+    sun.addComponent(new Light(DirectionalLightEmitter, [0.2,0.2,0.2,1]));
+    sun.addComponent(new MeshRenderer(gl));
+    sun.addComponent(new Script({
+        update: function () {
+            let t = this.owner.getComponent('transform');
+            let l = this.owner.getComponent('light');
+
+            t.rotation = [0,0,performance.now()/7000];
+            l.emitter.direction = [0,-1,0];
+        }
+    }));
+    App.activeScene.add(sun);
 
 
     let waypoints = [
@@ -249,15 +256,16 @@ var gameCanvas = document.getElementById("game-canvas");
         createWaypoint([0,0,-20]),
         createWaypoint([0,0,0])
     ];
+    App.wp = waypoints;
     for(let wp of waypoints)
         App.activeScene.add(wp);
 
-
-    createOpponent([7.5,0,5], waypoints);
-    createOpponent([-7.5,0,-5], waypoints);
-    createOpponent([7.5,0,-15], waypoints);
-    createOpponent([-7.5,0,-25], waypoints);
-    createOpponent([7.5,0,-35], waypoints);
+    App.opponents = [];
+    App.opponents.push(createOpponent([7.5,0,5], waypoints));
+    App.opponents.push(createOpponent([-7.5,0,-5], waypoints));
+    App.opponents.push(createOpponent([7.5,0,-15], waypoints));
+    App.opponents.push(createOpponent([-7.5,0,-25], waypoints));
+    App.opponents.push(createOpponent([7.5,0,-35], waypoints));
     // createOpponent([-7.5,0,-20], waypoints);
     // createOpponent([7.5,0,-25], waypoints);
     // createOpponent([-7.5,0,-30], waypoints);
@@ -390,9 +398,8 @@ function createOpponent(pos, waypoints) {
     opp.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/toyota_chassis.obj')));
     opp.addComponent(new Script({
         start: function () {
-            let transform = this.getOwner().getComponent('transform');
-            transform.position = pos;//[10*Math.sin(performance.now()/1000),0,-5];
-            // transform.rotation = [Math.PI/4,(performance.now()/1000),0];
+            let transform = this.owner.getComponent('transform');
+            transform.position = pos;
         }
     }));
     App.activeScene.add(opp);
@@ -430,4 +437,74 @@ function createOpponent(pos, waypoints) {
     };
     opp.addComponent(new WaypointDriver());
     opp.getComponent('waypointDriver').waypoints = waypoints;
+    return opp;
+}
+
+function addLight(color, pos) {
+    let pLight = new SceneObject();
+    pLight.addComponent(new Light(PointLightEmitter));
+    let ple = pLight.getComponent('light');
+    ple.emitter.color = color;
+    pLight.addComponent(new MeshRenderer(gl, loadMeshFromObj('obj/bulb.obj')));
+    pLight.addComponent(new Script({
+        start: function () {
+            let transform = this.getOwner().getComponent('transform');
+            transform.position = pos;
+        }
+    }));
+    App.activeScene.add(pLight);
+}
+
+function addOpponent() {
+    App.opponents.push(createOpponent([Math.random()*15 - 7.5, 0, Math.random()*50 - 45], App.wp));
+}
+
+function removeOpponent() {
+    App.activeScene.remove(App.opponents.pop());
+}
+
+
+function applyMaterial() {
+    let shader = document.getElementById('shader-select').value;
+    let spec = document.getElementById('spec-select').value;
+    let kA = [
+        parseFloat(document.getElementById('kAr').value),
+        parseFloat(document.getElementById('kAg').value),
+        parseFloat(document.getElementById('kAb').value)
+    ];
+    let kD = [
+        parseFloat(document.getElementById('kDr').value),
+        parseFloat(document.getElementById('kDg').value),
+        parseFloat(document.getElementById('kDb').value)
+    ];
+    let kS = [
+        parseFloat(document.getElementById('kSr').value),
+        parseFloat(document.getElementById('kSg').value),
+        parseFloat(document.getElementById('kSb').value)
+    ];
+
+    let root = App.activeScene.root;
+
+    let stack = [ root ];
+    while(stack.length > 0)
+    {
+        let obj = stack.pop();
+        if(obj.disabled)
+            continue;
+        for(let child of obj.children)
+            stack.push(child);
+
+
+        let mr = obj.getComponent('meshRenderer');
+        if(!mr || mr.disabled)
+            continue;
+
+        mr.setMaterial(new Shaders.materials[shader]({
+            kA: kA,
+            kD: kD,
+            kS: kS,
+            roughness: 1,
+            specType: SPECULAR_TYPE[spec]
+        }));
+    }
 }

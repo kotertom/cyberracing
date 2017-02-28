@@ -202,7 +202,7 @@ CarMovement.prototype.defineProperties({
 
             rb.angularVelocity = [0, goingForward * angularVelocity, 0].vec3;
 
-            let addRot = rb.velocity.length * goingForward * 0.25 * App.fixedDeltaT;
+            let addRot = - rb.velocity.length * goingForward * 0.25 * App.fixedDeltaT;
             let rot = this.wheels.fl.getComponent('transform').rotation;
             this.wheels.fl.getComponent('transform').rotation = [rot[0] + addRot, toRad(this.steeringAngle), rot[2]];
             rot = this.wheels.fr.getComponent('transform').rotation;

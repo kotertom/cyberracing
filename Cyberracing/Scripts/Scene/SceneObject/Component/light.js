@@ -43,7 +43,7 @@ function lightEmitterTypeToInt(type) {
             return LIGHT_TYPE.DIRECTIONAL;
         case PointLightEmitter.name:
             return LIGHT_TYPE.POINT;
-        case SpotLightEmitter:
+        case SpotLightEmitter.name:
             return LIGHT_TYPE.SPOT;
         default:
             return null;

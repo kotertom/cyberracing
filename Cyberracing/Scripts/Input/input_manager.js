@@ -79,7 +79,6 @@ function updateKeyMap(evt) {
     if(evt.type == 'mousedown' || evt.type == 'mouseup')
     {
         input.map[evt.button] = evt.type == 'mousedown';
-        evt.preventDefault();
     }
     if(evt.type == 'wheel')
     {
@@ -101,7 +100,6 @@ function updateClickMap(evt) {
     if(evt.type == 'mouseup')
     {
         input.clickMap[evt.button] = true;
-        evt.preventDefault();
     }
     if(evt.type == 'wheel')
     {
@@ -122,13 +120,13 @@ function updateAxes() {
 
 
     //debug
-    for(let axisName in input.axes)
-    {
-        if(!input.axes.hasOwnProperty(axisName))
-            continue;
-        if(input.getAxis(axisName) != 0)
-            console.log(axisName + ", " + input.getAxis(axisName));
-    }
+    // for(let axisName in input.axes)
+    // {
+    //     if(!input.axes.hasOwnProperty(axisName))
+    //         continue;
+    //     if(input.getAxis(axisName) != 0)
+    //         console.log(axisName + ", " + input.getAxis(axisName));
+    // }
     //debug-end
 
     input.clickMap = {};

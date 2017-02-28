@@ -14,6 +14,18 @@ body {
     padding: 0;
 }
 
+select {
+    color: var(--bgcolor);
+}
+
+option, button {
+    color: var(--bgcolor);
+}
+
+input {
+    color: var(--bgcolor);
+}
+
 #game-canvas {
     display: block;
     width: 100%;
@@ -30,4 +42,8 @@ body {
     background-color: var(--bgcolor);
     padding: 10px;
     border: solid 1px var(--hlcolor);
+}
+
+.button-roll-button {
+    color: var(--bgcolor);
 }

@@ -151,8 +151,6 @@ Object.defineProperties(Transform.prototype, {
 
 Transform.prototype.getTransformMatrix = function () {
     let parent = this.owner.parent;
-    if(this.owner.name == 'dashboardCamera')
-        console.log(parent.name);
     let parentMatrix = parent ? parent.getComponent('transform').getTransformMatrix() : Matrix4.identityMatrix;
 
     let p = this.position;

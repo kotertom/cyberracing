@@ -20,13 +20,71 @@
         </fieldset>
         <hr/>
         <div class="button-roll" id="menu-buttons">
-            <button class="button-roll-button"></button>
+            <button class="button-roll-button" onclick="(function () {
+              var l = App.activeScene.getObjectByName('cube').getComponent('light');
+              l.disabled = !l.disabled;
+            })()">Toggle headlights</button>
+            <button class="button-roll-button" onclick="(function() {
+              alert('WSAD to steer \n' +
+               'Tab to switch camera \n' +
+                'Might need to tap buttons a few times to gain focus');
+            })()">Help</button>
+            <br/>
+            <button class="button-roll-button" onclick="addOpponent()">Add an opponent</button>
+            <button class="button-roll-button" onclick="removeOpponent()">Remove an opponent</button>
         </div>
         <fieldset>
-            <legend>Selected object</legend>
+            <legend>Sun</legend>
             <div id="selected-object-area">
-
+                <label for="sun-color-input">Sun color</label>
+                <input type="color" id="sun-color-input" value="#FFFF00" oninput="
+                    var arr = this.value.split('');
+                    var r = parseInt(arr.slice(1,3).join(''),16)/255;
+                    var g = parseInt(arr.slice(3,5).join(''),16)/255;
+                    var b = parseInt(arr.slice(5,7).join(''),16)/255;
+                    console.log(App.activeScene.getObjectByName('sun').getComponent('light').emitter.color);
+                   App.activeScene.getObjectByName('sun').getComponent('light').emitter.color = [r,g,b,1];
+                "/>
+                <br/>
             </div>
+        </fieldset>
+        <fieldset>
+            <legend>Material</legend>
+
+            <label for="shader-select">Shader</label>
+            <select name="shader-select" id="shader-select" >
+                <option value="Phong">Phong</option>
+                <option value="Gouraud" selected>Gouraud</option>
+                <option value="Flat">Flat</option>
+            </select>
+            <label for="spec-select">Specular type</label>
+            <select name="spec-select" id="spec-select">
+                <option value="BLINN">Blinn</option>
+                <option value="PHONG" selected>Phong</option>
+            </select>
+            <br/>
+            <fieldset>
+                <legend>kA</legend>
+                <input id="kAr" name="kAr" type="number" step="0.1" value="0.1" min="0" max="1"/>
+                <input id="kAg" name="kAg" type="number" step="0.1" value="0.1" min="0" max="1"/>
+                <input id="kAb" name="kAb" type="number" step="0.1" value="0.1" min="0" max="1"/>
+            </fieldset>
+            <br/>
+            <fieldset>
+                <legend>kD</legend>
+                <input id="kDr" name="kDr" type="number" step="0.1" value="0.8" min="0" max="1"/>
+                <input id="kDg" name="kDg" type="number" step="0.1" value="0.8" min="0" max="1"/>
+                <input id="kDb" name="kDb" type="number" step="0.1" value="0.8" min="0" max="1"/>
+            </fieldset>
+            <br/>
+            <fieldset>
+                <legend>kS</legend>
+                <input id="kSr" name="kSr" type="number" step="0.1" value="0.2" min="0" max="1"/>
+                <input id="kSg" name="kSg" type="number" step="0.1" value="0.2" min="0" max="1"/>
+                <input id="kSb" name="kSb" type="number" step="0.1" value="0.2" min="0" max="1"/>
+            </fieldset>
+            <br/>
+            <button onclick="applyMaterial()">Apply</button>
         </fieldset>
     </div>
 
@@ -154,7 +212,7 @@
                 {
                     vecToLight = normalize(l.position - position);
                     float angleCos = dot(-l.direction, vecToLight);
-                    intensity = angleCos < cos(radians(l.angle)) && angleCos > 0.0 ?
+                    intensity = angleCos > cos(radians(l.angle)) ?
                                 l.color.xyz * pow(angleCos, l.exponent) :
                                 vec3(0.0);
                 }
@@ -292,14 +350,16 @@
                 {
                     vecToLight = normalize(l.position - vPosition);
                     intensity = l.color.xyz;
+                    intensity *= 100.0 / squareDistance;
                 }
                 else if (l.type == SPOT)
                 {
                     vecToLight = normalize(l.position - vPosition);
                     float angleCos = dot(-l.direction, vecToLight);
-                    intensity = angleCos < cos(radians(l.angle)) && angleCos > 0.0 ?
+                    intensity = angleCos > cos(radians(l.angle)) ?
                                 l.color.xyz * pow(angleCos, l.exponent) :
                                 vec3(0.0);
+                    intensity *= 100.0 / squareDistance;
                 }
 
 
@@ -422,15 +482,18 @@
                 {
                     vecToLight = normalize(l.position - position);
                     intensity = l.color.xyz;
+                    intensity *= 100.0 / squareDistance;
                 }
                 else if (l.type == SPOT)
                 {
                     vecToLight = normalize(l.position - position);
                     float angleCos = dot(-l.direction, vecToLight);
-                    intensity = angleCos < cos(radians(l.angle)) && angleCos > 0.0 ?
+                    intensity = angleCos > cos(radians(l.angle)) ?
                                 l.color.xyz * pow(angleCos, l.exponent) :
                                 vec3(0.0);
+                    intensity *= 100.0 / squareDistance;
                 }
+
 
 
                 // diffuse

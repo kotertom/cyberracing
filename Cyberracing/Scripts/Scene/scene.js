@@ -47,7 +47,7 @@ var App = (function (ns) {
             treeWalkDFSC(this.root, function (obj) {
                 let light = obj.getComponent('light');
                 let transform = obj.getComponent('transform');
-                if(!light)
+                if(!light || light.disabled)
                     return false;
 
                 let mMatrix = transform.getTransformMatrix();
@@ -56,11 +56,11 @@ var App = (function (ns) {
                 pos.push(1);
                 let transformedPos = mvMatrix.mult(pos.vec);
                 transformedPos = transformedPos.mult(1/transformedPos.w).toArray().slice(0,3);
+                let normalMatrix = Matrix3.fromMat4(mvMatrix.elements);
                 let transformedDir = Vector.zero(3);
                 if(light.emitter.direction) {
                     let dir = light.emitter.direction.slice();
-                    dir.push(0);
-                    transformedDir = mvMatrix.inverted.transposed.mult(dir.vec).toArray().slice(0,3);
+                    transformedDir = normalMatrix.mult(dir.vec).toArray().slice(0,3);
                 }
 
                 lights.push({
