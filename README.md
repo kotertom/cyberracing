@@ -1,11 +1,11 @@
-# cyberracing (WIP|on halt)
+# cyberracing (WIP/abandoned)
 
-The development process on this project has been temporarily stopped. It will come back online when I get more time after finishing all the other university tasks.
-
-4th computer graphics project
-
-This is a simple game engine bundled with a demo written in JS + WebGL + HTML + CSS. Features Unity-like composite pattern.
+This is a simple game engine bundled with a demo written in JS ES5 (no npm, webpack et al.) + WebGL + HTML + CSS. Features Unity-like composite pattern. Made for 4th university computer graphics course assignment. I've marking this project as abandoned as this was my first full javascript project and I've learned better workflows and newer technologies over the time. If I ever was to reboot this, it will probably be Rust + WASM + JS interop but I'll probably stick to plain Rust and ditch the web part.
 
 Please note it is WIP. Exact to-do's are:
 * fix lighting issues (math behind matrices and transformations)
 * fix flat shader (sadly WebGL is the worst and has no option to turn off rendering pipeline interpolation)
+
+## Installation
+
+Clone the repo or download the zip, then open the `cyberracing.html` file in your browser.
